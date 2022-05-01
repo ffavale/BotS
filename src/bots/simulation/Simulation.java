@@ -1,4 +1,4 @@
 package bots.simulation;
 
-public class simulation {
+public class Simulation {
 }

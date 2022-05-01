@@ -1,4 +1,4 @@
 package bots.simulation;
 
-public class event {
+public class Event {
 }

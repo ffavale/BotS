@@ -1,4 +1,4 @@
 package bots.simulation.individual;
 
-public class individual {
+public class Couple {
 }
