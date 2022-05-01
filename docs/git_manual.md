@@ -114,7 +114,8 @@ git config --global init.defaultBranch main
 3. Set up some funky aliases that will make your log experience better:
 ```
 git config --global alias.logg "log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset -%C(yellow)%d%Creset %s' --abbrev-commit"
-git config --global alias.logg "log --graph --stat"
+git config --global alias.loff "log --graph --stat"
+git config --global alias.logff "log --graph --stat"
 ```
 
 4. Clone the repo and cd into it:
@@ -129,3 +130,4 @@ git checkout -b devel
 ```
 
 6. Done; enjoy your git experience and start working
+Now by typing `git logg`, `git loff` and `git logff` a better log output is generated.
