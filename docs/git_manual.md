@@ -38,7 +38,7 @@ git merge issue-x
 git push origin devel
 ```
 
-9. Delete the feature branch
+9. Delete the feature branch (optional)
 ```
 git branch -d issue-x
 ```
@@ -92,7 +92,7 @@ git merge issue-x
 git push origin devel
 ```
 
-10. Delete the feature branch
+10. Delete the feature branch (optional)
 ```
 git branch -d issue-x
 ```
