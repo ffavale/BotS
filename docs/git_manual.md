@@ -6,6 +6,11 @@
 git switch devel
 ```
 
+0. Pull the changes made by others into the common branch
+```
+git pull
+```
+
 0. Checkout a new branch. It should be named something relevent, like the issue number (`issue-x`)
 ```
 git checkout -b issue-x
@@ -53,6 +58,11 @@ This is assuming you already have a branch that you havn't deleted.
 0. Go to a common branch like `devel`
 ```
 git switch devel
+```
+
+0. Pull the changes made by others into the common branch
+```
+git pull
 ```
 
 0. Switch to a local branch, such as `issue-x`
