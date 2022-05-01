@@ -45,6 +45,9 @@ echo ""
 
 echo "================ RUNNING PROGRAM =================="
 
-java -jar build/$BPROF/$TEST_PROJECT_NAME.jar
+cd build/$BPROF
+mkdir -p run && cd run
+java -jar $BPROF/$TEST_PROJECT_NAME.jar
+cd ../..
 
 echo "==================================================="
