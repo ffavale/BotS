@@ -20,12 +20,12 @@ echo "++++++++++++++++++++ COMPILING ++++++++++++++++++++"
 
 mkdir temp_build_dir
 cp -r src/* temp_build_dir
-find -name "*.java" | grep "temp_build_dir" > build/$BPROF/sources.txt
+find . -name "*.java" | grep "temp_build_dir" > build/$BPROF/sources.txt
 javac -verbose @build/$BPROF/sources.txt -d build/$BPROF
 
 cd build/$BPROF
 
-find -name "*.class" > bins.txt
+find . -name "*.class" > bins.txt
 jar -cfm $PROJECT_NAME.jar MANIFEST.txt @bins.txt
 
 cd ../..
