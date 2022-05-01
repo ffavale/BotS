@@ -9,5 +9,6 @@ public class TestMain{
     {
         BmathTest xbar = new BmathTest();
         xbar.meanOfDoubleArrayTest();
+        xbar.sdOfDoubleArrayTest();
     }
 }
