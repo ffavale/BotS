@@ -15,8 +15,8 @@ echo "Main-Class: $MAIN_CLASS_PATH" > build/$BPROF/MANIFEST.txt
 echo "++++++++++++++++++++ COMPILING ++++++++++++++++++++"
 
 mkdir temp_build_dir
-cp -rL src/* temp_build_dir
-cp -rL test/* temp_build_dir
+cp -r src/* temp_build_dir
+cp -r test/* temp_build_dir
 find -name "*.java" | grep "temp_build_dir" > build/$BPROF/sources.txt
 javac -verbose @build/$BPROF/sources.txt -d build/$BPROF
 
