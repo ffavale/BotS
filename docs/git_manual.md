@@ -2,19 +2,16 @@
 
 ## Working on something new
 0. Go to a common branch like `devel`
-
 ```
 git switch devel
 ```
 
 0. Pull the changes made by others into the common branch
-
 ```
 git pull
 ```
 
 0. Checkout a new branch. It should be named something relevent, like the issue number (`issue-x`)
-
 ```
 git checkout -b issue-x
 ```
@@ -22,37 +19,31 @@ git checkout -b issue-x
 0. Here you can do what you please. Make changes and work on stuff
 
 0. Commit your changes as you work
-
 ```
 git commit -m "commit message"
 ```
 
 0. Once you are done working on the feature switch back to the common branch
-
 ```
 git switch devel
 ```
 
 0. Pull the changes made by others into the common branch
-
 ```
 git pull
 ```
 
 0. Merge your changes into the common branch
-
 ```
 git merge issue-x
 ```
 
 0. Push the changes made to devel
-
 ```
 git push origin devel
 ```
 
 0. Delete the feature branch (optional)
-
 ```
 git branch -d issue-x
 ```
@@ -60,29 +51,26 @@ git branch -d issue-x
 0. Done. Repeat the process
 
 
-## Working on something for which you already have a local branch 
+
+## Working on something new
 This is assuming you already have a branch that you havn't deleted.
 
 0. Go to a common branch like `devel`
-
 ```
 git switch devel
 ```
 
 0. Pull the changes made by others into the common branch
-
 ```
 git pull
 ```
 
 0. Switch to a local branch, such as `issue-x`
-
 ```
 git switch issue-x
 ```
 
 0. Pull in all the changes made to the common branch
-
 ```
 git merge devel
 ```
@@ -90,37 +78,31 @@ git merge devel
 0. Now continue working on the branch
 
 0. Commit your changes as you work
-
 ```
 git commit -m "commit message"
 ```
 
 0. Once you are done working on the feature switch back to the common branch
-
 ```
 git switch devel
 ```
 
 0. Pull the changes made by others into the common branch
-
 ```
 git pull
 ```
 
 0. Merge your changes into the common branch
-
 ```
 git merge issue-x
 ```
 
 0. Push the changes made to devel
-
 ```
 git push origin devel
 ```
 
 0. Delete the feature branch (optional)
-
 ```
 git branch -d issue-x
 ```
