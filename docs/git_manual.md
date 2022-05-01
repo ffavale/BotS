@@ -109,32 +109,33 @@ git branch -d issue-x
 12. Done. Repeat the process
 
 ## Setup
-0. Set your identity:
+
+1. Set your identity:
 ```
 git config --global user.name "Your Name"
 git config --global user.email "Your Email"
 ```
 
-0. Set your default branch name:
+2. Set your default branch name:
 ```
 git config --global init.defaultBranch main
 ```
 
-0. Set up some funky aliases that will make your log experience better:
+3. Set up some funky aliases that will make your log experience better:
 ```
 git config --global alias.logg "log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset -%C(yellow)%d%Creset %s' --abbrev-commit"
 git config --global alias.loff "log --graph --stat"
 git config --global alias.logff "log --graph --stat"
 ```
 
-0. Clone the repo and cd into it:
+4. Clone the repo and cd into it:
 ```
 git clone https://github.com/ffavale/BotS.git
 cd BotS
 ```
-0. Get the development branch
+5. Get the development branch
 ```
 git checkout -b devel
 ```
-0. Done; enjoy your git experience and start working
+6. Done; enjoy your git experience and start working
 Now by typing `git logg`, `git loff` and `git logff` a better log output is generated.
