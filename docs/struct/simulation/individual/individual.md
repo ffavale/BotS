@@ -2,7 +2,7 @@
 
 ## Fields
 - IsUnavailable
-- UUID
+- Individual Id 
 - Name
 - Extroverion coeff
 - Sex

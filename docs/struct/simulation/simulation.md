@@ -12,6 +12,7 @@ The coefficients will be used to calculate the number of cycles individuals are 
     - Benefits of procreation
 
 ## Fields
+- Simulation Id
 - Base extroversion amount
 - Starting Extroversion Points
 - Extroversion recycle rate

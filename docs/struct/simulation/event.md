@@ -3,7 +3,7 @@
 ## Static event generator
 
 ## Fields
-- Event UUID
+- Event Id
 - Participant count
 - Participant list
 - Event type
