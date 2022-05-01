@@ -20,7 +20,7 @@ git checkout -b issue-x
 
 5. Commit your changes as you work
 ```
-git commit -m "commit message"
+git commit -am "commit message"
 ```
 
 6. Once you are done working on the feature switch back to the common branch
@@ -78,7 +78,7 @@ git merge devel
 
 6. Commit your changes as you work
 ```
-git commit -m "commit message"
+git commit -am "commit message"
 ```
 
 7. Once you are done working on the feature switch back to the common branch
