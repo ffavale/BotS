@@ -1,2 +1,4 @@
-package bots.simulation.individual;public class couple {
+package bots.simulation.individual;
+
+public class couple {
 }

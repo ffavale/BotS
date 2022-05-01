@@ -1,2 +1,4 @@
-package bots.simulation;public class simulation {
+package bots.simulation;
+
+public class simulation {
 }

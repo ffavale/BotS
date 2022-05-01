@@ -1,2 +1,4 @@
-package bots.simulation;public class event {
+package bots.simulation;
+
+public class event {
 }

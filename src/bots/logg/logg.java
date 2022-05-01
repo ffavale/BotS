@@ -1,2 +1,4 @@
-package bots.logg;public class logg {
+package bots.logg;
+
+public class logg {
 }
