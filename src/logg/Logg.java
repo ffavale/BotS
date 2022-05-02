@@ -7,7 +7,7 @@ import java.time.format.*;
 public class Logg{
 
     private int verbosity;
-    protected String targetLogFileName;
+    private String targetLogFileName;
     private String callerId;
     private static final boolean timeStampFileName = true;
 
