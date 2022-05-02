@@ -15,7 +15,7 @@ public class TestLogg
         System.out.println("Changed log verbosity to " + log.setVerbosity(-1));
         log.setVerbosity(1);
         System.out.println("Changed log verbosity to " + log.setVerbosity(-1));
-        System.out.println("Expected output: 1, 2, 0, 1");
+        System.out.println("Expected output: 2, 2, 0, 1");
         System.out.println("");
         System.out.println("");
     }
@@ -24,6 +24,7 @@ public class TestLogg
     {
         System.out.println("Testing writing a log at verbosity 1...");
         Logg testlog = new Logg("testlogfile", "setVerbosityTest");
+        testlog.setVerbosity(1);
         testlog.logMessage("Hello World!");
         System.out.println("Setting verbosity to 0 and logging a message...");
         testlog.setVerbosity(0);
@@ -40,7 +41,6 @@ public class TestLogg
     {
         System.out.println("Testing the ability for the program to deal with a slow disk...");
         Logg testlog = new Logg("testlogfile_intensive", "intensiveWriteTest");
-        testlog.setVerbosity(2);
         int n2 = 24;
         // int n2 = 100;
         for (int i = 0; i < n2; i++)
@@ -69,7 +69,6 @@ public class TestLogg
         System.out.println("Calling the log but by changing caller id");
 
         Logg testlog = new Logg("testlogfile_callerIdSwitch", "logWithBetterCallerId");
-        testlog.setVerbosity(2);
 
         testlog.logMessage("This is a log with the standard callerId");
         testlog.logQuietMessage("This is a quiet log with the standard callerId");
