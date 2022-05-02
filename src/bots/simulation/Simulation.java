@@ -30,8 +30,7 @@ public class Simulation {
     }
 
     public void info(){
-        Logg log = new Logg("Simulation_" + this.simID, "Simulation_"+ this.simID);
-        log.setVerbosity(2);
+        Logg log = new Logg("Simulation" + this.simID, "Simulation"+ this.simID);
         String[] info = {"Faithful   ", "Philanderer", "Coy        ", "Fast       "};
         String[] bar = new String[4];
         for (int j = 0; j < 4; j++){

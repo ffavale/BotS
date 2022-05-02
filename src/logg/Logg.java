@@ -14,7 +14,7 @@ public class Logg{
     public Logg(String i_targetLogFileName, String i_callerId)
     {
         // set the verbosity to 1 as default
-        this.setVerbosity(1);
+        this.setVerbosity(2);
         this.callerId = i_callerId;
         this.targetLogFileName = i_targetLogFileName + ".log";
         if (Logg.timeStampFileName)
