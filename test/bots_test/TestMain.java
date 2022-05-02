@@ -2,6 +2,8 @@ package bots_test;
 
 import bots.Main;
 import bmath_test.*;
+import bots_test.logg_test.*;
+
 public class TestMain{
 
     /* Tests start here */
@@ -10,5 +12,21 @@ public class TestMain{
         BmathTest xbar = new BmathTest();
         xbar.meanOfDoubleArrayTest();
         xbar.sdOfDoubleArrayTest();
+
+        System.out.println("TESTING SPLASH SCREEN");
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println("=====================================================================================");
+        Main.SplashScreen();
+        System.out.println("=====================================================================================");
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println("---------------------");
+        System.out.println("");
+        System.out.println("");
+
+        TestLogg.setVerbosityTest();
+
+        TestLogg.doLogMessageTest();
     }
 }
