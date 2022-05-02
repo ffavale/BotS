@@ -1,4 +1,4 @@
-package bots.logg;
+package logg;
 
 import java.io.*;
 import java.time.*;
@@ -37,7 +37,7 @@ public class Logg{
                 // simply dump the message into the file
                 writer.setString(i_message);
                 System.out.println(i_message);
-                writer.run();
+                writer.start();
                 break;
             }
             case 1:
@@ -49,7 +49,7 @@ public class Logg{
                 System.out.println(message);
                 // detatch thread to write message into file
                 writer.setString(message);
-                writer.run();
+                writer.start();
                 break;
             }
             case 2:
@@ -61,7 +61,44 @@ public class Logg{
                 System.out.println(message);
                 // detatch thread to write message into file
                 writer.setString(message);
-                writer.run();
+                writer.start();
+                break;
+            }
+        }
+    }
+
+    public void logQuietMessage(String i_message)
+    {
+        AsyncWriter writer = new AsyncWriter(this.targetLogFileName);
+        switch (this.verbosity)
+        {
+            case 0:
+            {
+                // simply dump the message into the file
+                writer.setString(i_message);
+                writer.start();
+                break;
+            }
+            case 1:
+            {
+                // get LocalDateTime
+                LocalDateTime dateTime = LocalDateTime.now();
+                // compile message
+                String message = "[" + dateTime.toString() + "] " + i_message;
+                // detatch thread to write message into file
+                writer.setString(message);
+                writer.start();
+                break;
+            }
+            case 2:
+            {
+                // get LocalDateTime
+                LocalDateTime dateTime = LocalDateTime.now();
+                // compile message
+                String message = "[" + dateTime.toString() + "](" + callerId + ") " + i_message;
+                // detatch thread to write message into file
+                writer.setString(message);
+                writer.start();
                 break;
             }
         }
@@ -83,6 +120,7 @@ class AsyncWriter extends Thread
         this.printString = i_printString;
     }
 
+    @Override
     public void run()
     {
         try

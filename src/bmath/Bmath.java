@@ -1,4 +1,4 @@
-package bots.bmath;
+package bmath;
 
 public class Bmath {
     public static double meanOfDoubleArray (double[] arrayofdouble) {
