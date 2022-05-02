@@ -1,6 +1,8 @@
 package bots;
 
 import java.net.StandardSocketOptions;
+import java.math.*;
+import bots.simulation.*;
 
 public class Main{
 
@@ -24,6 +26,7 @@ public class Main{
         System.out.println("#####################################################################################");
         System.out.println("// // // // // // // // // // // // // // // // // // // // // // // // // // // // /");
         System.out.println("#####################################################################################");
+        System.out.println("");
 
 
     }
@@ -32,5 +35,11 @@ public class Main{
     /* Program starts here */
     public static void main(String[] args){
         SplashScreen();
+        double[] ratio = {1, 0, 0, 0};
+        int[] costs = {10, 15, 3};
+        Simulation a = new Simulation(100, ratio, costs);
+        a.info();
+
+
     }
 }
