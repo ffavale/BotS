@@ -35,6 +35,26 @@ public class Logg{
         return this.verbosity;
     }
 
+    public void logMessage(String i_message, String i_callerId)
+    {
+        String tempCallerId = this.callerId;
+        this.callerId = i_callerId;
+
+        this.logMessage(i_message);
+
+        this.callerId = tempCallerId;
+    }
+
+    public void logQuietMessage(String i_message, String i_callerId)
+    {
+        String tempCallerId = this.callerId;
+        this.callerId = i_callerId;
+
+        this.logQuietMessage(i_message);
+
+        this.callerId = tempCallerId;
+    }
+
     public void logMessage(String i_message)
     {
         AsyncWriter writer = new AsyncWriter(this.targetLogFileName);

@@ -32,8 +32,8 @@ public class TestMain{
 
         TestLogg.intensiveWriteTest();
 
+        TestLogg.logWithBetterCallerId();
+
         TestSimulation.populationInfoTest();
-
-
     }
 }
