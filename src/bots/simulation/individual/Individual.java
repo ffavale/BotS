@@ -2,19 +2,19 @@ package bots.simulation.individual;
 
 public class Individual {
 
-    private static int entitycounter = 0;
+    private static int entityCounter = 0;
     private int id;
     private String sex;
     private String type;
-    private boolean isavailable = true;
+    private boolean isAvailable = true;
     private int age = 0;
-    private double deathchance = 0.01;
+    private double deathChance = 0.01;
 
     public Individual(String sex, String type){
-        this.id = this.entitycounter;
+        this.id = Individual.entityCounter;
         this.sex = sex;
         this.type = type;
-        this.entitycounter++;
+        Individual.entityCounter++;
     }
 
 
