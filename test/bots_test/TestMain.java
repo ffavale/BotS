@@ -26,11 +26,11 @@ public class TestMain{
         System.out.println("");
         System.out.println("");
 
-        //TestLogg.setVerbosityTest();
+        TestLogg.setVerbosityTest();
 
-        //TestLogg.doLogMessageTest();
+        TestLogg.doLogMessageTest();
 
-        //TestLogg.intensiveWriteTest();
+        TestLogg.intensiveWriteTest();
 
         TestLogg.logWithBetterCallerId();
 
