@@ -41,7 +41,7 @@ public class TestLogg
        System.out.println("Testing the ability for the program to deal with a slow disk...");
        Logg testlog = new Logg("testlogfile_intensive.txt", "intensiveWriteTest");
        testlog.setVerbosity(2);
-       int n2 = 24;
+       int n2 = 20;
        // int n2 = 100;
        for (int i = 0; i < n2; i++)
        {

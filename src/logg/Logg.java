@@ -2,13 +2,17 @@ package logg;
 
 import java.io.*;
 import java.time.*;
-import java.util.Stack;
+import java.util.*;
 
 public class Logg{
 
     private int verbosity;
     protected String targetLogFileName;
     private String callerId;
+
+    private ArrayList<String> logBuffer = new ArrayList<String>();
+    // private static final int sizeLimit = 1000;
+    private static final int sizeLimit = 10;
 
     public Logg(String i_targetLogFileName, String i_callerId)
     {
@@ -128,13 +132,11 @@ class AsyncWriter extends Thread
             FileWriter writer = new FileWriter(this.targetLogFileName, true);
 
             writer.write(printString + "\n");
-
             writer.close();
 
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-
     }
 }
