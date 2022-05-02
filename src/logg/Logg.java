@@ -2,19 +2,28 @@ package logg;
 
 import java.io.*;
 import java.time.*;
+import java.time.format.*;
 
 public class Logg{
 
     private int verbosity;
     protected String targetLogFileName;
     private String callerId;
+    private static final boolean timeStampFileName = true;
 
     public Logg(String i_targetLogFileName, String i_callerId)
     {
         // set the verbosity to 1 as default
         this.setVerbosity(1);
         this.callerId = i_callerId;
-        this.targetLogFileName = i_targetLogFileName;
+        this.targetLogFileName = i_targetLogFileName + ".log";
+        if (Logg.timeStampFileName)
+        {
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm_ss_SSSS");
+            String formattedDateTime = dateTime.format(dateTimeFormat);
+            this.targetLogFileName = i_targetLogFileName + "-" + formattedDateTime + ".log";
+        }
     }
 
     public int setVerbosity(int i_int)
@@ -43,8 +52,10 @@ public class Logg{
             {
                 // get LocalDateTime
                 LocalDateTime dateTime = LocalDateTime.now();
+                DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                String formattedDateTime = dateTime.format(dateTimeFormat);
                 // compile message
-                String message = "[" + dateTime.toString() + "] " + i_message;
+                String message = "[" + formattedDateTime.toString() + "] " + i_message;
                 System.out.println(message);
                 // detatch thread to write message into file
                 writer.setString(message);
@@ -55,8 +66,10 @@ public class Logg{
             {
                 // get LocalDateTime
                 LocalDateTime dateTime = LocalDateTime.now();
+                DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                String formattedDateTime = dateTime.format(dateTimeFormat);
                 // compile message
-                String message = "[" + dateTime.toString() + "](" + callerId + ") " + i_message;
+                String message = "[" + formattedDateTime.toString() + "](" + callerId + ") " + i_message;
                 System.out.println(message);
                 // detatch thread to write message into file
                 writer.setString(message);
@@ -82,8 +95,10 @@ public class Logg{
             {
                 // get LocalDateTime
                 LocalDateTime dateTime = LocalDateTime.now();
+                DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                String formattedDateTime = dateTime.format(dateTimeFormat);
                 // compile message
-                String message = "[" + dateTime.toString() + "] " + i_message;
+                String message = "[" + formattedDateTime.toString() + "] " + i_message;
                 // detatch thread to write message into file
                 writer.setString(message);
                 writer.start();
@@ -93,8 +108,10 @@ public class Logg{
             {
                 // get LocalDateTime
                 LocalDateTime dateTime = LocalDateTime.now();
+                DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+                String formattedDateTime = dateTime.format(dateTimeFormat);
                 // compile message
-                String message = "[" + dateTime.toString() + "](" + callerId + ") " + i_message;
+                String message = "[" + formattedDateTime.toString() + "](" + callerId + ") " + i_message;
                 // detatch thread to write message into file
                 writer.setString(message);
                 writer.start();

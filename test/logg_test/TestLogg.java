@@ -23,7 +23,7 @@ public class TestLogg
     public static void doLogMessageTest()
     {
         System.out.println("Testing writing a log at verbosity 1...");
-        Logg testlog = new Logg("testlogfile.txt", "setVerbosityTest");
+        Logg testlog = new Logg("testlogfile", "setVerbosityTest");
         testlog.logMessage("Hello World!");
         System.out.println("Setting verbosity to 0 and logging a message...");
         testlog.setVerbosity(0);
@@ -39,7 +39,7 @@ public class TestLogg
     public static void intensiveWriteTest()
     {
        System.out.println("Testing the ability for the program to deal with a slow disk...");
-       Logg testlog = new Logg("testlogfile_intensive.txt", "intensiveWriteTest");
+       Logg testlog = new Logg("testlogfile_intensive", "intensiveWriteTest");
        testlog.setVerbosity(2);
        int n2 = 24;
        // int n2 = 100;
