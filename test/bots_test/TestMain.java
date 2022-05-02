@@ -30,5 +30,7 @@ public class TestMain{
         TestLogg.doLogMessageTest();
 
         TestLogg.intensiveWriteTest();
+        
+        TestLogg.logWithBetterCallerId();
     }
 }
