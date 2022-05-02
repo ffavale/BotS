@@ -4,70 +4,67 @@ import java.util.ArrayList;
 import bots.simulation.individual.*;
 import java.util.Random;
 import java.math.*;
+import logg.*;
 
 
 public class Simulation {
 
-    private ArrayList<Individual> poparray;
-    private int starting_pop;
-    private double[] starting_fpcs;
-    private int[] sim_costs;
+    private static int simCounter = 0;
+    private int simID;
+    private ArrayList<Individual> populationArray;
+    private int startingPopulation;
+    private double[] startingRatioFPCS;
+    private int[] simulationCosts;
 
-    private int SimSteps = 0;
+    private int simulationSteps = 0;
 
 
 
-    public Simulation(int PopNum, double[] fpcsRatios, int[] Costs){
-        this.starting_pop = PopNum;
-        this.starting_fpcs = fpcsRatios;
-        this.sim_costs = Costs;
-        this.poparray = populator();
+    public Simulation(int popNum, double[] fpcsRatios, int[] costs){
+        this.simID = Simulation.simCounter;
+        Simulation.simCounter++;
+        this.startingPopulation = popNum;
+        this.startingRatioFPCS = fpcsRatios;
+        this.simulationCosts = costs;
+        this.populationArray = populator();
     }
 
     public void info(){
+        Logg log = new Logg("Simulation_" + this.simID, "Simulation_"+ this.simID);
+        log.setVerbosity(2);
         String[] info = {"Faithful   ", "Philanderer", "Coy        ", "Fast       "};
-
-        System.out.println("--------------- Current Info ---------------");
-        System.out.println("");
-        System.out.println("Starting Population: " + this.poparray.size());
-        System.out.println("");
-        System.out.println("Ratios of FPCS:");
+        String[] bar = new String[4];
         for (int j = 0; j < 4; j++){
-            System.out.print(info[j] + " - [");
+            bar[j] = (info[j] + " - [");
             for (int i = 1; i < 51; i++){
-                if (i <= Math.round(this.starting_fpcs[j]*50)){
-                    System.out.print("/");
+                if (i <= Math.round(this.startingRatioFPCS[j]*50)){
+                    bar[j] = bar[j] + ("/");
                 }
                 else {
-                    System.out.print("_");
+                    bar[j] = bar[j] + ("_");
                 }
             }
-            System.out.println("] " + Math.round(this.starting_fpcs[j]*100) + "%");
+            bar[j] = bar[j] + ("] " + Math.round(this.startingRatioFPCS[j]*100) + "%\n");
         }
+        log.logMessage("\n--------------- Current Info ---------------\n\nStarting Population: " + this.populationArray.size() + "\n\nRatios of FPCS:\n" + bar[0] + bar[1] + bar[2] + bar[3]);
 
     }
 
 
     private ArrayList<Individual> populator(){
         ArrayList<Individual> Res = new ArrayList<>();
-        for (int i = 0; i < Math.round(this.starting_pop*this.starting_fpcs[0]); i++){
-            Res.add(new Individual("Male", "Faithful"));
-        }
-        for (int i = 0; i < Math.round(this.starting_pop*this.starting_fpcs[1]); i++){
-            Res.add(new Individual("Male", "Philanderer"));
-        }
-        for (int i = 0; i < Math.round(this.starting_pop*this.starting_fpcs[2]); i++){
-            Res.add(new Individual("Female", "Coy"));
-        }
-        for (int i = 0; i < Math.round(this.starting_pop*this.starting_fpcs[3]); i++){
-            Res.add(new Individual("Female", "Fast"));
+        String[][] type = {{"Male", "Faithful"}, {"Male", "Philanderer"}, {"Female", "Coy"}, {"Female", "Fast"}};
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < Math.round(this.startingPopulation * this.startingRatioFPCS[j]); i++) {
+                Res.add(new Individual(type[j][0], type[j][1]));
+            }
         }
         return Res;
     }
 
     public void StartSim(){
-        boolean ForceStop = true;
-        while (ForceStop){
+        boolean forceStop = true;
+        while (forceStop){
 
         }
     }
