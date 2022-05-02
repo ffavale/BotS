@@ -2,7 +2,7 @@ package bots_test;
 
 import bots.Main;
 import bmath_test.*;
-import bots_test.logg_test.*;
+import logg_test.*;
 
 public class TestMain{
 

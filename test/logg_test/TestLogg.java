@@ -1,4 +1,4 @@
-package bots_test.logg_test;
+package logg_test;
 
 import logg.*;
 
@@ -42,6 +42,7 @@ public class TestLogg
        Logg testlog = new Logg("testlogfile_intensive.txt", "intensiveWriteTest");
        testlog.setVerbosity(2);
        int n2 = 24;
+       // int n2 = 100;
        for (int i = 0; i < n2; i++)
        {
             for (int j = 0; j < n2; j++)
