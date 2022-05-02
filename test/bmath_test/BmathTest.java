@@ -1,6 +1,6 @@
 package bmath_test;
 
-import bots.bmath.Bmath;
+import bmath.Bmath;
 
 public class BmathTest {
     public static void meanOfDoubleArrayTest(){
