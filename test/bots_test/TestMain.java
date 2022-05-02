@@ -3,6 +3,7 @@ package bots_test;
 import bots.Main;
 import bmath_test.*;
 import logg_test.*;
+import bots_test.simulation_test.*;
 
 public class TestMain{
 
@@ -30,5 +31,9 @@ public class TestMain{
         TestLogg.doLogMessageTest();
 
         TestLogg.intensiveWriteTest();
+
+        TestSimulation.populationInfoTest();
+
+
     }
 }
