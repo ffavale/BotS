@@ -8,7 +8,7 @@ import java.math.*;
 
 public class Simulation {
 
-    private ArrayList<Individual> PopArray;
+    private ArrayList<Individual> poparray;
     private int starting_pop;
     private double[] starting_fpcs;
     private int[] sim_costs;
@@ -21,55 +21,29 @@ public class Simulation {
         this.starting_pop = PopNum;
         this.starting_fpcs = fpcsRatios;
         this.sim_costs = Costs;
-        this.PopArray = populator();
+        this.poparray = populator();
     }
 
     public void info(){
+        String[] info = {"Faithful   ", "Philanderer", "Coy        ", "Fast       "};
+
         System.out.println("--------------- Current Info ---------------");
         System.out.println("");
-        System.out.println("Starting Population: " + this.starting_pop);
+        System.out.println("Starting Population: " + this.poparray.size());
         System.out.println("");
         System.out.println("Ratios of FPCS:");
-        System.out.print("Faithful - [");
-        for (int i = 1; i < 21; i++){
-            if (i <= Math.round(this.starting_fpcs[0]*20)){
-                System.out.print("█");
+        for (int j = 0; j < 4; j++){
+            System.out.print(info[j] + " - [");
+            for (int i = 1; i < 51; i++){
+                if (i <= Math.round(this.starting_fpcs[j]*50)){
+                    System.out.print("/");
+                }
+                else {
+                    System.out.print("_");
+                }
             }
-            else {
-                System.out.print("░");
-            }
+            System.out.println("] " + Math.round(this.starting_fpcs[j]*100) + "%");
         }
-        System.out.println("] " + Math.round(this.starting_fpcs[0]*100) + "%");
-        System.out.print("Philanderers - [");
-        for (int i = 1; i < 21; i++){
-            if (i <= Math.round(this.starting_fpcs[1]*20)){
-                System.out.print("█");
-            }
-            else {
-                System.out.print("░");
-            }
-        }
-        System.out.println("] " + Math.round(this.starting_fpcs[1]*100) + "%");
-        System.out.print("Coy - [");
-        for (int i = 1; i < 21; i++){
-            if (i <= Math.round(this.starting_fpcs[2]*20)){
-                System.out.print("█");
-            }
-            else {
-                System.out.print("░");
-            }
-        }
-        System.out.println("] " + Math.round(this.starting_fpcs[2]*100) + "%");
-        System.out.print("Fast - [");
-        for (int i = 1; i < 21; i++){
-            if (i <= Math.round(this.starting_fpcs[3]*20)){
-                System.out.print("█");
-            }
-            else {
-                System.out.print("░");
-            }
-        }
-        System.out.println("] " + Math.round(this.starting_fpcs[3]*100) + "%");
 
     }
 

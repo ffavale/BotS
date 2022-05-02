@@ -35,9 +35,9 @@ public class Main{
     /* Program starts here */
     public static void main(String[] args){
         SplashScreen();
-        double[] ratio = {1, 0, 0, 0};
+        double[] ratio = {0.5, 0, 0, 0.5};
         int[] costs = {10, 15, 3};
-        Simulation a = new Simulation(100, ratio, costs);
+        Simulation a = new Simulation(99, ratio, costs);
         a.info();
 
 
