@@ -45,6 +45,31 @@ public class Event
         this.participants = this.selectAttendees(i_candidates, rng);
     }
 
+    public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean isUniversal)
+    {
+        this.eventId = i_iterationNumber;
+        this.log = i_log;
+
+        Random rng = new Random();
+        EventTemplate thisEvent = Event.eventTemplates[rng.nextInt(Event.eventTemplates.length)];
+
+        this.participantCount = i_candidates.size();
+        this.minAge = 0;
+        this.maxAge = i_iterationNumber;
+        this.eventTypeName = thisEvent.eventTypeName;
+
+        this.log.logMessage(
+                "Created Event-" + String.valueOf(eventId) +
+                " of type " + this.eventTypeName +
+                " with " + this.participantCount + " participants" +
+                " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
+
+        for (int i = 0; i < i_candidates.size(); i++)
+        {
+            this.participants[i] = i_candidates.get(i);
+        }
+    }
+
     private void resizeEvent(ArrayList<Individual> i_candidates)
     {
         int satisfactoryCandidateCount = 0;
