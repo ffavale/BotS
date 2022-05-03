@@ -26,8 +26,6 @@ public class TestMain{
         System.out.println("");
         System.out.println("");
 
-        TestLogg.setVerbosityTest();
-
         TestLogg.doLogMessageTest();
 
         TestLogg.intensiveWriteTest();
