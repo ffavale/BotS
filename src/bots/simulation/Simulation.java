@@ -27,7 +27,7 @@ public class Simulation {
         this.startingPopulation = popNum;
         this.startingRatioFPCS = fpcsRatios;
         this.simulationCosts = costs;
-        this.log = new Logg("Simulation" + this.simID, "Simulation"+ this.simID);  
+        this.log = new Logg("Simulation-" + this.simID, "Simulation-"+ this.simID);
         // populate simulation
         this.populationArray = populator();
     }
