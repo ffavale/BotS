@@ -2,7 +2,7 @@ package bots.simulation.individual;
 
 public class Individual {
 
-    private static int entityCounter = 0;
+    private static int entityCounter = 1;
     private int id;
     private String sex;
     private String type;
@@ -17,12 +17,13 @@ public class Individual {
         Individual.entityCounter++;
     }
 
+    public int getId()
+    {
+        return this.id;
+    }
 
-
-
-
-
-
-
-
+    public int getAge()
+    {
+        return this.age;
+    }
 }

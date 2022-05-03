@@ -33,5 +33,7 @@ public class TestMain{
         TestLogg.logWithBetterCallerId();
 
         TestSimulation.populationInfoTest();
+
+        TestEvent.eventCreation();
     }
 }

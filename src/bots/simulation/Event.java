@@ -1,16 +1,16 @@
 package bots.simulation;
 
 import logg.*;
-import java.util.Random;
+import bots.simulation.individual.*;
+import java.util.*;
 
 public class Event
 {
     public static final EventTemplate[] eventTemplates = {
-        new EventTemplate("Universal", -2, -1),
-        new EventTemplate("Date", 2, 3),
-        new EventTemplate("Gathering", 3, 7),
-        new EventTemplate("Party", 7, 71),
-        new EventTemplate("Convention", 71, 151)
+        new EventTemplate("Date", 2, 3, 100, 5000, 6000, 10000),
+        new EventTemplate("Gathering", 3, 7, 100, 2500, 3000, 6000),
+        new EventTemplate("Party", 7, 71, 100, 2500, 3000, 7000),
+        new EventTemplate("Convention", 71, 151, 500, 6000, 7000, 12000)
     };
 
     private int eventId;
@@ -18,9 +18,11 @@ public class Event
     public int participantCount;
     public int minAge;
     public int maxAge;
+
+    private Individual[] participants;
     private Logg log;
 
-    public Event(int i_iterationNumber, Logg i_log)
+    public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log)
     {
         this.eventId = i_iterationNumber;
         this.log = i_log;
@@ -38,6 +40,51 @@ public class Event
                 " of type " + this.eventTypeName +
                 " with " + this.participantCount + " participants" +
                 " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
+
+        resizeEvent(i_candidates);
+        this.participants = this.selectAttendees(i_candidates, rng);
+    }
+
+    private void resizeEvent(ArrayList<Individual> i_candidates)
+    {
+        int satisfactoryCandidateCount = 0;
+
+        for (Individual ind : i_candidates)
+        {
+            if (this.minAge <= ind.getAge() && ind.getAge() <= this.maxAge)
+            {
+                satisfactoryCandidateCount++;
+            }
+        }
+
+        if (satisfactoryCandidateCount < this.participantCount)
+        {
+            this.participantCount = satisfactoryCandidateCount;
+            this.log.logMessage("Event capacity resized to " + String.valueOf(this.participantCount) + " due to lack of suitable candidates for the event", "Event-" + String.valueOf(this.eventId));
+        }
+    }
+
+    private Individual[] selectAttendees(ArrayList<Individual> i_candidates, Random i_rng)
+    {
+        Individual[] returnIndividualArray = new Individual[this.participantCount];
+        int selected = 0;
+
+        while (selected < this.participantCount)
+        {
+            int consideredIdx = i_rng.nextInt(i_candidates.size());
+            Individual tempIndividual = i_candidates.get(consideredIdx);
+
+            if (this.minAge <= tempIndividual.getAge() && tempIndividual.getAge() <= this.maxAge)
+            {
+                returnIndividualArray[selected] = tempIndividual;
+                i_candidates.remove(tempIndividual);
+                consideredIdx++;
+                selected++;
+                this.log.logMessage("Individual-" + String.valueOf(tempIndividual.getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
+            }
+        }
+
+        return returnIndividualArray;
     }
 }
 
@@ -51,10 +98,14 @@ class EventTemplate
     public int minMaxAge;
     public int maxMaxAge;
 
-    public EventTemplate(String i_eventTypeName, int i_minAttendees, int i_maxAttendees)
+    public EventTemplate(String i_eventTypeName, int i_minAttendees, int i_maxAttendees, int i_minMinAge, int i_maxMinAge, int i_minMaxAge, int i_maxMaxAge)
     {
         this.eventTypeName = i_eventTypeName;
         this.minAttendees = i_minAttendees;
         this.maxAttendees = i_maxAttendees;
+        this.minMinAge = i_minMinAge;
+        this.maxMinAge = i_maxMinAge;
+        this.minMaxAge = i_minMaxAge;
+        this.maxMaxAge = i_maxMaxAge;
     }
 }
