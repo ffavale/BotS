@@ -41,8 +41,7 @@ public class Event
                 " with " + this.participantCount + " participants" +
                 " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
 
-        resizeEvent(i_candidates);
-        this.participants = this.selectAttendees(i_candidates, rng);
+        this.participants = this.selectAttendees(resizeEvent(i_candidates), rng);
     }
 
     public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
@@ -68,15 +67,17 @@ public class Event
         }
     }
 
-    private void resizeEvent(ArrayList<Individual> i_candidates)
+    private ArrayList<Individual> resizeEvent(ArrayList<Individual> i_candidates)
     {
         int satisfactoryCandidateCount = 0;
+        ArrayList<Individual> satisfactoryCandidates = new ArrayList<Individual>();
 
         for (Individual ind : i_candidates)
         {
             if (this.minAge <= ind.getAge() && ind.getAge() <= this.maxAge)
             {
                 satisfactoryCandidateCount++;
+                satisfactoryCandidates.add(ind);
             }
         }
 
@@ -85,26 +86,21 @@ public class Event
             this.participantCount = satisfactoryCandidateCount;
             this.log.logMessage("Event capacity resized to " + String.valueOf(this.participantCount) + " due to lack of suitable candidates for the event", "Event-" + String.valueOf(this.eventId));
         }
+
+        return satisfactoryCandidates;
     }
 
     private Individual[] selectAttendees(ArrayList<Individual> i_candidates, Random i_rng)
     {
         Individual[] returnIndividualArray = new Individual[this.participantCount];
-        int selected = 0;
 
-        while (selected < this.participantCount)
+        for (int i = 0; i < this.participantCount; i++)
         {
             int consideredIdx = i_rng.nextInt(i_candidates.size());
-            Individual tempIndividual = i_candidates.get(consideredIdx);
 
-            if (this.minAge <= tempIndividual.getAge() && tempIndividual.getAge() <= this.maxAge)
-            {
-                returnIndividualArray[selected] = tempIndividual;
-                i_candidates.remove(tempIndividual);
-                consideredIdx++;
-                selected++;
-                this.log.logMessage("Individual-" + String.valueOf(tempIndividual.getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
-            }
+            returnIndividualArray[i] = i_candidates.get(consideredIdx);
+            i_candidates.remove(returnIndividualArray[i]);
+            this.log.logMessage("Individual-" + String.valueOf(returnIndividualArray[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
         }
 
         return returnIndividualArray;
