@@ -61,7 +61,7 @@ public class Simulation {
     private ArrayList<Individual> populator()
     {
         ArrayList<Individual> res = new ArrayList<>();
-        String[][] type = {{"Male", "Faithful"}, {"Male", "Philanderer"}, {"Female", "Coy"}, {"Female", "Fast"}};
+        int[][] type = {{0, 0}, {0, 1}, {1, 2}, {1, 3}};
 
         for (int j = 0; j < 4; j++) 
         {
