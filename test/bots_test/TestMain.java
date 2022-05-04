@@ -35,5 +35,7 @@ public class TestMain{
         TestSimulation.populationInfoTest();
 
         TestEvent.eventCreation();
+
+        TestEvent.universalEventCreation();
     }
 }

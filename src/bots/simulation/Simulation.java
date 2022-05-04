@@ -67,7 +67,7 @@ public class Simulation {
         {
             for (int i = 0; i < Math.round(this.startingPopulation * this.startingRatioFPCS[j]); i++) 
             {
-                res.add(new Individual(type[j][0], type[j][1]));
+                res.add(new Individual(type[j][0], type[j][1], this.log));
             }
         }
         return res;
