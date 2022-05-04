@@ -37,7 +37,7 @@ public class Event
 
         this.log.logMessage(
                 "Created Event-" + String.valueOf(eventId) +
-                " of type " + this.eventTypeName +
+                " of type \"" + this.eventTypeName + "\"" +
                 " with " + this.participantCount + " participants" +
                 " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
 
@@ -58,8 +58,7 @@ public class Event
         this.log.logMessage(
                 "Created Event-" + String.valueOf(eventId) +
                 " of type \"" + this.eventTypeName + "\"" +
-                " with " + this.participantCount + " participants" +
-                " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
+                " with " + this.participantCount + " participants"); //, "Event-" + String.valueOf(this.eventId));
 
         this.participants = new Individual[this.participantCount];
         for (int i = 0; i < i_candidates.size(); i++)
