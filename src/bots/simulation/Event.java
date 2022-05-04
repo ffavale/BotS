@@ -41,7 +41,7 @@ public class Event
                 " with " + this.participantCount + " participants" +
                 " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
 
-        this.participants = this.selectAttendees(resizeEvent(i_candidates), rng);
+        this.participants = this.selectAttendees(createInvitationList(i_candidates), rng);
     }
 
     public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
@@ -67,7 +67,7 @@ public class Event
         }
     }
 
-    private ArrayList<Individual> resizeEvent(ArrayList<Individual> i_candidates)
+    private ArrayList<Individual> createInvitationList(ArrayList<Individual> i_candidates)
     {
         int satisfactoryCandidateCount = 0;
         ArrayList<Individual> satisfactoryCandidates = new ArrayList<Individual>();
