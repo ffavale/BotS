@@ -45,7 +45,7 @@ public class Event
         this.participants = this.selectAttendees(i_candidates, rng);
     }
 
-    public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean isUniversal)
+    public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
     {
         this.eventId = i_iterationNumber;
         this.log = i_log;
