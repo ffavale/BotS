@@ -10,8 +10,8 @@ public class Event
     public static final EventTemplate[] eventTemplates = {
         new EventTemplate("Date", 2, 3, 100, 5000, 6000, 10000),
         new EventTemplate("Gathering", 3, 7, 100, 2500, 3000, 6000),
-        new EventTemplate("Party", 7, 71, 100, 2500, 3000, 7000),
-        new EventTemplate("Convention", 71, 151, 500, 6000, 7000, 12000)
+        new EventTemplate("Party", 7, 70, 100, 2500, 3000, 7000),
+        new EventTemplate("Convention", 70, 151, 500, 6000, 7000, 12000)
     };
 
     private int eventId;
