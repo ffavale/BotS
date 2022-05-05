@@ -10,7 +10,7 @@ public class Simulation {
     private int simID;
     private Logg log;
     private ArrayList<Individual> populationArray;
-    private int startingPopulation;
+    private int populationCount;
     private double[] startingRatioFPCS;
     private int[] simulationCosts;
 
@@ -24,7 +24,7 @@ public class Simulation {
         this.simID = Simulation.simCounter;
         Simulation.simCounter++;
         // assign population values
-        this.startingPopulation = popNum;
+        this.populationCount = popNum;
         this.startingRatioFPCS = fpcsRatios;
         this.simulationCosts = costs;
         this.log = new Logg("Simulation-" + this.simID, "Simulation-"+ this.simID);
@@ -63,9 +63,9 @@ public class Simulation {
         ArrayList<Individual> res = new ArrayList<>();
         int[][] type = {{0, 0}, {0, 1}, {1, 2}, {1, 3}};
 
-        for (int j = 0; j < 4; j++) 
+        for (int j = 0; j < 4; j++)
         {
-            for (int i = 0; i < Math.round(this.startingPopulation * this.startingRatioFPCS[j]); i++) 
+            for (int i = 0; i < Math.round(this.populationCount * this.startingRatioFPCS[j]); i++)
             {
                 res.add(new Individual(type[j][0], type[j][1], this.log));
             }
@@ -80,5 +80,21 @@ public class Simulation {
         {
 
         }
+    }
+}
+
+class Snapshot
+{
+    public final int populationCount;
+    public final double ratio_FoM;
+    public final double ratio_FoP;
+    public final double ratio_CoS;
+
+    private Snapshot(int i_popCount, double i_ratio_FoM, double i_ratio_FoP, double i_ratio_CoS)
+    {
+        this.populationCount = i_popCount;
+        this.ratio_FoM = i_ratio_FoM;
+        this.ratio_FoP = i_ratio_FoP;
+        this.ratio_CoS = i_ratio_CoS;
     }
 }
