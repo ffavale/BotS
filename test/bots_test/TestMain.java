@@ -1,5 +1,5 @@
 package bots_test;
-
+import bots.simulation.*;
 import bots.Main;
 import bmath_test.*;
 import logg_test.*;

@@ -10,7 +10,14 @@ public class Simulation {
     private int simID;
     private Logg log;
     private ArrayList<Individual> populationArray;
+
     private int populationCount;
+    private int countF = 0;
+    private int countP = 0;
+    private int countC = 0;
+    private int countS = 0;
+
+
     private double[] startingRatioFPCS;
     private int[] simulationCosts;
 
@@ -30,6 +37,10 @@ public class Simulation {
         this.log = new Logg("Simulation-" + this.simID, "Simulation-"+ this.simID);
         // populate simulation
         this.populationArray = populator();
+        this.countF = (int) Math.round(popNum * this.startingRatioFPCS[0]);
+        this.countP = (int) Math.round(popNum * this.startingRatioFPCS[1]);
+        this.countC = (int) Math.round(popNum * this.startingRatioFPCS[2]);
+        this.countS = (int) Math.round(popNum * this.startingRatioFPCS[3]);
     }
 
     public void info()
@@ -57,6 +68,10 @@ public class Simulation {
         this.log.logMessage("\n--------------- Current Info ---------------\n\nStarting Population: " + this.populationArray.size() + "\n\nRatios of FPCS:\n" + bar[0] + bar[1] + bar[2] + bar[3]);
     }
 
+    public void oneLineInfo(){
+        this.log.logMessage("Iteration count: " + this.simulationSteps + " - Population number: " + this.populationCount + " - FPCS Ratios: " +(double) this.countF/100 + " " +(double) this.countP/100 + " " +(double) this.countC/100 + " " +(double) this.countS/100);
+
+    }
 
     private ArrayList<Individual> populator()
     {
