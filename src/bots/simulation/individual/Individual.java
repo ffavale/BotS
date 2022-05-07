@@ -8,8 +8,8 @@ public class Individual {
 
     private static int entityCounter = 1;
     private int id;
-    private final Gender sex;
-    private final Alignment type;
+    public final Gender sex;
+    public final Alignment type;
     private boolean isAvailable = true;
     private int age = 0;
     private double deathChance = 0.01;
