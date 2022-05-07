@@ -16,7 +16,7 @@ public class Couple {
     }
 
     public Individual procreation(){
-        Random rng = new Random;
+        Random rng = new Random();
         // 50% chance of gender
         if (rng.nextInt(100) > 49){
             // Male
@@ -48,6 +48,7 @@ public class Couple {
                 }
             }
         }
+        return null;
     }
 
 

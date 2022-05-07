@@ -96,20 +96,22 @@ public class Simulation {
 
         }
     }
-}
 
-class Snapshot
-{
-    public final int populationCount;
-    public final double ratio_FoM;
-    public final double ratio_FoP;
-    public final double ratio_CoS;
-
-    private Snapshot(int i_popCount, double i_ratio_FoM, double i_ratio_FoP, double i_ratio_CoS)
+    public class Snapshot
     {
-        this.populationCount = i_popCount;
-        this.ratio_FoM = i_ratio_FoM;
-        this.ratio_FoP = i_ratio_FoP;
-        this.ratio_CoS = i_ratio_CoS;
+        public final int populationCount;
+        public final double ratio_FoM;
+        public final double ratio_FoP;
+        public final double ratio_CoS;
+
+        private Snapshot(int i_popCount, double i_ratio_FoM, double i_ratio_FoP, double i_ratio_CoS)
+        {
+            this.populationCount = i_popCount;
+            this.ratio_FoM = i_ratio_FoM;
+            this.ratio_FoP = i_ratio_FoP;
+            this.ratio_CoS = i_ratio_CoS;
+        }
     }
 }
+
+

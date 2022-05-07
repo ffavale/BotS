@@ -26,16 +26,18 @@ public class TestMain{
         System.out.println("");
         System.out.println("");
 
-        TestLogg.doLogMessageTest();
+        //TestLogg.doLogMessageTest();
 
-        TestLogg.intensiveWriteTest();
+        //TestLogg.intensiveWriteTest();
 
-        TestLogg.logWithBetterCallerId();
+        //TestLogg.logWithBetterCallerId();
 
-        TestSimulation.populationInfoTest();
+        //TestSimulation.populationInfoTest();
 
-        TestEvent.eventCreation();
+        //TestEvent.eventCreation();
 
-        TestEvent.universalEventCreation();
+        //TestEvent.universalEventCreation();
+
+        BmathTest.sampleTester(100);
     }
 }
