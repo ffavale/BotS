@@ -106,6 +106,7 @@ public class Simulation extends Thread
     public void run()
     {
         this.log.logMessage("Simulation has started");
+        this.info(); this.oneLineInfo();
         /* simulation loop goes here to be in a seperate thread */
         while (isStable())
         {
