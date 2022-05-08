@@ -1,12 +1,14 @@
 package bots.simulation;
+
 import java.util.ArrayList;
 import bots.simulation.individual.*;
 import logg.*;
 
 
-public class Simulation {
-
+public class Simulation extends Thread
+{
     private static int simCounter = 0;
+
     private int simID;
     private Logg log;
     private ArrayList<Individual> populationArray;
@@ -88,10 +90,21 @@ public class Simulation {
         return res;
     }
 
-    public void StartSim()
+    public boolean isStable()
     {
-        boolean forceStop = true;
-        while (forceStop)
+        if (false)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void run()
+    {
+        this.log.logMessage("Simulation has started");
+        /* simulation loop goes here to be in a seperate thread */
+        while (isStable())
         {
 
         }

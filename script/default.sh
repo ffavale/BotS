@@ -51,8 +51,15 @@ echo ""
 
 echo "================ RUNNING PROGRAM =================="
 
+cd genset
+python genset.py
+cd ..
+
 cd build/$BPROF
+
 mkdir -p run && cd run
+cp ../../../genset/settings.xml .
+
 java -jar ../$PROJECT_NAME.jar
 cd ../..
 

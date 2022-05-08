@@ -3,6 +3,7 @@ import bots.simulation.*;
 import bots.Main;
 import bmath_test.*;
 import logg_test.*;
+import logg.Logg;
 import bots_test.simulation_test.*;
 
 public class TestMain{
@@ -10,15 +11,12 @@ public class TestMain{
     /* Tests start here */
     public static void main(String args[])
     {
-        BmathTest xbar = new BmathTest();
-        xbar.meanOfDoubleArrayTest();
-        xbar.sdOfDoubleArrayTest();
-
+        Logg log = new Logg("mainTest", "mainTest");
         System.out.println("TESTING SPLASH SCREEN");
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println("=====================================================================================");
-        Main.SplashScreen();
+        Main.splashScreen(log);
         System.out.println("=====================================================================================");
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -26,17 +24,24 @@ public class TestMain{
         System.out.println("");
         System.out.println("");
 
-        //TestLogg.doLogMessageTest();
+        TestLogg.doLogMessageTest();
+        BmathTest xbar = new BmathTest();
+        xbar.meanOfDoubleArrayTest();
+        xbar.sdOfDoubleArrayTest();
+        System.out.println("");
+        System.out.println("");
 
-        //TestLogg.intensiveWriteTest();
+        TestLogg.doLogMessageTest();
 
-        //TestLogg.logWithBetterCallerId();
+        TestLogg.intensiveWriteTest();
 
-        //TestSimulation.populationInfoTest();
+        TestLogg.logWithBetterCallerId();
 
-        //TestEvent.eventCreation();
+        TestSimulation.populationInfoTest();
 
-        //TestEvent.universalEventCreation();
+        TestEvent.eventCreation();
+
+        TestEvent.universalEventCreation();
 
         BmathTest.sampleTester(100);
     }
