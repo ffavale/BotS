@@ -20,7 +20,7 @@ public class Simulation extends Thread
     private int countS = 0;
 
 
-    private double[] startingRatioFPCS;
+    private double[] startingRatioFPCS = new double[4];
     private int[] simulationCosts;
 
     private long simulationSteps = 0;
@@ -34,7 +34,10 @@ public class Simulation extends Thread
         Simulation.simCounter++;
         // assign population values
         this.populationCount = popNum;
-        this.startingRatioFPCS = fpcsRatios;
+        this.startingRatioFPCS[0] = fpcsRatios[0] * fpcsRatios[1];
+        this.startingRatioFPCS[1] = fpcsRatios[0] * (1 - fpcsRatios[1]);
+        this.startingRatioFPCS[2] = (1 - fpcsRatios[0]) * fpcsRatios[2];
+        this.startingRatioFPCS[3] = (1 - fpcsRatios[0]) * (1 - fpcsRatios[2]);
         this.simulationCosts = costs;
         this.log = new Logg("Simulation-" + this.simID, "Simulation-"+ this.simID);
         // populate simulation
