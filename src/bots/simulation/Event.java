@@ -21,6 +21,8 @@ public class Event
     public int maxAge;
 
     private Individual[] participants;
+    private Individual[] malePart;
+    private Individual[] femalePart;
     private Logg log;
 
     public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log)
@@ -47,6 +49,8 @@ public class Event
 
         // populate the event
         this.participants = this.selectAttendees(createInvitationList(i_candidates), rng);
+
+        splitPartByGender();
     }
 
     public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
@@ -73,6 +77,28 @@ public class Event
             this.participants[i] = i_candidates.get(i);
             this.log.logMessage("Individual-" + String.valueOf(participants[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
         }
+
+        splitPartByGender();
+    }
+
+    private void splitPartByGender()
+    {
+        ArrayList<Individual> tempMale = new ArrayList<Individual>();
+        ArrayList<Individual> tempFemale = new ArrayList<Individual>();
+
+        for (Individual part : participants)
+        {
+            if (part.sex == Individual.Gender.MALE)
+            {
+                tempMale.add(part);
+            } else
+            {
+                tempFemale.add(part);
+            }
+        }
+
+        this.malePart = (Individual[]) tempMale.toArray();
+        this.femalePart = (Individual[]) tempFemale.toArray();
     }
 
     private ArrayList<Individual> createInvitationList(ArrayList<Individual> i_candidates)
