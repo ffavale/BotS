@@ -1,7 +1,7 @@
 
 def main():
 
-    popIncrements = 5
+    popIncrements = 2
     startingPopsMinVal = 500
     startingPopsMaxVal = 10000
     startingPopsStep = (startingPopsMaxVal - startingPopsMinVal) / popIncrements
@@ -13,32 +13,32 @@ def main():
     startingMFRatioStep = (startingMFRatioMaxVal - startingMFRatioMinVal) / MFRIncrements
     startingMFRatioRange = [ round((i * startingMFRatioStep) + startingMFRatioMinVal, 3) for i in range(MFRIncrements)]
 
-    FPRIncrements = 5
+    FPRIncrements = 2
     startingFPRatioMinVal = 0.1
     startingFPRatioMaxVal = 0.9
     startingFPRatioStep = (startingFPRatioMaxVal - startingFPRatioMinVal) / FPRIncrements
     startingFPRatioRange = [ round((i * startingFPRatioStep) + startingFPRatioMinVal, 3) for i in range(FPRIncrements)]
 
-    CSRIncrements = 5
+    CSRIncrements = 2
     startingCSRatioMinVal = 0.1
     startingCSRatioMaxVal = 0.9
     startingCSRatioStep = (startingCSRatioMaxVal - startingCSRatioMinVal) / CSRIncrements
     startingCSRatioRange = [ round((i * startingCSRatioStep) + startingCSRatioMinVal, 3) for i in range(CSRIncrements)]
 
-    aCostIncrements = 5
+    aCostIncrements = 2
     startingACostMinVal = 0
     startingACostMaxVal = 100
     startingACostStep = (startingACostMaxVal - startingACostMinVal) / aCostIncrements
     startingACostRange = [ int((i * startingACostStep) + startingACostMinVal) for i in range(aCostIncrements) ]
 
 
-    bBenefitIncrements = 5
+    bBenefitIncrements = 2
     startingBBEnefitMinVal = 0
     startingBBEnefitMaxVal = 100
     startingBBenefitStep = (startingBBEnefitMaxVal - startingBBEnefitMinVal) / bBenefitIncrements
     startingBBenefitRange = [ int((i * startingBBenefitStep) + startingBBEnefitMinVal) for i in range(bBenefitIncrements) ]
 
-    cCostIncrements = 5
+    cCostIncrements = 2
     startingCCostMinVal = 0
     startingCCostMaxVal = 100
     startingCCostStep = (startingCCostMaxVal - startingCCostMinVal) / cCostIncrements

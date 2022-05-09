@@ -70,7 +70,7 @@ public class Simulation extends Thread
             }
             bar[j] = bar[j] + ("] " + Math.round(this.ratiosFPCS[j]*100) + "%\n");
         }
-        this.log.logMessage("\n--------------- Current Info ---------------\n\nStarting Population: " + this.populationArray.size() + "\n\nRatios of FPCS:\n" + bar[0] + bar[1] + bar[2] + bar[3]);
+        this.log.logMessage("\n--------------- Current Info ---------------\nPopulation: " + this.populationArray.size() + "\n\nRatios of FPCS:\n" + bar[0] + bar[1] + bar[2] + bar[3]);
     }
 
     public void oneLineInfo(){
