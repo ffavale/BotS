@@ -75,16 +75,12 @@ public class Simulation extends Thread
     }
 
     public void oneLineInfo(){
-        Double rF = Double.valueOf(this.countF) / Double.valueOf(this.populationArray.size());
-        Double rP = Double.valueOf(this.countP) / Double.valueOf(this.populationArray.size());
-        Double rC = Double.valueOf(this.countC) / Double.valueOf(this.populationArray.size());
-        Double rS = Double.valueOf(this.countS) / Double.valueOf(this.populationArray.size());
         this.log.logMessage("Iteration count: " + this.simulationSteps +
         " - Population number: " + this.populationCount +
-        " - FPCS Ratios: " + String.valueOf(rF) +
-        " " + String.valueOf(rP) +
-        " " + String.valueOf(rC) +
-        " " + String.valueOf(rS));
+        " - FPCS Ratios: " + String.valueOf(Double.valueOf(this.countF) / Double.valueOf(this.populationArray.size())) +
+        " " + String.valueOf(Double.valueOf(this.countP) / Double.valueOf(this.populationArray.size())) +
+        " " + String.valueOf(Double.valueOf(this.countC) / Double.valueOf(this.populationArray.size())) +
+        " " + String.valueOf(Double.valueOf(this.countS) / Double.valueOf(this.populationArray.size())));
     }
 
     private ArrayList<Individual> populator()
@@ -119,7 +115,11 @@ public class Simulation extends Thread
         /* simulation loop goes here to be in a seperate thread */
         while (this.isStable())
         {
-
+            // create this loop's event
+            // put individuals in said event
+            // get back a bunch of couples and make them reproduce (async?)
+            // save snapshot of the simulation
+            // check stability
         }
     }
 
@@ -139,5 +139,3 @@ public class Simulation extends Thread
         }
     }
 }
-
-
