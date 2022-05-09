@@ -44,5 +44,6 @@ public class TestMain{
         TestEvent.universalEventCreation();
 
         BmathTest.sampleTester(100);
+        System.out.println();
     }
 }
