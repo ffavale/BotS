@@ -20,7 +20,7 @@ public class Simulation extends Thread
     private int countS = 0;
 
 
-    private double[] startingRatioFPCS = new double[4];
+    private double[] ratiosFPCS = new double[4];
     private int[] simulationCosts;
 
     private long simulationSteps = 0;
@@ -34,18 +34,18 @@ public class Simulation extends Thread
         Simulation.simCounter++;
         // assign population values
         this.populationCount = popNum;
-        this.startingRatioFPCS[0] = fpcsRatios[0] * fpcsRatios[1];
-        this.startingRatioFPCS[1] = fpcsRatios[0] * (1 - fpcsRatios[1]);
-        this.startingRatioFPCS[2] = (1 - fpcsRatios[0]) * fpcsRatios[2];
-        this.startingRatioFPCS[3] = (1 - fpcsRatios[0]) * (1 - fpcsRatios[2]);
+        this.ratiosFPCS[0] = fpcsRatios[0] * fpcsRatios[1];
+        this.ratiosFPCS[1] = fpcsRatios[0] * (1 - fpcsRatios[1]);
+        this.ratiosFPCS[2] = (1 - fpcsRatios[0]) * fpcsRatios[2];
+        this.ratiosFPCS[3] = (1 - fpcsRatios[0]) * (1 - fpcsRatios[2]);
         this.simulationCosts = costs;
         this.log = new Logg("Simulation-" + this.simID, "Simulation-"+ this.simID);
         // populate simulation
         this.populationArray = populator();
-        this.countF = (int) Math.round(popNum * this.startingRatioFPCS[0]);
-        this.countP = (int) Math.round(popNum * this.startingRatioFPCS[1]);
-        this.countC = (int) Math.round(popNum * this.startingRatioFPCS[2]);
-        this.countS = (int) Math.round(popNum * this.startingRatioFPCS[3]);
+        this.countF = (int) Math.round(popNum * this.ratiosFPCS[0]);
+        this.countP = (int) Math.round(popNum * this.ratiosFPCS[1]);
+        this.countC = (int) Math.round(popNum * this.ratiosFPCS[2]);
+        this.countS = (int) Math.round(popNum * this.ratiosFPCS[3]);
     }
 
     public void info()
@@ -59,7 +59,7 @@ public class Simulation extends Thread
 
             for (int i = 1; i < 51; i++)
             {
-                if (i <= Math.round(this.startingRatioFPCS[j]*50))
+                if (i <= Math.round(this.ratiosFPCS[j]*50))
                 {
                     bar[j] = bar[j] + ("/");
                 }
@@ -68,14 +68,22 @@ public class Simulation extends Thread
                     bar[j] = bar[j] + ("_");
                 }
             }
-            bar[j] = bar[j] + ("] " + Math.round(this.startingRatioFPCS[j]*100) + "%\n");
+            bar[j] = bar[j] + ("] " + Math.round(this.ratiosFPCS[j]*100) + "%\n");
         }
         this.log.logMessage("\n--------------- Current Info ---------------\n\nStarting Population: " + this.populationArray.size() + "\n\nRatios of FPCS:\n" + bar[0] + bar[1] + bar[2] + bar[3]);
     }
 
     public void oneLineInfo(){
-        this.log.logMessage("Iteration count: " + this.simulationSteps + " - Population number: " + this.populationCount + " - FPCS Ratios: " +(double) this.countF/100 + " " +(double) this.countP/100 + " " +(double) this.countC/100 + " " +(double) this.countS/100);
-
+        Double rF = Double.valueOf(this.countF) / Double.valueOf(this.populationArray.size());
+        Double rP = Double.valueOf(this.countP) / Double.valueOf(this.populationArray.size());
+        Double rC = Double.valueOf(this.countC) / Double.valueOf(this.populationArray.size());
+        Double rS = Double.valueOf(this.countS) / Double.valueOf(this.populationArray.size());
+        this.log.logMessage("Iteration count: " + this.simulationSteps +
+        " - Population number: " + this.populationCount +
+        " - FPCS Ratios: " + String.valueOf(rF) +
+        " " + String.valueOf(rP) +
+        " " + String.valueOf(rC) +
+        " " + String.valueOf(rS));
     }
 
     private ArrayList<Individual> populator()
@@ -85,7 +93,7 @@ public class Simulation extends Thread
 
         for (int j = 0; j < 4; j++)
         {
-            for (int i = 0; i < Math.round(this.populationCount * this.startingRatioFPCS[j]); i++)
+            for (int i = 0; i < Math.round(this.populationCount * this.ratiosFPCS[j]); i++)
             {
                 res.add(new Individual(type[j][0], type[j][1], this.log));
             }
