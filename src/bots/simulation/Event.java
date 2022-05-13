@@ -84,8 +84,42 @@ public class Event
         splitPartByGender();
     }
 
-    public void createCouples()
-    {}
+    public ArrayList<Couple> createCouples()
+    {
+        for (Individual individual : this.participants)
+        {
+            if (!individual.isAvailable)
+            {
+                continue;
+            }
+            switch (individual.sex)
+            {
+                case MALE:
+                {
+                    for(int i = 0; i < this.femalePart.length; i++)
+                    {
+                        if (femalePart[i].isAvailable)
+                        {
+                            this.couplesList.add(new Couple(individual, femalePart[i], this.log));
+                        }
+                    }
+                    break;
+                }
+                case FEMALE:
+                {
+                    for(int i = 0; i < this.femalePart.length; i++)
+                    {
+                        if (femalePart[i].isAvailable)
+                        {
+                            this.couplesList.add(new Couple(individual, femalePart[i], this.log));
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return this.couplesList;
+    }
 
     private void splitPartByGender()
     {

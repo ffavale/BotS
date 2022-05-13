@@ -10,7 +10,7 @@ public class Individual {
     private int id;
     public final Gender sex;
     public final Alignment type;
-    private boolean isAvailable = true;
+    public boolean isAvailable = true;
     private int age = 0;
     private double deathChance = 0.01;
     private Logg log;
