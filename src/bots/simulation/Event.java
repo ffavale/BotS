@@ -107,6 +107,12 @@ public class Event
         this.femalePart = new Individual[tempFemale.size()];
         this.malePart = tempMale.toArray(malePart);
         this.femalePart = tempFemale.toArray(femalePart);
+        
+        this.log.logMessage("Male/Female/Total : " +
+                String.valueOf(this.malePart.length) + "/" +
+                String.valueOf(this.femalePart.length) + "/" +
+                String.valueOf(this.participants.length)
+                , "Event-" + String.valueOf(this.eventId));
     }
 
     private ArrayList<Individual> createInvitationList(ArrayList<Individual> i_candidates)
