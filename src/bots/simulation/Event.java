@@ -23,7 +23,11 @@ public class Event
     private Individual[] participants;
     private Individual[] malePart;
     private Individual[] femalePart;
+
+    private ArrayList<Couple> couplesList= new ArrayList<Couple>();
+
     private Logg log;
+    private Random rng = new Random();
 
     public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log)
     {
@@ -32,13 +36,12 @@ public class Event
         this.log = i_log;
 
         // define the type of event this is
-        Random rng = new Random();
-        EventTemplate thisEvent = Event.eventTemplates[rng.nextInt(Event.eventTemplates.length)];
+        EventTemplate thisEvent = Event.eventTemplates[this.rng.nextInt(Event.eventTemplates.length)];
 
         // decide what its specific charachteristics are
-        this.participantCount = rng.nextInt(thisEvent.maxAttendees - thisEvent.minAttendees) + thisEvent.minAttendees;
-        this.minAge = rng.nextInt(thisEvent.maxMinAge - thisEvent.minMinAge) + thisEvent.minMinAge;
-        this.maxAge = rng.nextInt(thisEvent.maxMaxAge - thisEvent.minMaxAge) + thisEvent.minMaxAge;
+        this.participantCount = this.rng.nextInt(thisEvent.maxAttendees - thisEvent.minAttendees) + thisEvent.minAttendees;
+        this.minAge = this.rng.nextInt(thisEvent.maxMinAge - thisEvent.minMinAge) + thisEvent.minMinAge;
+        this.maxAge = this.rng.nextInt(thisEvent.maxMaxAge - thisEvent.minMaxAge) + thisEvent.minMaxAge;
         this.eventTypeName = thisEvent.eventTypeName;
 
         this.log.logMessage(
@@ -48,7 +51,7 @@ public class Event
                 " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
 
         // populate the event
-        this.participants = this.selectAttendees(createInvitationList(i_candidates), rng);
+        this.participants = this.selectAttendees(createInvitationList(i_candidates), this.rng);
 
         splitPartByGender();
     }
@@ -81,24 +84,29 @@ public class Event
         splitPartByGender();
     }
 
+    public void createCouples()
+    {}
+
     private void splitPartByGender()
     {
         ArrayList<Individual> tempMale = new ArrayList<Individual>();
         ArrayList<Individual> tempFemale = new ArrayList<Individual>();
 
-        for (Individual part : participants)
+        for (int i = 0; i < participants.length; i++)
         {
-            if (part.sex == Individual.Gender.MALE)
+            if (participants[i].sex == Individual.Gender.MALE)
             {
-                tempMale.add(part);
+                tempMale.add(participants[i]);
             } else
             {
-                tempFemale.add(part);
+                tempFemale.add(participants[i]);
             }
         }
 
-        this.malePart = (Individual[]) tempMale.toArray();
-        this.femalePart = (Individual[]) tempFemale.toArray();
+        this.malePart = new Individual[tempMale.size()];
+        this.femalePart = new Individual[tempFemale.size()];
+        this.malePart = tempMale.toArray(malePart);
+        this.femalePart = tempFemale.toArray(femalePart);
     }
 
     private ArrayList<Individual> createInvitationList(ArrayList<Individual> i_candidates)
