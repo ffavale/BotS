@@ -45,5 +45,8 @@ public class TestMain{
 
         BmathTest.sampleTester(100);
         System.out.println();
+        System.out.println();
+
+        TestEvent.testCoupleCreation();
     }
 }

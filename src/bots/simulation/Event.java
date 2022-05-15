@@ -86,8 +86,10 @@ public class Event
 
     public ArrayList<Couple> createCouples()
     {
-        for (Individual individual : this.participants)
+        for (int h = 0; h < this.participants.length; h++)
         {
+            Individual individual = participants[this.rng.nextInt(this.participants.length)];
+
             if (!individual.isAvailable)
             {
                 continue;

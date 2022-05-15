@@ -13,6 +13,9 @@ public class Couple {
         this.log = i_log;
         this.father = Father;
         this.mother = Mother;
+
+        this.father.isAvailable = false;
+        this.mother.isAvailable = false;
     }
 
     public Individual procreation(){
@@ -50,6 +53,4 @@ public class Couple {
         }
         return null;
     }
-
-
 }
