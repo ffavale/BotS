@@ -78,6 +78,5 @@ public class TestEvent
         {
             System.out.println(c);
         }
-
     }
 }

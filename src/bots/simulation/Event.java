@@ -14,7 +14,7 @@ public class Event
         new EventTemplate("Convention", 70, 151, 500, 6000, 7000, 12000)
     };
 
-    private int eventId;
+    private long eventId;
     private String eventTypeName;
     public int participantCount;
     public int minAge;
@@ -29,7 +29,7 @@ public class Event
     private Logg log;
     private Random rng = new Random();
 
-    public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log)
+    public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log)
     {
         // set eventId and log
         this.eventId = i_iterationNumber;
@@ -56,7 +56,7 @@ public class Event
         splitPartByGender();
     }
 
-    public Event(int i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
+    public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
     {
         // set eventId and log
         this.eventId = i_iterationNumber;
@@ -65,7 +65,7 @@ public class Event
         // decide what its specific charachteristics are
         this.participantCount = i_candidates.size();
         this.minAge = 0;
-        this.maxAge = i_iterationNumber;
+        this.maxAge = (int) i_iterationNumber;
         this.eventTypeName = "Universal";
 
         this.log.logMessage(

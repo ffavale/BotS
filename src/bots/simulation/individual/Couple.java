@@ -16,6 +16,14 @@ public class Couple {
 
         this.father.isAvailable = false;
         this.mother.isAvailable = false;
+        this.log.logMessage("Individual-" + this.father.getId() + " and " +
+                "Individual-" + this.mother.getId() + " are now a couple");
+    }
+
+    private void free()
+    {
+        this.father.isAvailable = true;
+        this.mother.isAvailable = true;
     }
 
     public Individual procreation(){
@@ -26,12 +34,14 @@ public class Couple {
             if (this.father.type == Individual.Alignment.FAITHFUL) {
                 //85% chance of inheritance of father's gene
                 if (rng.nextInt(100) < 85){
+                    this.free();
                     return new Individual(0, 0, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of father's
                 if (rng.nextInt(100) < 85){
+                    this.free();
                     return new Individual(0, 1, this.log);
                 }
             }
@@ -41,16 +51,18 @@ public class Couple {
             if (this.mother.type == Individual.Alignment.COY) {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
+                    this.free();
                     return new Individual(1, 2, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
+                    this.free();
                     return new Individual(1, 3, this.log);
                 }
             }
         }
-        return null;
+        return new Individual(1,2,this.log);
     }
 }

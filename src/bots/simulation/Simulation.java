@@ -100,7 +100,7 @@ public class Simulation extends Thread
 
     public boolean isStable()
     {
-        if (false)
+        if (this.simulationSteps < 100)
         {
             return true;
         }
@@ -113,13 +113,22 @@ public class Simulation extends Thread
         this.log.logMessage("Simulation has started");
         this.info(); this.oneLineInfo();
         /* simulation loop goes here to be in a seperate thread */
-        while (this.isStable())
+        while (this.isStable()) // && this.simulationSteps < 100)
         {
             // create this loop's event
-            // put individuals in said event
+            Event loopEvent = new Event(this.simulationSteps, this.populationArray, this.log, true);
             // get back a bunch of couples and make them reproduce (async?)
+            ArrayList<Couple> loopCouples = loopEvent.createCouples();
+            for (Couple coup : loopCouples)
+            {
+                populationArray.add(coup.procreation());
+            }
             // save snapshot of the simulation
             // check stability
+            // print info
+            this.simulationSteps++;
+            this.oneLineInfo();
+            if (this.simulationSteps % 10 == 0) {this.info();}
         }
     }
 
