@@ -109,11 +109,11 @@ public class Event
                 }
                 case FEMALE:
                 {
-                    for(int i = 0; i < this.femalePart.length; i++)
+                    for(int i = 0; i < this.malePart.length; i++)
                     {
-                        if (femalePart[i].isAvailable)
+                        if (malePart[i].isAvailable)
                         {
-                            this.couplesList.add(new Couple(individual, femalePart[i], this.log));
+                            this.couplesList.add(new Couple(malePart[i], individual, this.log));
                         }
                     }
                     break;
