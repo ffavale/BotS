@@ -43,7 +43,7 @@ public class Simulation extends Thread
         this.log = new Logg("Simulation-" + this.simID, "Simulation-"+ this.simID);
         // populate simulation
         this.avgAge = avgAge;
-        this.populationArray = populator(popNum);
+        this.populationArray = populator(popNum, avgAge);
         this.countF = (int) Math.round(popNum * this.ratiosFPCS[0]);
         this.countP = (int) Math.round(popNum * this.ratiosFPCS[1]);
         this.countC = (int) Math.round(popNum * this.ratiosFPCS[2]);
