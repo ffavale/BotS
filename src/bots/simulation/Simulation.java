@@ -9,6 +9,8 @@ import logg.*;
 public class Simulation extends Thread
 {
     private static int simCounter = 0;
+    private final int minLoopCount = 10; 
+    private final int maxLoopCount = 15; 
 
     private int simID;
     private Logg log;
@@ -104,9 +106,34 @@ public class Simulation extends Thread
         return res;
     }
 
-    public boolean isStable()
+    private boolean popIsStable()
     {
-        if (this.simulationSteps < 15)
+        ArrayList<Snapshot> snapSample = Bmath.sampleGenerator(this.snapshotArray);
+        double satisfactoryCount = 0;
+
+        for (int i = 1; i < snapSample.size(); i++)
+        {
+            if ((double) snapSample.get(i).populationCount/snapSample.get(i-1).populationCount < Math.pow(2.0, (double) snapSample.get(i).steps))
+            {
+                satisfactoryCount++;
+            }
+        }
+
+        this.log.logMessage("Evaluated if pop is stable\nGot " + String.valueOf(satisfactoryCount) + " satisfactory snapshots"+
+                "snapSample size: " + String.valueOf(snapSample.size())); 
+
+        return (satisfactoryCount/snapSample.size() > 0.8);
+    }
+
+    private boolean isStable()
+    {
+        if (this.simulationSteps < this.minLoopCount ||
+                (this.simulationSteps < this.maxLoopCount &&
+                this.popIsStable()))// &&
+                // this.fIsStable() &&
+                // this.pIsStable() &&
+                // this.cIsStable() &&
+                // this.sIsStable())
         {
             return true;
         }
