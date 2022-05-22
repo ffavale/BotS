@@ -43,7 +43,7 @@ public class Simulation extends Thread
         this.log = new Logg("Simulation-" + this.simID, "Simulation-"+ this.simID);
         // populate simulation
         this.avgAge = avgAge;
-        this.populationArray = populator(popNum, avgAge);
+        this.populationArray = populator(avgAge, popNum);
         this.countF = (int) Math.round(popNum * this.ratiosFPCS[0]);
         this.countP = (int) Math.round(popNum * this.ratiosFPCS[1]);
         this.countC = (int) Math.round(popNum * this.ratiosFPCS[2]);
@@ -106,7 +106,7 @@ public class Simulation extends Thread
 
     public boolean isStable()
     {
-        if (this.simulationSteps < 10)
+        if (this.simulationSteps < 15)
         {
             return true;
         }
