@@ -2,6 +2,10 @@ package bots.simulation.individual;
 
 import logg.*;
 
+import java.util.Random;
+
+import static java.lang.Math.*;
+
 public class Individual {
     public enum Gender {MALE, FEMALE};
     public enum Alignment {FAITHFUL, PHILANDERER, COY, FAST};
@@ -12,10 +16,13 @@ public class Individual {
     public final Alignment type;
     public boolean isAvailable = true;
     private int age = 0;
-    private double deathChance = 0.01;
+    private double lifeChance = 1;
+    private double loopCost;
+    private int expAge;
     private Logg log;
+    private static final Random rng = new Random();
 
-    public Individual(int sex, int type, Logg i_log){
+    public Individual(int sex, int type, int expAge, Logg i_log){
         this.id = Individual.entityCounter;
         if (sex == 0) {
             this.sex = Gender.MALE;
@@ -36,6 +43,8 @@ public class Individual {
             }
         }
         this.log = i_log;
+        this.expAge = expAge;
+        this.loopCost = -atan(this.age - expAge) + (Math.PI*0.5);
         Individual.entityCounter++;
     }
 
@@ -53,5 +62,19 @@ public class Individual {
     {
         this.age++;
         // this.log.logMessage("The age of Individual-" + String.valueOf(this.id) + " has been incremented to " + String.valueOf(this.age), "Individual-" + String.valueOf(this.id));
+    }
+
+    public boolean isDead ()
+    {
+        if (this.lifeChance < (this.rng.nextDouble(1)))
+        {
+            return false;
+        }
+        else
+        {
+            this.lifeChance = this.lifeChance*(this.lifeChance - this.loopCost);
+            incrementAge();
+            return true;
+        }
     }
 }

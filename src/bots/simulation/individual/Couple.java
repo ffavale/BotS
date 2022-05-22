@@ -26,7 +26,7 @@ public class Couple {
         this.mother.isAvailable = true;
     }
 
-    public Individual procreation(){
+    public Individual procreation(int expAge){
         Random rng = new Random();
         // 50% chance of gender
         if (rng.nextInt(100) > 49){
@@ -35,14 +35,14 @@ public class Couple {
                 //85% chance of inheritance of father's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(0, 0, this.log);
+                    return new Individual(0, 0, expAge, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of father's
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(0, 1, this.log);
+                    return new Individual(0, 1, expAge, this.log);
                 }
             }
         }
@@ -52,17 +52,17 @@ public class Couple {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(1, 2, this.log);
+                    return new Individual(1, 2, expAge, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(1, 3, this.log);
+                    return new Individual(1, 3, expAge, this.log);
                 }
             }
         }
-        return new Individual(1,2,this.log);
+        return new Individual(1,2, expAge, this.log);
     }
 }

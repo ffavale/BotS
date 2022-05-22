@@ -83,7 +83,7 @@ public class Simulation extends Thread
         " " + String.valueOf(Double.valueOf(this.countS) / Double.valueOf(this.populationArray.size())));
     }
 
-    private ArrayList<Individual> populator()
+    private ArrayList<Individual> populator(int expAge)
     {
         ArrayList<Individual> res = new ArrayList<>();
         int[][] type = {{0, 0}, {0, 1}, {1, 2}, {1, 3}};
@@ -92,7 +92,7 @@ public class Simulation extends Thread
         {
             for (int i = 0; i < Math.round(this.populationCount * this.ratiosFPCS[j]); i++)
             {
-                res.add(new Individual(type[j][0], type[j][1], this.log));
+                res.add(new Individual(type[j][0], type[j][1], expAge, this.log));
             }
         }
         return res;
