@@ -66,7 +66,7 @@ public class Individual {
 
     public boolean isDead ()
     {
-        if (this.lifeChance < (this.rng.nextDouble(1)))
+        if (this.lifeChance < (Individual.rng.nextDouble()))
         {
             return false;
         }
