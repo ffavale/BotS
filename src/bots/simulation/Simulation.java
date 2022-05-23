@@ -9,8 +9,8 @@ import logg.*;
 public class Simulation extends Thread
 {
     private static int simCounter = 0;
-    private final int minLoopCount = 10; 
-    private final int maxLoopCount = 15; 
+    private final int minLoopCount = 30;
+    private final int maxLoopCount = 100;
 
     private int simID;
     private Logg log;
@@ -58,7 +58,7 @@ public class Simulation extends Thread
         (double) this.countF / this.populationArray.size(),
         (double) this.countP / this.populationArray.size(),
         (double) this.countC / this.populationArray.size(),
-        (double) this.countS / this.populationArray.size()}; 
+        (double) this.countS / this.populationArray.size()};
         String[] info = {"Faithful   ", "Philanderer", "Coy        ", "Fast       "};
         String[] bar = new String[4];
 
@@ -79,11 +79,11 @@ public class Simulation extends Thread
             }
             bar[j] = bar[j] + ("] " + Math.round(tempFPCS[j]*100) + "%\n");
         }
-        this.log.logMessage("\n--------------- Current Info ---------------\nPopulation: " + this.populationArray.size() + "\nRatios of FPCS:\n" + bar[0] + bar[1] + bar[2] + bar[3]);
+        this.log.logMessage("--------------- Current Info ---------------\nIteration: " + String.valueOf(this.simulationSteps) +"\nPopulation: " + this.populationArray.size() + "\nRatios of FPCS:\n" + bar[0] + bar[1] + bar[2] + bar[3]);
     }
 
     public void oneLineInfo(){
-        this.log.logMessage("Iteration count: " + this.simulationSteps +
+        this.log.logQuietMessage("Iteration count: " + this.simulationSteps +
         " - Population number: " + this.populationArray.size() +
         " - FPCS Ratios: " + String.valueOf(Double.valueOf(this.countF) / Double.valueOf(this.populationArray.size())) +
         " " + String.valueOf(Double.valueOf(this.countP) / Double.valueOf(this.populationArray.size())) +
@@ -118,9 +118,6 @@ public class Simulation extends Thread
                 satisfactoryCount++;
             }
         }
-
-        this.log.logMessage("Evaluated if pop is stable\nGot " + String.valueOf(satisfactoryCount) + " satisfactory snapshots"+
-                "snapSample size: " + String.valueOf(snapSample.size())); 
 
         return (satisfactoryCount/snapSample.size() > 0.8);
     }
@@ -193,6 +190,44 @@ public class Simulation extends Thread
             this.simulationSteps++;
             this.oneLineInfo();
             if (this.simulationSteps % 10 == 0) {this.info();}
+            // check who is dead
+            ArrayList<Individual> toRemove = new ArrayList<Individual>();
+            for (Individual ind : this.populationArray)
+            {
+                if (ind.isDead())
+                {
+                    toRemove.add(ind);
+                }
+            }
+            for (Individual ind : toRemove)
+            {
+                switch (ind.type)
+                {
+                    case FAITHFUL:
+                        {
+                            countF--;
+                            break;
+                        }
+                    case PHILANDERER:
+                        {
+                            countP--;
+                            break;
+                        }
+                    case COY:
+                        {
+                            countC--;
+                            break;
+                        }
+                    case FAST:
+                        {
+                            countS--;
+                            break;
+                        }
+                }
+
+                this.populationArray.remove(ind);
+            }
+
         }
     }
 

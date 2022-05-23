@@ -44,7 +44,7 @@ public class Event
         this.maxAge = this.rng.nextInt(thisEvent.maxMaxAge - thisEvent.minMaxAge) + thisEvent.minMaxAge;
         this.eventTypeName = thisEvent.eventTypeName;
 
-        this.log.logMessage(
+        this.log.logQuietMessage(
                 "Created Event-" + String.valueOf(eventId) +
                 " of type \"" + this.eventTypeName + "\"" +
                 " with " + this.participantCount + " participants" +
@@ -68,7 +68,7 @@ public class Event
         this.maxAge = (int) i_iterationNumber;
         this.eventTypeName = "Universal";
 
-        this.log.logMessage(
+        this.log.logQuietMessage(
                 "Created Event-" + String.valueOf(eventId) +
                 " of type \"" + this.eventTypeName + "\"" +
                 " with " + this.participantCount + " participants"); //, "Event-" + String.valueOf(this.eventId));
@@ -78,7 +78,7 @@ public class Event
         for (int i = 0; i < i_candidates.size(); i++)
         {
             this.participants[i] = i_candidates.get(i);
-            this.log.logMessage("Individual-" + String.valueOf(participants[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
+            // this.log.logQuietMessage("Individual-" + String.valueOf(participants[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
         }
 
         splitPartByGender();
@@ -144,7 +144,7 @@ public class Event
         this.malePart = tempMale.toArray(malePart);
         this.femalePart = tempFemale.toArray(femalePart);
 
-        this.log.logMessage("Male/Female/Total : " +
+        this.log.logQuietMessage("Male/Female/Total : " +
                 String.valueOf(this.malePart.length) + "/" +
                 String.valueOf(this.femalePart.length) + "/" +
                 String.valueOf(this.participants.length)
@@ -170,7 +170,7 @@ public class Event
         if (satisfactoryCandidateCount < this.participantCount)
         {
             this.participantCount = satisfactoryCandidateCount;
-            this.log.logMessage("Event capacity resized to " + String.valueOf(this.participantCount) + " due to lack of suitable candidates for the event", "Event-" + String.valueOf(this.eventId));
+            this.log.logQuietMessage("Event capacity resized to " + String.valueOf(this.participantCount) + " due to lack of suitable candidates for the event", "Event-" + String.valueOf(this.eventId));
         }
 
         return invitationList ;
@@ -187,7 +187,7 @@ public class Event
 
             attendeeArray[i] = i_candidates.get(consideredIdx);
             i_candidates.remove(attendeeArray[i]);
-            this.log.logMessage("Individual-" + String.valueOf(attendeeArray[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
+            // this.log.logQuietMessage("Individual-" + String.valueOf(attendeeArray[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
         }
 
         return attendeeArray;

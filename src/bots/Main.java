@@ -97,7 +97,7 @@ public class Main
                         "population: " + String.valueOf(simPopPassthrough) + " | " +
                         "FPCS: " + String.valueOf(simFPCSPassthrough[0]) + ", " + String.valueOf(simFPCSPassthrough[1]) + ", " + String.valueOf(simFPCSPassthrough[2]) + " | " +
                         "Costs: " + String.valueOf(simCostPassthrough[0]) + ", " + String.valueOf(simCostPassthrough[1]) + ", " + String.valueOf(simCostPassthrough[2]));
-                    Simulation sim = new Simulation(simPopPassthrough, 1000, simFPCSPassthrough, simCostPassthrough);
+                    Simulation sim = new Simulation(simPopPassthrough, 20, simFPCSPassthrough, simCostPassthrough);
                     sim.start();
                 }
             }

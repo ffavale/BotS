@@ -15,9 +15,8 @@ public class Individual {
     public final Gender sex;
     public final Alignment type;
     public boolean isAvailable = true;
-    private int age = 0;
+    private int age = 1;
     private double lifeChance = 1;
-    private double loopCost;
     private int expAge;
     private Logg log;
     private static final Random rng = new Random();
@@ -44,7 +43,6 @@ public class Individual {
         }
         this.log = i_log;
         this.expAge = expAge;
-        this.loopCost = -atan(this.age - expAge) + (Math.PI*0.5);
         Individual.entityCounter++;
     }
 
@@ -61,20 +59,19 @@ public class Individual {
     public void incrementAge()
     {
         this.age++;
-        // this.log.logMessage("The age of Individual-" + String.valueOf(this.id) + " has been incremented to " + String.valueOf(this.age), "Individual-" + String.valueOf(this.id));
+    }
+
+    private double loopCost()
+    {
+        return atan(this.age - this.expAge) + (Math.PI*0.5);
     }
 
     public boolean isDead ()
     {
-        if (this.lifeChance < (Individual.rng.nextDouble()))
-        {
-            return false;
-        }
-        else
-        {
-            this.lifeChance = this.lifeChance*(this.lifeChance - this.loopCost);
-            incrementAge();
-            return true;
-        }
+        boolean ret = (lifeChance < Individual.rng.nextDouble()); 
+        this.lifeChance = this.lifeChance*(this.lifeChance - this.loopCost());
+        incrementAge();
+        // if (ret) {this.log.logQuietMessage("Individual-" + String.valueOf(this.id) + " is dead at age " + String.valueOf(this.age));}
+        return ret;
     }
 }

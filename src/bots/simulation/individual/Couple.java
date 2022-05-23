@@ -16,8 +16,8 @@ public class Couple {
 
         this.father.isAvailable = false;
         this.mother.isAvailable = false;
-        this.log.logMessage("Individual-" + this.father.getId() + " and " +
-                "Individual-" + this.mother.getId() + " are now a couple");
+        // this.log.logMessage("Individual-" + this.father.getId() + " and " +
+        //         "Individual-" + this.mother.getId() + " are now a couple");
     }
 
     private void free()
