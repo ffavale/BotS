@@ -1,11 +1,20 @@
 
 def main():
+    simMinLoops = 1000
+    simMaxLoops = 100000
+    isUniversal = 0
 
     popIncrements = 2
     startingPopsMinVal = 10
     startingPopsMaxVal = 25
     startingPopsStep = (startingPopsMaxVal - startingPopsMinVal) / popIncrements
     startingPopsRange = [ int((i * startingPopsStep) + startingPopsMinVal) for i in range(popIncrements)]
+
+    avgAgeIncrements = 2
+    avgAgeMinVal = 10
+    avgAgeMaxVal = 25
+    avgAgeStep = (avgAgeMaxVal- avgAgeMinVal) / avgAgeIncrements
+    avgAgeRange = [ int((i * avgAgeStep) + avgAgeMinVal) for i in range(avgAgeIncrements)]
 
     MFRIncrements = 1
     startingMFRatioMinVal = 0.5
@@ -50,22 +59,27 @@ def main():
         cfgfile.write("<settings>\n")
 
         for i in range(popIncrements):
-            for j in range(MFRIncrements):
-                for k in range(FPRIncrements):
-                    for l in range(CSRIncrements):
-                        for m in range(aCostIncrements):
-                            for n in range(bBenefitIncrements):
-                                for o in range(cCostIncrements):
-                                    cfgfile.write("\t<simulation>\n")
-                                    cfgfile.write(f"\t\t<population>{startingPopsRange[i]}</population>\n")
-                                    cfgfile.write(f"\t\t<mfRatio>{startingMFRatioRange[j]}</mfRatio>\n")
-                                    cfgfile.write(f"\t\t<fpRatio>{startingFPRatioRange[k]}</fpRatio>\n")
-                                    cfgfile.write(f"\t\t<csRatio>{startingCSRatioRange[l]}</csRatio>\n")
-                                    cfgfile.write(f"\t\t<a>{startingACostRange[m]}</a>\n")
-                                    cfgfile.write(f"\t\t<b>{startingBBenefitRange[n]}</b>\n")
-                                    cfgfile.write(f"\t\t<c>{startingCCostRange[o]}</c>\n")
-                                    cfgfile.write("\t</simulation>\n")
-                                    simCount += 1
+            for p in range(avgAgeIncrements):
+                for j in range(MFRIncrements):
+                    for k in range(FPRIncrements):
+                        for l in range(CSRIncrements):
+                            for m in range(aCostIncrements):
+                                for n in range(bBenefitIncrements):
+                                    for o in range(cCostIncrements):
+                                        cfgfile.write("\t<simulation>\n")
+                                        cfgfile.write(f"\t\t<minSimLoops>{simMinLoops}</minSimLoops>\n")
+                                        cfgfile.write(f"\t\t<maxSimLoops>{simMaxLoops}</maxSimLoops>\n")
+                                        cfgfile.write(f"\t\t<averageAge>{avgAgeRange[p]}</averageAge>\n")
+                                        cfgfile.write(f"\t\t<population>{startingPopsRange[i]}</population>\n")
+                                        cfgfile.write(f"\t\t<mfRatio>{startingMFRatioRange[j]}</mfRatio>\n")
+                                        cfgfile.write(f"\t\t<fpRatio>{startingFPRatioRange[k]}</fpRatio>\n")
+                                        cfgfile.write(f"\t\t<csRatio>{startingCSRatioRange[l]}</csRatio>\n")
+                                        cfgfile.write(f"\t\t<a>{startingACostRange[m]}</a>\n")
+                                        cfgfile.write(f"\t\t<b>{startingBBenefitRange[n]}</b>\n")
+                                        cfgfile.write(f"\t\t<c>{startingCCostRange[o]}</c>\n")
+                                        cfgfile.write(f"\t\t<isUniversal>{isUniversal}</isUniversal>\n")
+                                        cfgfile.write("\t</simulation>\n")
+                                        simCount += 1
 
         cfgfile.write("</settings>\n")
 

@@ -13,6 +13,7 @@ public class Simulation extends Thread
     private final int maxLoopCount = 100;
 
     private int simID;
+    private boolean isUniversal;
     private Logg log;
     private ArrayList<Individual> populationArray;
 
@@ -31,7 +32,7 @@ public class Simulation extends Thread
 
     private ArrayList<Snapshot> snapshotArray = new ArrayList<Snapshot>();
 
-    public Simulation(int popNum, int avgAge, double[] fpcsRatios, int[] costs)
+    public Simulation(int popNum, int minSimLoops, int maxSimLoops, int avgAge, double[] fpcsRatios, int[] costs, boolean i_isUniversal)
     {
         // give simulation its Id
         this.simID = Simulation.simCounter;
@@ -146,7 +147,7 @@ public class Simulation extends Thread
         while (this.isStable())
         {
             // create this loop's event
-            Event loopEvent = new Event(this.simulationSteps, this.populationArray, this.log, true);
+            Event loopEvent = new Event(this.simulationSteps, this.populationArray, this.log, this.isUniversal);
             // get back a bunch of couples and make them reproduce (async?)
             ArrayList<Couple> loopCouples = loopEvent.createCouples();
             for (Couple coup : loopCouples)
