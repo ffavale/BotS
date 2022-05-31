@@ -90,33 +90,36 @@ public class Event
         {
             Individual individual = participants[this.rng.nextInt(this.participants.length)];
 
-            if (!individual.isAvailable)
-            {
-                continue;
-            }
-            switch (individual.sex)
-            {
-                case MALE:
+            if (individual.isAvailable) {
+                switch (individual.sex)
                 {
-                    for(int i = 0; i < this.femalePart.length; i++)
-                    {
-                        if (femalePart[i].isAvailable)
+                    case MALE: {
+                        for (int i = 0; i < this.femalePart.length; i++)
                         {
-                            this.couplesList.add(new Couple(individual, femalePart[i], this.log));
+                            if (femalePart[i].isAvailable)
+                            {
+                                if (individual.type != Individual.Alignment.PHILANDERER && femalePart[i].type != Individual.Alignment.COY)
+                                {
+                                    this.couplesList.add(new Couple(individual, femalePart[i], this.log));
+                                }
+                            }
                         }
+                        break;
                     }
-                    break;
-                }
-                case FEMALE:
-                {
-                    for(int i = 0; i < this.malePart.length; i++)
+                    case FEMALE:
                     {
-                        if (malePart[i].isAvailable)
+                        for (int i = 0; i < this.malePart.length; i++)
                         {
-                            this.couplesList.add(new Couple(malePart[i], individual, this.log));
+                            if (malePart[i].isAvailable)
+                            {
+                                if (individual.type != Individual.Alignment.COY && malePart[i].type != Individual.Alignment.PHILANDERER)
+                                {
+                                    this.couplesList.add(new Couple(malePart[i], individual, this.log));
+                                }
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
             }
         }
@@ -130,12 +133,13 @@ public class Event
 
         for (int i = 0; i < participants.length; i++)
         {
-            if (participants[i].sex == Individual.Gender.MALE)
-            {
-                tempMale.add(participants[i]);
-            } else
-            {
-                tempFemale.add(participants[i]);
+            switch (participants[i].sex) {
+                case MALE: {
+                    tempMale.add(participants[i]);
+                }
+                case FEMALE: {
+                    tempFemale.add(participants[i]);
+                }
             }
         }
 
