@@ -19,6 +19,7 @@ public class Individual {
     private double lifeChance = 1;
     private int expAge;
     private Logg log;
+    private int lockedFor;
     private static final Random rng = new Random();
 
     public Individual(int sex, int type, int expAge, Logg i_log)
@@ -52,6 +53,11 @@ public class Individual {
         this.log = i_log;
         this.expAge = expAge;
         Individual.entityCounter++;
+    }
+
+    public int getLockedFor()
+    {
+        return this.lockedFor;
     }
 
     public int getId()
