@@ -33,7 +33,27 @@ public class Couple {
         this.mother.isAvailable = true;
     }
 
-    public Individual procreation(int expAge)
+    private int applyParentCosts(int[] costs)
+    {
+        int flatLockRate = 100;
+        if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
+        {
+            this.father.lockFor((costs[1] / 2) + costs[2]);
+            this.mother.lockFor((costs[1] / 2) + costs[2]);
+            flatLockRate = flatLockRate - (2 * costs[2]);
+        } else if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.FAST)
+        {
+            this.father.lockFor(costs[1] / 2);
+            this.mother.lockFor(costs[1] / 2);
+            flatLockRate = flatLockRate - (costs[2]);
+        } else if (this.father.type == Individual.Alignment.PHILANDERER && this.mother.type == Individual.Alignment.FAST)
+        {
+            this.mother.lockFor(costs[1]);
+        }
+        return flatLockRate;
+    }
+
+    public Individual procreation(int expAge, int[] simCosts)
     /*
     Through this method a new individual can be generated with a 50%
     chance of either being male or female and an 85% chance of inheritance
@@ -41,6 +61,7 @@ public class Couple {
     individual that has to be generated
      */
     {
+        int evoBenefit = this.applyParentCosts(simCosts);
         Random rng = new Random();
         // 50% chance of gender
         if (rng.nextInt(100) > 49){
@@ -49,14 +70,18 @@ public class Couple {
                 //85% chance of inheritance of father's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(0, 0, expAge, this.log);
+
+
+                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    return child;
                 }
             }
             else {
                 //85% chance of inheritance of father's
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(0, 1, expAge, this.log);
+                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    return child;
                 }
             }
         }
@@ -66,17 +91,20 @@ public class Couple {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(1, 2, expAge, this.log);
+                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    return child;
                 }
             }
             else {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    return new Individual(1, 3, expAge, this.log);
+                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    return child;
                 }
             }
         }
-        return new Individual(1,2, expAge, this.log);
+        Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
+        return child;
     }
 }

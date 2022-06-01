@@ -101,7 +101,7 @@ public class Simulation extends Thread
         {
             for (int i = 0; i < Math.round(i_initPop * this.ratiosFPCS[j]); i++)
             {
-                res.add(new Individual(type[j][0], type[j][1], expAge, this.log));
+                res.add(new Individual(type[j][0], type[j][1], expAge, 0, this.log));
             }
         }
         return res;
@@ -152,7 +152,7 @@ public class Simulation extends Thread
             ArrayList<Couple> loopCouples = loopEvent.createCouples();
             for (Couple coup : loopCouples)
             {
-                Individual tempIndividual = coup.procreation(this.avgAge);
+                Individual tempIndividual = coup.procreation(this.avgAge, this.simulationCosts);
                 switch (tempIndividual.type)
                 {
                     case FAITHFUL:
@@ -195,6 +195,11 @@ public class Simulation extends Thread
             ArrayList<Individual> toRemove = new ArrayList<Individual>();
             for (Individual ind : this.populationArray)
             {
+                if (ind.getLockedFor() > 0)
+                {
+                    ind.lockFor(ind.getLockedFor() - 1);
+                }
+
                 if (ind.isDead())
                 {
                     toRemove.add(ind);

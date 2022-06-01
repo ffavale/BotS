@@ -22,7 +22,7 @@ public class Individual {
     private int lockedFor;
     private static final Random rng = new Random();
 
-    public Individual(int sex, int type, int expAge, Logg i_log)
+    public Individual(int sex, int type, int expAge, int i_reproductionWait, Logg i_log)
     /*
     Takes as input two integers, one representing the gender and the alignment
     male and female (0 and 1) and FPCS (0123), also takes in input the expected age
@@ -52,7 +52,13 @@ public class Individual {
         }
         this.log = i_log;
         this.expAge = expAge;
+        this.lockedFor = i_reproductionWait;
         Individual.entityCounter++;
+    }
+
+    public void lockFor(int cost)
+    {
+        this.lockedFor = this.lockedFor + cost;
     }
 
     public int getLockedFor()
@@ -87,7 +93,7 @@ public class Individual {
     and in the end it increases the age
      */
     {
-        boolean ret = (lifeChance < Individual.rng.nextDouble()); 
+        boolean ret = (lifeChance < Individual.rng.nextDouble());
         this.lifeChance = this.lifeChance*(this.lifeChance - this.loopCost());
         incrementAge();
         // if (ret) {this.log.logQuietMessage("Individual-" + String.valueOf(this.id) + " is dead at age " + String.valueOf(this.age));}
