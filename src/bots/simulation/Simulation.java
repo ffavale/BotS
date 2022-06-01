@@ -107,6 +107,7 @@ public class Simulation extends Thread
         return res;
     }
 
+    // TODO - Finish stability calculations
     private boolean popIsStable()
     {
         ArrayList<Snapshot> snapSample = Bmath.sampleGenerator(this.snapshotArray);
