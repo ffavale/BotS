@@ -21,7 +21,15 @@ public class Individual {
     private Logg log;
     private static final Random rng = new Random();
 
-    public Individual(int sex, int type, int expAge, Logg i_log){
+    public Individual(int sex, int type, int expAge, Logg i_log)
+    /*
+    Takes as input two integers, one representing the gender and the alignment
+    male and female (0 and 1) and FPCS (0123), also takes in input the expected age
+    of the individual that determines his survivability, and the log to report any event
+    there's also a unique ID for each individual, an age to determine how old he/she is
+    and a chance of surviving in each step of the simulation that can be increased or decreased
+     */
+    {
         this.id = Individual.entityCounter;
         if (sex == 0) {
             this.sex = Gender.MALE;
@@ -67,6 +75,11 @@ public class Individual {
     }
 
     public boolean isDead ()
+    /*
+    Checks if the individual dies by "throwing a dice" and seeing if it's higher
+    than his/her survival chance, if he/she survives then the chance of dying increases
+    and in the end it increases the age
+     */
     {
         boolean ret = (lifeChance < Individual.rng.nextDouble()); 
         this.lifeChance = this.lifeChance*(this.lifeChance - this.loopCost());

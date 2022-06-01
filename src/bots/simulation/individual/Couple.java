@@ -9,6 +9,10 @@ public class Couple {
     private Individual mother;
 
     public Couple(Individual Father, Individual Mother, Logg i_log)
+    /*
+    Takes as input two individuals covering the role as father and mother
+    also takes the log of the simulation to keep track of every movement
+     */
     {
         this.log = i_log;
         this.father = Father;
@@ -21,12 +25,22 @@ public class Couple {
     }
 
     private void free()
+    /*
+    Sets the status of the parents to Available
+     */
     {
         this.father.isAvailable = true;
         this.mother.isAvailable = true;
     }
 
-    public Individual procreation(int expAge){
+    public Individual procreation(int expAge)
+    /*
+    Through this method a new individual can be generated with a 50%
+    chance of either being male or female and an 85% chance of inheritance
+    of the parent's alignment, also takes in input the expected age for the new
+    individual that has to be generated
+     */
+    {
         Random rng = new Random();
         // 50% chance of gender
         if (rng.nextInt(100) > 49){

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Event
 {
-    // define the templates used to create events
+    // Defines the templates used to create events
     public static final EventTemplate[] eventTemplates = {
         new EventTemplate("Date", 2, 3, 100, 5000, 6000, 10000),
         new EventTemplate("Gathering", 3, 7, 100, 2500, 3000, 6000),
@@ -30,6 +30,11 @@ public class Event
     private Random rng = new Random();
 
     public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log)
+    /*
+    Generates an event that takes as input the population from which it will
+    choose its participants based on the template randomly choosen, its ID is
+    based on the simulation step
+     */
     {
         // set eventId and log
         this.eventId = i_iterationNumber;
@@ -57,6 +62,11 @@ public class Event
     }
 
     public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
+    /*
+    Generates an event that takes as input the population and considering this is
+    an universal type of event, it will take all the suitable individuals as partecipants
+    its ID is based on the simulation step
+     */
     {
         // set eventId and log
         this.eventId = i_iterationNumber;
@@ -85,6 +95,10 @@ public class Event
     }
 
     public ArrayList<Couple> createCouples()
+    /*
+    Selects a random individual n times and makes him/she check the partecipants
+    of opposite gender, if the individual matched is available, a couple is created
+     */
     {
         for (int h = 0; h < this.participants.length; h++)
         {
@@ -127,6 +141,9 @@ public class Event
     }
 
     private void splitPartByGender()
+    /*
+    Splits the participants by gender in two groups
+     */
     {
         ArrayList<Individual> tempMale = new ArrayList<Individual>();
         ArrayList<Individual> tempFemale = new ArrayList<Individual>();
@@ -156,6 +173,10 @@ public class Event
     }
 
     private ArrayList<Individual> createInvitationList(ArrayList<Individual> i_candidates)
+    /*
+    Given the population it checks if they satisfy the requirements to partecipate
+    at the event, if they are suitable a list of candidates is created
+     */
     {
         int satisfactoryCandidateCount = 0;
         ArrayList<Individual> invitationList = new ArrayList<Individual>();
@@ -181,6 +202,11 @@ public class Event
     }
 
     private Individual[] selectAttendees(ArrayList<Individual> i_candidates, Random i_rng)
+    /*
+    Selects the partecipants from the suitable candidates randomly
+    if there aren't enough candidates it will resize the event and
+    take all the suitable candidates
+     */
     {
         Individual[] attendeeArray = new Individual[this.participantCount];
 
