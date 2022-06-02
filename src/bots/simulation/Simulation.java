@@ -37,6 +37,7 @@ public class Simulation extends Thread
         // give simulation its Id
         this.simID = Simulation.simCounter;
         Simulation.simCounter++;
+        this.isUniversal = i_isUniversal;
         // assign population values
         this.ratiosFPCS[0] = fpcsRatios[0] * fpcsRatios[1];
         this.ratiosFPCS[1] = fpcsRatios[0] * (1 - fpcsRatios[1]);

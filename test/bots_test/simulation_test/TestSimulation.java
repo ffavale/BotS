@@ -17,7 +17,7 @@ public class TestSimulation {
         int[] costs = {10, 15, 3};
         Simulation uu = new Simulation(1000, 10, 50, 15, ratio, costs, true);
         Simulation nu = new Simulation(1000, 10, 50, 15, ratio, costs, false);
-        uu.start();
+        // uu.start();
         nu.start();
     }
 
