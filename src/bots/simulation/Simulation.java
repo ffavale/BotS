@@ -9,8 +9,8 @@ import logg.*;
 public class Simulation extends Thread
 {
     private static int simCounter = 0;
-    private final int minLoopCount = 30;
-    private final int maxLoopCount = 100;
+    private final int minLoopCount;
+    private final int maxLoopCount;
 
     private int simID;
     private boolean isUniversal;
@@ -38,6 +38,8 @@ public class Simulation extends Thread
         this.simID = Simulation.simCounter;
         Simulation.simCounter++;
         this.isUniversal = i_isUniversal;
+        this.minLoopCount = minSimLoops;
+        this.maxLoopCount = maxSimLoops;
         // assign population values
         this.ratiosFPCS[0] = fpcsRatios[0] * fpcsRatios[1];
         this.ratiosFPCS[1] = fpcsRatios[0] * (1 - fpcsRatios[1]);
