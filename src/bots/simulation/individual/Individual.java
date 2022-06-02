@@ -112,7 +112,7 @@ public class Individual {
 
     private double loopCost()
     {
-        return (atan(this.age - this.expAge) + (Math.PI*0.5)) * (1/Math.PI);
+        return (atan((this.age - this.expAge)) + (Math.PI*0.5)) * (1/Math.PI);
     }
 
     public boolean isDead ()
@@ -123,9 +123,10 @@ public class Individual {
      */
     {
         boolean ret = (lifeChance < Individual.rng.nextDouble());
-        this.lifeChance = this.lifeChance - (this.lifeChance * this.loopCost());
+        // this.lifeChance = this.lifeChance - (this.lifeChance * this.loopCost());
+        this.lifeChance = 1 - this.loopCost();
         incrementAge();
-        if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age), "Individual-" + String.valueOf(this.id));}
+        if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age) + " and a life chance of " + String.valueOf(this.lifeChance), "Individual-" + String.valueOf(this.id));}
         return ret;
     }
 }

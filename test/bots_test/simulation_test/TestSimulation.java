@@ -14,8 +14,8 @@ public class TestSimulation {
 
     public static void universalityTest() {
         double[] ratio = {0.5, 0.5, 0.5};
-        int[] costs = {10, 15, 3};
-        Simulation nu = new Simulation(1000, 30, 5000, 3500, ratio, costs, false);
+        int[] costs = {50, 5, 3};
+        Simulation nu = new Simulation(5000, 30, 100000, 5000, ratio, costs, false);
         nu.start();
     }
 
