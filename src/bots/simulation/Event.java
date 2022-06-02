@@ -155,9 +155,11 @@ public class Event
             switch (participants[i].sex) {
                 case MALE: {
                     tempMale.add(participants[i]);
+                    break;
                 }
                 case FEMALE: {
                     tempFemale.add(participants[i]);
+                    break;
                 }
             }
         }
