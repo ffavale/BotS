@@ -90,7 +90,12 @@ public class Individual {
 
     public void lock(int lockCount)
     {
-        this.lockedFor = lockCount;
+        if (lockCount < 0)
+        {
+            this.lockCount = 0;
+        } else {
+            this.lockedFor = lockCount;
+        }
     }
 
     public int getId()

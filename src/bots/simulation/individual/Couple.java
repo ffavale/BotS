@@ -41,12 +41,18 @@ public class Couple {
         int flatLockRate = 100;
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
+            // A - (B/2) - C --> -((A - (B/2) - C) - A) --> -(-(B/2) - C ) --> (B/2) + C
+            this.father.lock((costs[0]/2) + costs[1]);
+            this.mother.lock((costs[0]/2) + costs[1]);
         } else
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.FAST)
         {
+            this.father.lock(costs[0]/2);
+            this.mother.lock(costs[0]/2);
         } else
         if (this.father.type == Individual.Alignment.PHILANDERER && this.mother.type == Individual.Alignment.FAST)
         {
+            this.mother.lock(costs[0]);
         }
         return flatLockRate;
     }
