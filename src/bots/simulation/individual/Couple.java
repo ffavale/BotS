@@ -67,7 +67,7 @@ public class Couple {
         int evoBenefit = this.applyParentCosts(simCosts);
         Random rng = new Random();
         // 50% chance of gender
-        
+
         Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
 
         if (rng.nextInt(100) > 49){

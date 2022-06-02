@@ -95,7 +95,7 @@ public class Individual {
      */
     {
         boolean ret = (lifeChance < Individual.rng.nextDouble());
-        this.lifeChance = this.lifeChance*(1 - this.loopCost());
+        this.lifeChance = this.lifeChance - (this.lifeChance * this.loopCost());
         incrementAge();
         if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age), "Individual-" + String.valueOf(this.id));}
         return ret;

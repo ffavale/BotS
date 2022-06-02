@@ -150,7 +150,7 @@ public class Event
         ArrayList<Individual> tempMale = new ArrayList<Individual>();
         ArrayList<Individual> tempFemale = new ArrayList<Individual>();
 
-        for (int i = 0; i < participants.length; i++)
+        for (int i = 0; i < this.participants.length; i++)
         {
             switch (participants[i].sex) {
                 case MALE: {
