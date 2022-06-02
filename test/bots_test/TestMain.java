@@ -48,5 +48,7 @@ public class TestMain{
         System.out.println();
 
         TestEvent.testCoupleCreation();
+
+        TestSimulation.universalityTest();
     }
 }
