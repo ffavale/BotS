@@ -68,7 +68,7 @@ public class Couple {
         Random rng = new Random();
         // 50% chance of gender
         
-        Individual child;
+        Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
 
         if (rng.nextInt(100) > 49){
             // Male
@@ -76,13 +76,22 @@ public class Couple {
                 //85% chance of inheritance of father's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-
                     child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                }
+                else
+                {
+                    this.free();
+                    child = new Individual(0, 1, expAge, evoBenefit, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of father's
                 if (rng.nextInt(100) < 85){
+                    this.free();
+                    child = new Individual(0, 1, expAge, evoBenefit, this.log);
+                }
+                else
+                {
                     this.free();
                     child = new Individual(0, 0, expAge, evoBenefit, this.log);
                 }
@@ -94,18 +103,27 @@ public class Couple {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    child = new Individual(1, 2, expAge, evoBenefit, this.log);
+                }
+                else
+                {
+                    this.free();
+                    child = new Individual(1, 3, expAge, evoBenefit, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    child = new Individual(1, 3, expAge, evoBenefit, this.log);
+                }
+                else
+                {
+                    this.free();
+                    child = new Individual(1, 2, expAge, evoBenefit, this.log);
                 }
             }
         }
-        child = new Individual(0, 0, expAge, evoBenefit, this.log);
         this.log.logQuietMessage("A child has been born", "Couple-" + String.valueOf(this.id));
         return child;
     }
