@@ -20,6 +20,7 @@ public class Individual {
     private int expAge;
     private Logg log;
     private static final Random rng = new Random();
+    private int lockedFor = 0;
 
     public Individual(int sex, int type, int expAge, Logg i_log)
     /*
@@ -78,9 +79,18 @@ public class Individual {
         }
         this.log = i_log;
         this.expAge = expAge;
-        // this.lockedFor = i_reproductionWait;
         this.age = rng.nextInt(expAge);
         Individual.entityCounter++;
+    }
+
+    public boolean isLocked()
+    {
+        return (0 < this.lockedFor);
+    }
+
+    public void lock(int lockCount)
+    {
+        this.lockedFor = lockCount;
     }
 
     public int getId()
@@ -93,8 +103,9 @@ public class Individual {
         return this.age;
     }
 
-    public void incrementAge()
+    private void incrementAge()
     {
+        if (this.lockedFor > 0) {this.lockedFor--;}
         this.age++;
     }
 
