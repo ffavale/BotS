@@ -59,7 +59,7 @@ public class Individual {
     public void lockFor(int cost)
     {
         this.lockedFor = this.lockedFor + cost;
-        this.log.logQuietMessage("Individual busy for " + String.valueOf(this.lockedFor) + "iterations", "Individual-" + String.valueOf(this.id));
+        this.log.logQuietMessage("Individual busy for " + String.valueOf(this.lockedFor) + " iterations", "Individual-" + String.valueOf(this.id));
     }
 
     public int getLockedFor()
