@@ -4,6 +4,8 @@ import java.util.Random;
 import logg.*;
 
 public class Couple {
+    private static int coupleCounter = 0;
+    private int id;
     private Logg log;
     private Individual father;
     private Individual mother;
@@ -17,11 +19,12 @@ public class Couple {
         this.log = i_log;
         this.father = Father;
         this.mother = Mother;
+        this.id = Couple.coupleCounter; Couple.coupleCounter++;
 
         this.father.isAvailable = false;
         this.mother.isAvailable = false;
-        // this.log.logMessage("Individual-" + this.father.getId() + " and " +
-        //         "Individual-" + this.mother.getId() + " are now a couple");
+        this.log.logQuietMessage("Individual-" + this.father.getId() + " and " +
+                "Individual-" + this.mother.getId() + " are a couple", "Couple-" + String.valueOf(this.id));
     }
 
     private void free()
@@ -64,6 +67,9 @@ public class Couple {
         int evoBenefit = this.applyParentCosts(simCosts);
         Random rng = new Random();
         // 50% chance of gender
+        
+        Individual child;
+
         if (rng.nextInt(100) > 49){
             // Male
             if (this.father.type == Individual.Alignment.FAITHFUL) {
@@ -71,17 +77,14 @@ public class Couple {
                 if (rng.nextInt(100) < 85){
                     this.free();
 
-
-                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
-                    return child;
+                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of father's
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
-                    return child;
+                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
                 }
             }
         }
@@ -91,20 +94,19 @@ public class Couple {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
-                    return child;
+                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
-                    return child;
+                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
                 }
             }
         }
-        Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
+        child = new Individual(0, 0, expAge, evoBenefit, this.log);
+        this.log.logQuietMessage("A child has been born", "Couple-" + String.valueOf(this.id));
         return child;
     }
 }

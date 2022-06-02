@@ -59,6 +59,7 @@ public class Individual {
     public void lockFor(int cost)
     {
         this.lockedFor = this.lockedFor + cost;
+        this.log.logQuietMessage("Individual busy for " + String.valueOf(this.lockedFor) + "iterations", "Individual-" + String.valueOf(this.id));
     }
 
     public int getLockedFor()
@@ -96,7 +97,7 @@ public class Individual {
         boolean ret = (lifeChance < Individual.rng.nextDouble());
         this.lifeChance = this.lifeChance*(1 - this.loopCost());
         incrementAge();
-        // if (ret) {this.log.logQuietMessage("Individual-" + String.valueOf(this.id) + " is dead at age " + String.valueOf(this.age));}
+        if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age), "Individual-" + String.valueOf(this.id));}
         return ret;
     }
 }
