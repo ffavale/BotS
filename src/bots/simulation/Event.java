@@ -9,9 +9,9 @@ public class Event
     // Defines the templates used to create events
     public static final EventTemplate[] eventTemplates = {
         new EventTemplate("Date", 2, 3, 1, 2, 6000, 10000),
-        new EventTemplate("Gathering", 3, 7, 1, 2, 3000, 6000),
-        new EventTemplate("Party", 7, 70, 1, 2, 3000, 7000),
-        new EventTemplate("Convention", 70, 151, 1, 2, 7000, 12000)
+        new EventTemplate("Gathering", 3, 30, 1, 2, 3000, 6000),
+        new EventTemplate("Party",20, 300, 1, 2, 3000, 7000),
+        new EventTemplate("Convention", 270, 1200, 1, 2, 7000, 12000)
     };
 
     private long eventId;

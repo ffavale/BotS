@@ -102,7 +102,7 @@ public class Simulation extends Thread
         {
             for (int i = 0; i < Math.round(i_initPop * this.ratiosFPCS[j]); i++)
             {
-                res.add(new Individual(type[j][0], type[j][1], expAge, 0, this.log));
+                res.add(new Individual(type[j][0], type[j][1], expAge, 0, this.log, true));
             }
         }
         return res;

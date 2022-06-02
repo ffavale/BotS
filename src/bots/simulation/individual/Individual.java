@@ -56,6 +56,34 @@ public class Individual {
         Individual.entityCounter++;
     }
 
+
+    public Individual(int sex, int type, int expAge, int i_reproductionWait, Logg i_log, boolean i_randAge)
+    {
+        this.id = Individual.entityCounter;
+        if (sex == 0) {
+            this.sex = Gender.MALE;
+            if (type == 0) {
+                this.type = Alignment.FAITHFUL;
+            }
+            else{
+                this.type = Alignment.PHILANDERER;
+            }
+        }
+        else {
+            this.sex = Gender.FEMALE;
+            if (type == 2){
+                this.type = Alignment.COY;
+            }
+            else{
+                this.type = Alignment.FAST;
+            }
+        }
+        this.log = i_log;
+        this.expAge = expAge;
+        this.lockedFor = i_reproductionWait;
+        this.age = rng.nextInt(expAge);
+        Individual.entityCounter++;
+    }
     public void lockFor(int cost)
     {
         this.lockedFor = this.lockedFor + cost;
