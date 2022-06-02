@@ -19,10 +19,9 @@ public class Individual {
     private double lifeChance = 1;
     private int expAge;
     private Logg log;
-    private int lockedFor;
     private static final Random rng = new Random();
 
-    public Individual(int sex, int type, int expAge, int i_reproductionWait, Logg i_log)
+    public Individual(int sex, int type, int expAge, Logg i_log)
     /*
     Takes as input two integers, one representing the gender and the alignment
     male and female (0 and 1) and FPCS (0123), also takes in input the expected age
@@ -52,7 +51,6 @@ public class Individual {
         }
         this.log = i_log;
         this.expAge = expAge;
-        this.lockedFor = i_reproductionWait;
         Individual.entityCounter++;
     }
 
@@ -80,19 +78,9 @@ public class Individual {
         }
         this.log = i_log;
         this.expAge = expAge;
-        this.lockedFor = i_reproductionWait;
+        // this.lockedFor = i_reproductionWait;
         this.age = rng.nextInt(expAge);
         Individual.entityCounter++;
-    }
-    public void lockFor(int cost)
-    {
-        this.lockedFor = this.lockedFor + cost;
-        this.log.logQuietMessage("Individual busy for " + String.valueOf(this.lockedFor) + " iterations", "Individual-" + String.valueOf(this.id));
-    }
-
-    public int getLockedFor()
-    {
-        return this.lockedFor;
     }
 
     public int getId()
@@ -122,9 +110,9 @@ public class Individual {
     and in the end it increases the age
      */
     {
+        this.lifeChance = 1 - this.loopCost();
         boolean ret = (lifeChance < Individual.rng.nextDouble());
         // this.lifeChance = this.lifeChance - (this.lifeChance * this.loopCost());
-        this.lifeChance = 1 - this.loopCost();
         incrementAge();
         if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age) + " and a life chance of " + String.valueOf(this.lifeChance), "Individual-" + String.valueOf(this.id));}
         return ret;

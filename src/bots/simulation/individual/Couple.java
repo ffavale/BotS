@@ -41,17 +41,17 @@ public class Couple {
         int flatLockRate = 100;
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
-            this.father.lockFor((costs[1] / 2) + costs[2]);
-            this.mother.lockFor((costs[1] / 2) + costs[2]);
+            // this.father.lockFor((costs[1] / 2) + costs[2]);
+            // this.mother.lockFor((costs[1] / 2) + costs[2]);
             flatLockRate = flatLockRate - (2 * costs[2]);
         } else if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.FAST)
         {
-            this.father.lockFor(costs[1] / 2);
-            this.mother.lockFor(costs[1] / 2);
+            // this.father.lockFor(costs[1] / 2);
+            // this.mother.lockFor(costs[1] / 2);
             flatLockRate = flatLockRate - (costs[2]);
         } else if (this.father.type == Individual.Alignment.PHILANDERER && this.mother.type == Individual.Alignment.FAST)
         {
-            this.mother.lockFor(costs[1]);
+            // this.mother.lockFor(costs[1]);
         }
         return flatLockRate;
     }
@@ -68,7 +68,7 @@ public class Couple {
         Random rng = new Random();
         // 50% chance of gender
 
-        Individual child = new Individual(0, 0, expAge, evoBenefit, this.log);
+        Individual child = new Individual(0, 0, expAge, this.log);
 
         if (rng.nextInt(100) > 49){
             // Male
@@ -76,24 +76,24 @@ public class Couple {
                 //85% chance of inheritance of father's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    child = new Individual(0, 0, expAge, this.log);
                 }
                 else
                 {
                     this.free();
-                    child = new Individual(0, 1, expAge, evoBenefit, this.log);
+                    child = new Individual(0, 1, expAge, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of father's
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    child = new Individual(0, 1, expAge, evoBenefit, this.log);
+                    child = new Individual(0, 1, expAge, this.log);
                 }
                 else
                 {
                     this.free();
-                    child = new Individual(0, 0, expAge, evoBenefit, this.log);
+                    child = new Individual(0, 0, expAge, this.log);
                 }
             }
         }
@@ -103,24 +103,24 @@ public class Couple {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    child = new Individual(1, 2, expAge, evoBenefit, this.log);
+                    child = new Individual(1, 2, expAge, this.log);
                 }
                 else
                 {
                     this.free();
-                    child = new Individual(1, 3, expAge, evoBenefit, this.log);
+                    child = new Individual(1, 3, expAge, this.log);
                 }
             }
             else {
                 //85% chance of inheritance of mother's gene
                 if (rng.nextInt(100) < 85){
                     this.free();
-                    child = new Individual(1, 3, expAge, evoBenefit, this.log);
+                    child = new Individual(1, 3, expAge, this.log);
                 }
                 else
                 {
                     this.free();
-                    child = new Individual(1, 2, expAge, evoBenefit, this.log);
+                    child = new Individual(1, 2, expAge, this.log);
                 }
             }
         }

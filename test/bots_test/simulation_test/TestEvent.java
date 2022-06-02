@@ -14,8 +14,8 @@ public class TestEvent
 
         for (int i = 0; i < 100; i++)
         {
-            pop.add(new Individual(0, 1, 25, 12, log));
-            pop.add(new Individual(1, 3, 25, 12, log));
+            pop.add(new Individual(0, 1, 25, log));
+            pop.add(new Individual(1, 3, 25, log));
         }
 
         for (Individual ind : pop)
@@ -37,8 +37,8 @@ public class TestEvent
 
         for (int i = 0; i < 7; i++)
         {
-            pop.add(new Individual(0, 1, 25, 12, log));
-            pop.add(new Individual(1, 3, 25, 12, log));
+            pop.add(new Individual(0, 1, 25, log));
+            pop.add(new Individual(1, 3, 25, log));
         }
 
         for (Individual ind : pop)
@@ -61,8 +61,8 @@ public class TestEvent
 
         for (int i = 0; i < 7; i++)
         {
-            pop.add(new Individual(0, 1, 25, 12, log));
-            pop.add(new Individual(1, 3, 25, 12, log));
+            pop.add(new Individual(0, 1, 25, log));
+            pop.add(new Individual(1, 3, 25, log));
         }
 
         for (Individual ind : pop)

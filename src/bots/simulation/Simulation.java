@@ -206,11 +206,6 @@ public class Simulation extends Thread
             ArrayList<Individual> toRemove = new ArrayList<Individual>();
             for (Individual ind : this.populationArray)
             {
-                if (ind.getLockedFor() > 0)
-                {
-                    ind.lockFor(ind.getLockedFor() - 1);
-                }
-
                 if (ind.isDead())
                 {
                     toRemove.add(ind);
