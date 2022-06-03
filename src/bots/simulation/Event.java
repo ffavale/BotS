@@ -112,8 +112,11 @@ public class Event
                         {
                             if (femalePart[i].isAvailable)
                             {
-                                if (individual.type != Individual.Alignment.PHILANDERER && femalePart[i].type != Individual.Alignment.COY)
+                                if (individual.type == Individual.Alignment.PHILANDERER && femalePart[i].type == Individual.Alignment.COY)
                                 {
+                                    break;
+                                }
+                                else {
                                     this.couplesList.add(new Couple(individual, femalePart[i], this.log));
                                     break;
                                 }
@@ -127,8 +130,11 @@ public class Event
                         {
                             if (malePart[i].isAvailable)
                             {
-                                if (individual.type != Individual.Alignment.COY && malePart[i].type != Individual.Alignment.PHILANDERER)
+                                if (individual.type == Individual.Alignment.COY && malePart[i].type == Individual.Alignment.PHILANDERER)
                                 {
+                                    break;
+                                }
+                                else {
                                     this.couplesList.add(new Couple(malePart[i], individual, this.log));
                                     break;
                                 }
