@@ -39,21 +39,22 @@ public class Couple {
 
     private void applyParentCosts(int[] costs)
     {
-        int k = 8;
+        // int k = this.father.expAge/200;
+        int k = 10;
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
             // A - (B/2) - C --> -((A - (B/2) - C) - A) --> -(-(B/2) - C ) --> (B/2) + C
-            this.father.lock(k * ((costs[0]/2) + costs[1]));
-            this.mother.lock(k * ((costs[0]/2) + costs[1]));
+            this.father.lock(k * ((costs[1]/2) + costs[2]));
+            this.mother.lock(k * ((costs[1]/2) + costs[2]));
         } else
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.FAST)
         {
-            this.father.lock(k * (costs[0]/2));
-            this.mother.lock(k * (costs[0]/2));
+            this.father.lock(k * (costs[1]/2));
+            this.mother.lock(k * (costs[1]/2));
         } else
         if (this.father.type == Individual.Alignment.PHILANDERER && this.mother.type == Individual.Alignment.FAST)
         {
-            this.mother.lock(k * costs[0]);
+            this.mother.lock(k * costs[1]);
         }
     }
 

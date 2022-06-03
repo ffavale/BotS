@@ -110,32 +110,59 @@ public class Simulation extends Thread
         return res;
     }
 
-    // TODO - Finish stability calculations
-    private boolean popIsStable()
+    // double satisfactoryCount = 0;
+    //
+    // for (int i = 1; i < snapSample.size(); i++)
+    // {
+    //     double ratio = (double) snapSample.get(i).populationCount/snapSample.get(i-1).populationCount;
+    //     double diff = 0.2;
+    //     if (snapSample.get(i-1).populationCount * (1-diff) <= ratio && ratio <= snapSample.get(i-1).populationCount * (1+diff))
+    //     {
+    //         satisfactoryCount++;
+    //     }
+    // }
+    //
+    // boolean ret = (satisfactoryCount/snapSample.size()> 0.8);
+    // if (ret) {this.log.logQuietMessage("Simulation population is stable");}
+    // return ret;
+
+    private boolean popIsStable(ArrayList<Snapshot> snapSample)
     {
-        ArrayList<Snapshot> snapSample = Bmath.sampleGenerator(this.snapshotArray);
-        double satisfactoryCount = 0;
+        // if (ret) {this.log.logQuietMessage("Simulation population is stable");}
+        return true;
+    }
 
-        for (int i = 1; i < snapSample.size(); i++)
-        {
-            if ((double) snapSample.get(i).populationCount/snapSample.get(i-1).populationCount < Math.pow(2.0, (double) snapSample.get(i).steps))
-            {
-                satisfactoryCount++;
-            }
-        }
+    private boolean fIsStable(ArrayList<Snapshot> snapSample)
+    {
+        return true;
+    }
 
-        return (satisfactoryCount/snapSample.size() > 0.8);
+    private boolean pIsStable(ArrayList<Snapshot> snapSample)
+    {
+        return true;
+    }
+
+    private boolean cIsStable(ArrayList<Snapshot> snapSample)
+    {
+        return true;
+    }
+
+    private boolean sIsStable(ArrayList<Snapshot> snapSample)
+    {
+        return true;
     }
 
     private boolean isStable()
     {
+        ArrayList<Snapshot> snapSample = Bmath.sampleGenerator(this.snapshotArray);
+
         if (this.simulationSteps < this.minLoopCount ||
-                (this.simulationSteps < this.maxLoopCount &&
-                this.popIsStable()))// &&
-                // this.fIsStable() &&
-                // this.pIsStable() &&
-                // this.cIsStable() &&
-                // this.sIsStable())
+                (this.simulationSteps < this.maxLoopCount) &&
+                this.popIsStable(snapSample) &&
+                this.fIsStable(snapSample) &&
+                this.pIsStable(snapSample) &&
+                this.cIsStable(snapSample) &&
+                this.sIsStable(snapSample))
         {
             return true;
         }

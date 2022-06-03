@@ -16,8 +16,7 @@ public class Individual {
     public final Alignment type;
     public boolean isAvailable = true;
     private int age = 1;
-    private double lifeChance = 1;
-    private int expAge;
+    public final int expAge;
     private Logg log;
     private static final Random rng = new Random();
     private int lockedFor = 0;
@@ -114,11 +113,6 @@ public class Individual {
         this.age++;
     }
 
-    private double loopCost()
-    {
-        return (atan((this.age - this.expAge)) + (Math.PI*0.5)) * (1/Math.PI);
-    }
-
     public boolean isDead ()
     /*
     Checks if the individual dies by "throwing a dice" and seeing if it's higher
@@ -126,11 +120,10 @@ public class Individual {
     and in the end it increases the age
      */
     {
-        this.lifeChance = 1 - this.loopCost();
-        boolean ret = (lifeChance < Individual.rng.nextDouble());
-        // this.lifeChance = this.lifeChance - (this.lifeChance * this.loopCost());
+        double deathChance = (atan((this.age - this.expAge)) + (Math.PI*0.5)) * (1/(1 * Math.PI));
+        boolean ret = (deathChance > Individual.rng.nextDouble());
         incrementAge();
-        if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age) + " and a life chance of " + String.valueOf(this.lifeChance), "Individual-" + String.valueOf(this.id));}
+        if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age) + " and a death chance of " + String.valueOf(deathChance), "Individual-" + String.valueOf(this.id));}
         return ret;
     }
 }
