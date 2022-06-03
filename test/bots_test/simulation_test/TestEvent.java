@@ -21,7 +21,9 @@ public class TestEvent
         for (Individual ind : pop)
         {
             for (int i = 0; i < 3500; i++)
-                ind.incrementAge();
+            {
+                // ind.incrementAge();
+            }
         }
 
         Event event1 = new Event(69420, pop, log);
@@ -44,7 +46,9 @@ public class TestEvent
         for (Individual ind : pop)
         {
             for (int i = 0; i < 3500; i++)
-                ind.incrementAge();
+            {
+                // ind.incrementAge();
+            }
         }
 
         Event event1 = new Event(8008135, pop, log, true);
@@ -68,7 +72,9 @@ public class TestEvent
         for (Individual ind : pop)
         {
             for (int i = 0; i < 3500; i++)
-                ind.incrementAge();
+            {
+                // ind.incrementAge();
+            }
         }
 
         Event event1 = new Event(42, pop, log, true);

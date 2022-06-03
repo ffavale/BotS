@@ -48,7 +48,7 @@ public class Main
                     int maxSimLoops = 0;
                     int avgAge = 0;
                     double[] simFPCSPassthrough = new double[3];
-                    int[] simCostPassthrough = new int[3];
+                    int[] simCostPassthrough = new int[2];
                     u universality = u.YES;
 
                     for (int j = 0; j < simDetailsNodeList.getLength(); j++)
@@ -95,19 +95,14 @@ public class Main
                                         simFPCSPassthrough[2] = Double.valueOf(simDetailElement.getTextContent());
                                         break;
                                     }
-                                case "a":
+                                case "b":
                                     {
                                         simCostPassthrough[0] = Integer.valueOf(simDetailElement.getTextContent());
                                         break;
                                     }
-                                case "b":
-                                    {
-                                        simCostPassthrough[1] = Integer.valueOf(simDetailElement.getTextContent());
-                                        break;
-                                    }
                                 case "c":
                                     {
-                                        simCostPassthrough[2] = Integer.valueOf(simDetailElement.getTextContent());
+                                        simCostPassthrough[1] = Integer.valueOf(simDetailElement.getTextContent());
                                         break;
                                     }
                                 case "isUniversal":

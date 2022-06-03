@@ -36,25 +36,24 @@ public class Couple {
         this.mother.isAvailable = true;
     }
 
-    private int applyParentCosts(int[] costs)
+    private void applyParentCosts(int[] costs)
     {
-        int flatLockRate = 100;
+        int k = 4;
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
             // A - (B/2) - C --> -((A - (B/2) - C) - A) --> -(-(B/2) - C ) --> (B/2) + C
-            this.father.lock((costs[0]/2) + costs[1]);
-            this.mother.lock((costs[0]/2) + costs[1]);
+            this.father.lock(k * ((costs[0]/2) + costs[1]));
+            this.mother.lock(k * ((costs[0]/2) + costs[1]));
         } else
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.FAST)
         {
-            this.father.lock(costs[0]/2);
-            this.mother.lock(costs[0]/2);
+            this.father.lock(k * (costs[0]/2));
+            this.mother.lock(k * (costs[0]/2));
         } else
         if (this.father.type == Individual.Alignment.PHILANDERER && this.mother.type == Individual.Alignment.FAST)
         {
-            this.mother.lock(costs[0]);
+            this.mother.lock(k * costs[0]);
         }
-        return flatLockRate;
     }
 
     public Individual procreation(int expAge, int[] simCosts)
@@ -65,11 +64,66 @@ public class Couple {
     individual that has to be generated
      */
     {
-        int evoBenefit = this.applyParentCosts(simCosts);
+        this.applyParentCosts(simCosts);
         Random rng = new Random();
         // 50% chance of gender
 
         Individual child = new Individual(0, 0, expAge, this.log);
+
+        // if (rng.nextInt(100) > 49){
+        //     // Male
+        //     if (this.father.type == Individual.Alignment.FAITHFUL) {
+        //         //85% chance of inheritance of father's gene
+        //         if (rng.nextInt(100) < 85){
+        //             this.free();
+        //             child = new Individual(0, 0, expAge, this.log);
+        //         }
+        //         else
+        //         {
+        //             this.free();
+        //             child = new Individual(0, 1, expAge, this.log);
+        //         }
+        //     }
+        //     else {
+        //         //85% chance of inheritance of father's
+        //         if (rng.nextInt(100) < 85){
+        //             this.free();
+        //             child = new Individual(0, 1, expAge, this.log);
+        //         }
+        //         else
+        //         {
+        //             this.free();
+        //             child = new Individual(0, 0, expAge, this.log);
+        //         }
+        //     }
+        // }
+        // else{
+        //     //Female
+        //     if (this.mother.type == Individual.Alignment.COY) {
+        //         //85% chance of inheritance of mother's gene
+        //         if (rng.nextInt(100) < 85){
+        //             this.free();
+        //             child = new Individual(1, 2, expAge, this.log);
+        //         }
+        //         else
+        //         {
+        //             this.free();
+        //             child = new Individual(1, 3, expAge, this.log);
+        //         }
+        //     }
+        //     else {
+        //         //85% chance of inheritance of mother's gene
+        //         if (rng.nextInt(100) < 85){
+        //             this.free();
+        //             child = new Individual(1, 3, expAge, this.log);
+        //         }
+        //         else
+        //         {
+        //             this.free();
+        //             child = new Individual(1, 2, expAge, this.log);
+        //         }
+        //     }
+        // }
 
         int selector = rng.nextInt(100);
 

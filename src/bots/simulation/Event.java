@@ -188,7 +188,7 @@ public class Event
         // find all suitable candidates and add them to the invitation list
         for (Individual ind : i_candidates)
         {
-            if (this.minAge <= ind.getAge() && ind.getAge() <= this.maxAge)
+            if (this.minAge <= ind.getAge() && ind.getAge() <= this.maxAge && !ind.isLocked())
             {
                 satisfactoryCandidateCount++;
                 invitationList.add(ind);

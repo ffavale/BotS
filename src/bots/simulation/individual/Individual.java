@@ -92,7 +92,7 @@ public class Individual {
     {
         if (lockCount < 0)
         {
-            this.lockCount = 0;
+            this.lockedFor = 0;
         } else {
             this.lockedFor = lockCount;
         }
