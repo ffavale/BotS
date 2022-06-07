@@ -39,8 +39,9 @@ public class Couple {
 
     private void applyParentCosts(int[] costs)
     {
-        // int k = this.father.expAge/200;
-        int k = 10;
+        // int k = (int) Math.round(((this.father.expAge+this.mother.expAge)/4.0)/20.0);
+        // this.log.logMessage(String.valueOf(k));
+        int k = (int) Math.round(((this.father.getExpAge()+this.mother.getExpAge())/4.0)/20.0);
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
             // A - (B/2) - C --> -((A - (B/2) - C) - A) --> -(-(B/2) - C ) --> (B/2) + C
@@ -140,12 +141,14 @@ public class Couple {
 
         float selector = rng.nextFloat();
         float typeSelector = rng.nextFloat();
+        // TODO - set this as an input parameter to the sim (1-(a/100))
+        float pInheritance = 0.9f;
 
         if (0 <= selector && selector < 0.50)
         {
             if (this.father.type == Individual.Alignment.FAITHFUL)
             {
-                if (typeSelector < 0.80)
+                if (typeSelector < pInheritance)
                 {
                     child = new Individual(0, 0, expAge, this.log);
                 }
@@ -156,7 +159,7 @@ public class Couple {
             }
             else
             {
-                if (typeSelector < 0.80)
+                if (typeSelector < pInheritance)
                 {
                     child = new Individual(0, 1, expAge, this.log);
                 }
@@ -170,7 +173,7 @@ public class Couple {
         {
             if (this.mother.type == Individual.Alignment.COY)
             {
-                if (typeSelector < 0.80)
+                if (typeSelector < pInheritance)
                 {
                     child = new Individual(1, 2, expAge, this.log);
                 }
@@ -181,7 +184,7 @@ public class Couple {
             }
             else
             {
-                if (typeSelector < 0.80)
+                if (typeSelector < pInheritance)
                 {
                     child = new Individual(1, 3, expAge, this.log);
                 }

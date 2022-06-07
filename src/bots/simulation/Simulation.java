@@ -24,7 +24,6 @@ public class Simulation extends Thread
 
     private int avgAge;
 
-
     private double[] ratiosFPCS = new double[4];
     private int[] simulationCosts;
 
@@ -217,6 +216,7 @@ public class Simulation extends Thread
                 }
                 populationArray.add(tempIndividual);
             }
+
             // save snapshot of the simulation
             snapshotArray.add(new Snapshot(
                         this.simulationSteps,
