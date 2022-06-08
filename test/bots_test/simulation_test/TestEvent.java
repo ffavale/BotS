@@ -26,7 +26,7 @@ public class TestEvent
             }
         }
 
-        Event event1 = new Event(69420, pop, log);
+        Event event1 = new Event(69420, pop, 1234, log);
 
         System.out.println("");
         System.out.println("");

@@ -8,17 +8,17 @@ public class Event
 {
     // Defines the templates used to create events
     public static final EventTemplate[] eventTemplates = {
-        new EventTemplate("Date", 2, 3, 1, 2, 6000, 10000),
-        new EventTemplate("Gathering", 3, 30, 1, 2, 3000, 6000),
-        new EventTemplate("Party",20, 300, 1, 2, 3000, 7000),
-        new EventTemplate("Convention", 270, 1200, 1, 2, 7000, 12000)
+        new EventTemplate("Date", 2, 3, 0.15f, 0.20f, 0.15f, 0.55f),
+        new EventTemplate("Gathering", 3, 30, 0.05f, 0.5f, 0.20f, 0.85f),
+        new EventTemplate("Party",20, 300, 0.10f, 0.30f, 0.40f, 0.85f),
+        new EventTemplate("Convention", 270, 1200, 0.20f, 0.30f, 0.75f, 0.90f)
     };
 
     private long eventId;
     private String eventTypeName;
     public int participantCount;
-    public int minAge;
-    public int maxAge;
+    public int minAge = 0;
+    public int maxAge = 0;
 
     private Individual[] participants;
     private Individual[] malePart;
@@ -27,9 +27,9 @@ public class Event
     private ArrayList<Couple> couplesList= new ArrayList<Couple>();
 
     private Logg log;
-    private Random rng = new Random();
+    private static Random rng = new Random();
 
-    public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log)
+    public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, int i_simAvgAge, Logg i_log)
     /*
     Generates an event that takes as input the population from which it will
     choose its participants based on the template randomly choosen, its ID is
@@ -41,12 +41,15 @@ public class Event
         this.log = i_log;
 
         // define the type of event this is
-        EventTemplate thisEvent = Event.eventTemplates[this.rng.nextInt(Event.eventTemplates.length)];
+        EventTemplate thisEvent = Event.eventTemplates[Event.rng.nextInt(Event.eventTemplates.length)];
 
         // decide what its specific charachteristics are
-        this.participantCount = this.rng.nextInt(thisEvent.maxAttendees - thisEvent.minAttendees) + thisEvent.minAttendees;
-        this.minAge = this.rng.nextInt(thisEvent.maxMinAge - thisEvent.minMinAge) + thisEvent.minMinAge;
-        this.maxAge = this.rng.nextInt(thisEvent.maxMaxAge - thisEvent.minMaxAge) + thisEvent.minMaxAge;
+        this.participantCount = Event.rng.nextInt(thisEvent.maxAttendees - thisEvent.minAttendees) + thisEvent.minAttendees;
+        while (this.minAge >= this.maxAge)
+        {
+            this.minAge = Event.randomAgePicker(thisEvent.minMinAge, thisEvent.maxMinAge, i_simAvgAge);
+            this.maxAge = Event.randomAgePicker(thisEvent.minMaxAge, thisEvent.maxMaxAge, i_simAvgAge);
+        }
         this.eventTypeName = thisEvent.eventTypeName;
 
         this.log.logQuietMessage(
@@ -56,9 +59,14 @@ public class Event
                 " between the ages of " + this.minAge + " and " + this.maxAge); //, "Event-" + String.valueOf(this.eventId));
 
         // populate the event
-        this.participants = this.selectAttendees(createInvitationList(i_candidates), this.rng);
+        this.participants = this.selectAttendees(createInvitationList(i_candidates), Event.rng);
 
         splitPartByGender();
+    }
+
+    private static int randomAgePicker(float i_minAgeCoeff, float i_maxAgeCoeff, int i_ageRef)
+    {
+        return Event.rng.nextInt((int) ((i_ageRef) * (i_maxAgeCoeff - i_minAgeCoeff))) + (int) (i_minAgeCoeff * i_ageRef);
     }
 
     public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
@@ -102,7 +110,7 @@ public class Event
     {
         for (int h = 0; h < this.participants.length; h++)
         {
-            Individual individual = participants[this.rng.nextInt(this.participants.length)];
+            Individual individual = participants[Event.rng.nextInt(this.participants.length)];
 
             if (individual.isAvailable) {
                 switch (individual.sex)
@@ -239,12 +247,12 @@ class EventTemplate
     public String eventTypeName;
     public int minAttendees;
     public int maxAttendees;
-    public int minMinAge;
-    public int maxMinAge;
-    public int minMaxAge;
-    public int maxMaxAge;
+    public float minMinAge;
+    public float maxMinAge;
+    public float minMaxAge;
+    public float maxMaxAge;
 
-    public EventTemplate(String i_eventTypeName, int i_minAttendees, int i_maxAttendees, int i_minMinAge, int i_maxMinAge, int i_minMaxAge, int i_maxMaxAge)
+    public EventTemplate(String i_eventTypeName, int i_minAttendees, int i_maxAttendees, float i_minMinAge, float i_maxMinAge, float i_minMaxAge, float i_maxMaxAge)
     {
         this.eventTypeName = i_eventTypeName;
         this.minAttendees = i_minAttendees;

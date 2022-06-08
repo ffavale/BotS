@@ -183,7 +183,7 @@ public class Simulation extends Thread
                 loopEvent = new Event(this.simulationSteps, this.populationArray, this.log, this.isUniversal);
             } else
             {
-                loopEvent = new Event(this.simulationSteps, this.populationArray, this.log);
+                loopEvent = new Event(this.simulationSteps, this.populationArray, this.avgAge, this.log);
             }
             // get back a bunch of couples and make them reproduce (async?)
             ArrayList<Couple> loopCouples = loopEvent.createCouples();
