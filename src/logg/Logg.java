@@ -6,8 +6,11 @@ import java.time.format.*;
 
 public class Logg{
 
+    private static final int writeBufferSize = 10000;
     private String targetLogFileName;
     private String callerId;
+    private int bufferPtr = 0;
+    private String[] writeBuffer = new String[writeBufferSize];
 
     public Logg(String i_targetLogFileName, String i_callerId)
     {
@@ -19,6 +22,45 @@ public class Logg{
         String formattedDateTime = dateTime.format(dateTimeFormat);
         this.targetLogFileName = i_targetLogFileName + "-" + formattedDateTime + ".log";
     }
+
+    public void finalize()
+    {
+        this.forceFlush();
+    }
+
+    private void forceFlush()
+    {
+        String[] smallBuffer = new String[bufferPtr];
+        for (int i = 0; i < bufferPtr; i++)
+        {
+            smallBuffer[i] = this.writeBuffer[i];
+        }
+        this.writeBuffer = smallBuffer;
+        this.flush();
+        this.writeBuffer = new String[writeBufferSize];
+    }
+
+    private void flush()
+    {
+        String messageBundle = "";
+        for (int i = 0; i < this.bufferPtr; i++)
+        {
+            messageBundle = messageBundle + writeBuffer[i] + "\n"; 
+        }
+        // detatch thread to write message into file
+        AsyncWriter writer = new AsyncWriter(messageBundle, this.targetLogFileName);
+        writer.start();
+        this.bufferPtr = 0;
+    }
+
+    private void flushIfFull()
+    {
+        if (this.bufferPtr == this.writeBuffer.length)
+        {
+            this.flush();
+        }
+    }
+
 
     public void logMessage(String i_message, String i_callerId)
     {
@@ -49,9 +91,11 @@ public class Logg{
         // compile message
         String message = "[" + formattedDateTime.toString() + "](" + callerId + ") " + i_message;
         System.out.println(message);
-        // detatch thread to write message into file
-        AsyncWriter writer = new AsyncWriter(message, this.targetLogFileName);
-        writer.start();
+
+        this.writeBuffer[bufferPtr] = message;
+        bufferPtr++;
+
+        this.flushIfFull();
     }
 
     public void logQuietMessage(String i_message)
@@ -62,9 +106,11 @@ public class Logg{
         String formattedDateTime = dateTime.format(dateTimeFormat);
         // compile message
         String message = "[" + formattedDateTime.toString() + "](" + callerId + ") " + i_message;
-        // detatch thread to write message into file
-        AsyncWriter writer = new AsyncWriter(message, this.targetLogFileName);
-        writer.start();
+
+        this.writeBuffer[bufferPtr] = message;
+        bufferPtr++;
+
+        this.flushIfFull();
     }
 }
 
@@ -81,6 +127,7 @@ class AsyncWriter extends Thread
         this.targetLogFileName = i_targetLogFileName;
     }
 
+
     @Override
     public void run()
     {
@@ -96,7 +143,7 @@ class AsyncWriter extends Thread
             AsyncWriter.logWrites++;
             FileWriter writer = new FileWriter(this.targetLogFileName, true);
 
-            writer.write(printString + "\n");
+            writer.write(printString);
             writer.close();
             AsyncWriter.logWrites--;
 
