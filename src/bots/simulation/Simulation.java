@@ -153,6 +153,7 @@ public class Simulation extends Thread
 
     private boolean isStable()
     {
+        // TODO - Finish implementing stability
         ArrayList<Snapshot> snapSample = Bmath.sampleGenerator(this.snapshotArray);
 
         if (this.simulationSteps < this.minLoopCount ||

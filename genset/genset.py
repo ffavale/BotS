@@ -1,18 +1,17 @@
-
 def main():
     simMinLoops = 1000
     simMaxLoops = 100000
     isUniversal = 0
 
-    popIncrements = 2
-    startingPopsMinVal = 10
-    startingPopsMaxVal = 25
+    popIncrements = 5
+    startingPopsMinVal = 5000
+    startingPopsMaxVal = 10000
     startingPopsStep = (startingPopsMaxVal - startingPopsMinVal) / popIncrements
     startingPopsRange = [ int((i * startingPopsStep) + startingPopsMinVal) for i in range(popIncrements)]
 
-    avgAgeIncrements = 2
-    avgAgeMinVal = 10
-    avgAgeMaxVal = 25
+    avgAgeIncrements = 10
+    avgAgeMinVal = 400
+    avgAgeMaxVal = 1000
     avgAgeStep = (avgAgeMaxVal- avgAgeMinVal) / avgAgeIncrements
     avgAgeRange = [ int((i * avgAgeStep) + avgAgeMinVal) for i in range(avgAgeIncrements)]
 

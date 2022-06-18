@@ -11,6 +11,7 @@ public class Logg{
 
     public Logg(String i_targetLogFileName, String i_callerId)
     {
+        // TODO - Implement a buffered writing system to avoid waiting for disk
         this.callerId = i_callerId;
         this.targetLogFileName = i_targetLogFileName + ".log";
         LocalDateTime dateTime = LocalDateTime.now();
