@@ -47,8 +47,8 @@ public class Event
         this.participantCount = Event.rng.nextInt(thisEvent.maxAttendees - thisEvent.minAttendees) + thisEvent.minAttendees;
         while (this.minAge >= this.maxAge)
         {
-            this.minAge = Event.randomAgePicker(thisEvent.minMinAge, thisEvent.maxMinAge, i_simAvgAge, this.log);
-            this.maxAge = Event.randomAgePicker(thisEvent.minMaxAge, thisEvent.maxMaxAge, i_simAvgAge, this.log);
+            this.minAge = Event.randomAgePicker(thisEvent.minMinAge, thisEvent.maxMinAge, i_simAvgAge); //, this.log);
+            this.maxAge = Event.randomAgePicker(thisEvent.minMaxAge, thisEvent.maxMaxAge, i_simAvgAge); //, this.log);
         }
         this.eventTypeName = thisEvent.eventTypeName;
 
@@ -64,18 +64,19 @@ public class Event
         splitPartByGender();
     }
 
-    private static int randomAgePicker(float i_minAgeCoeff, float i_maxAgeCoeff, int i_ageRef, Logg i_log)
+    private static int randomAgePicker(float i_minAgeCoeff, float i_maxAgeCoeff, int i_ageRef) //, Logg i_log)
     {
-        float age_coeff_range = i_maxAgeCoeff - i_minAgeCoeff;
-        float age_range_f = i_ageRef * age_coeff_range; int age_range = (int) age_range_f;
-        float age_offset_f = i_maxAgeCoeff * i_ageRef; int age_offset = (int) age_offset_f;
-        i_log.logQuietMessage("Event ranges and coefficients:\n" +
-                "min|max age coeff: " + String.valueOf(i_minAgeCoeff) + "|" + String.valueOf(i_maxAgeCoeff) + "\n" +
-                "age_ref: " + String.valueOf(i_ageRef) + "\n" +
-                "age_coeff_range: " + String.valueOf(age_coeff_range) + "\n" +
-                "age_range (f|i): " + String.valueOf(age_range_f) + "|" + String.valueOf(age_range) + "\n" +
-                "age_offset (f|i): " + String.valueOf(age_offset_f) + "|" + String.valueOf(age_offset));
-        return Event.rng.nextInt(age_range) + age_offset;
+        // float age_coeff_range = i_maxAgeCoeff - i_minAgeCoeff;
+        // float age_range_f = i_ageRef * age_coeff_range; int age_range = (int) age_range_f;
+        // float age_offset_f = i_maxAgeCoeff * i_ageRef; int age_offset = (int) age_offset_f;
+        // i_log.logQuietMessage("Event ranges and coefficients:\n" +
+        //         "min|max age coeff: " + String.valueOf(i_minAgeCoeff) + "|" + String.valueOf(i_maxAgeCoeff) + "\n" +
+        //         "age_ref: " + String.valueOf(i_ageRef) + "\n" +
+        //         "age_coeff_range: " + String.valueOf(age_coeff_range) + "\n" +
+        //         "age_range (f|i): " + String.valueOf(age_range_f) + "|" + String.valueOf(age_range) + "\n" +
+        //         "age_offset (f|i): " + String.valueOf(age_offset_f) + "|" + String.valueOf(age_offset));
+        // return Event.rng.nextInt(age_range) + age_offset;
+        return Event.rng.nextInt((int) (i_ageRef * (i_maxAgeCoeff - i_minAgeCoeff))) + (int) (i_minAgeCoeff * i_ageRef);
     }
 
     public Event(long i_iterationNumber, ArrayList<Individual> i_candidates, Logg i_log, boolean i_isUniversal)
