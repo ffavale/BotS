@@ -126,7 +126,7 @@ public class Individual {
     and in the end it increases the age
      */
     {
-        double deathChance = (atan((this.age - this.expAge)) + (Math.PI*0.5)) * (1/(3 * Math.PI));
+        double deathChance = (atan((this.age - this.expAge)) + (Math.PI*0.5)) * (1/(Math.PI));
         boolean ret = (deathChance > Individual.rng.nextDouble());
         incrementAge();
         if (ret) {this.log.logQuietMessage("Individual is dead at age " + String.valueOf(this.age) + " and a death chance of " + String.valueOf(deathChance), "Individual-" + String.valueOf(this.id));}

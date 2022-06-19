@@ -190,32 +190,35 @@ public class Simulation extends Thread
             ArrayList<Couple> loopCouples = loopEvent.createCouples();
             for (Couple coup : loopCouples)
             {
-                Individual tempIndividual = coup.procreation(this.avgAge, this.simulationCosts);
-                switch (tempIndividual.type)
+                // Individual tempIndividual = coup.procreation(this.avgAge, this.simulationCosts);
+                for (Individual tempIndividual : coup.getChildren(this.avgAge, 0.95f, this.simulationCosts))
                 {
-                    case FAITHFUL:
-                        {
-                            countF++;
-                            break;
-                        }
-                    case PHILANDERER:
-                        {
-                            countP++;
-                            break;
-                        }
-                    case COY:
-                        {
-                            countC++;
-                            break;
-                        }
-                    case FAST:
-                        {
-                            countS++;
-                            break;
-                        }
+                    switch (tempIndividual.type)
+                    {
+                        case FAITHFUL:
+                            {
+                                countF++;
+                                break;
+                            }
+                        case PHILANDERER:
+                            {
+                                countP++;
+                                break;
+                            }
+                        case COY:
+                            {
+                                countC++;
+                                break;
+                            }
+                        case FAST:
+                            {
+                                countS++;
+                                break;
+                            }
 
+                    }
+                    populationArray.add(tempIndividual);
                 }
-                populationArray.add(tempIndividual);
             }
 
             // save snapshot of the simulation
