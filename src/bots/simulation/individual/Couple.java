@@ -3,12 +3,13 @@ package bots.simulation.individual;
 import java.util.*;
 import logg.*;
 
-public class Couple {
+public class Couple extends Thread {
     private static int coupleCounter = 0;
     private int id;
     private Logg log;
     private Individual father;
     private Individual mother;
+    private ArrayList<Individual> children;
     private Random rng = new Random();
 
     public Couple(Individual i_father, Individual i_mother, Logg i_log)
@@ -38,7 +39,7 @@ public class Couple {
         this.mother.isAvailable = true;
     }
 
-    private void applyParentCosts(int[] costs)
+    private void applyParentCosts()
     {
         // int k = (int) Math.round(((this.father.expAge+this.mother.expAge)/4.0)/20.0);
         // this.log.logMessage(String.valueOf(k));
@@ -46,36 +47,58 @@ public class Couple {
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
             // A - (B/2) - C --> -((A - (B/2) - C) - A) --> -(-(B/2) - C ) --> (B/2) + C
-            this.father.lock(k * ((costs[1]/2) + costs[2]));
-            this.mother.lock(k * ((costs[1]/2) + costs[2]));
+            this.father.lock(k * ((this.simCosts[1]/2) + this.simCosts[2]));
+            this.mother.lock(k * ((this.simCosts[1]/2) + this.simCosts[2]));
         } else
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.FAST)
         {
-            this.father.lock(k * (costs[1]/2));
-            this.mother.lock(k * (costs[1]/2));
+            this.father.lock(k * (this.simCosts[1]/2));
+            this.mother.lock(k * (this.simCosts[1]/2));
         } else
         if (this.father.type == Individual.Alignment.PHILANDERER && this.mother.type == Individual.Alignment.FAST)
         {
-            this.mother.lock(k * costs[1]);
+            this.mother.lock(k * this.simCosts[1]);
         }
     }
 
-    public ArrayList<Individual> getChildren(int i_expAge, float i_evoPressure, int[] i_simCosts)
+    private int childExpAge;
+    private float evoPressure;
+    private int[] simCosts;
+
+    public void setParams(int i_expAge, float i_evoPressure, int[] i_simCosts)
+    {
+        this.childExpAge = i_expAge;
+        this.evoPressure = i_evoPressure;
+        this.simCosts = i_simCosts;
+    }
+
+    @Override
+    public void run()
+    {
+        this.children = this.makeChildren();
+    }
+
+    public ArrayList<Individual> getChildren()
+    {
+        return this.children;
+    }
+
+    private ArrayList<Individual> makeChildren()
     {
         int childCount = this.rng.nextInt(3) + 1;
-        ArrayList<Individual> children = new ArrayList<Individual>();
+        ArrayList<Individual> childList = new ArrayList<Individual>();
 
-        this.applyParentCosts(i_simCosts);
+        this.applyParentCosts();
         for (int i = 0; i < childCount; i++)
         {
-            children.add(this.procreation(i_expAge, i_evoPressure));
+            childList.add(this.procreation());
         }
 
         this.free();
-        return children;
+        return childList;
     }
 
-    private Individual procreation(int expAge, float pInheritance)
+    private Individual procreation()
     /*
     Through this method a new individual can be generated with a 50%
     chance of either being male or female and an 85% chance of inheritance
@@ -83,7 +106,7 @@ public class Couple {
     individual that has to be generated
      */
     {
-        Individual child = new Individual(0, 0, expAge, this.log);
+        Individual child = new Individual(0, 0, this.childExpAge, this.log);
 
         float selector = this.rng.nextFloat();
         float typeSelector = this.rng.nextFloat();
@@ -92,24 +115,24 @@ public class Couple {
         {
             if (this.father.type == Individual.Alignment.FAITHFUL)
             {
-                if (typeSelector < pInheritance)
+                if (typeSelector < this.evoPressure)
                 {
-                    child = new Individual(0, 0, expAge, this.log);
+                    child = new Individual(0, 0, this.childExpAge, this.log);
                 }
                 else
                 {
-                    child = new Individual(0, 1, expAge, this.log);
+                    child = new Individual(0, 1, this.childExpAge, this.log);
                 }
             }
             else
             {
-                if (typeSelector < pInheritance)
+                if (typeSelector < this.evoPressure)
                 {
-                    child = new Individual(0, 1, expAge, this.log);
+                    child = new Individual(0, 1, this.childExpAge, this.log);
                 }
                 else
                 {
-                    child = new Individual(0, 0, expAge, this.log);
+                    child = new Individual(0, 0, this.childExpAge, this.log);
                 }
             }
         }
@@ -117,24 +140,24 @@ public class Couple {
         {
             if (this.mother.type == Individual.Alignment.COY)
             {
-                if (typeSelector < pInheritance)
+                if (typeSelector < this.evoPressure)
                 {
-                    child = new Individual(1, 2, expAge, this.log);
+                    child = new Individual(1, 2, this.childExpAge, this.log);
                 }
                 else
                 {
-                    child = new Individual(1, 3, expAge, this.log);
+                    child = new Individual(1, 3, this.childExpAge, this.log);
                 }
             }
             else
             {
-                if (typeSelector < pInheritance)
+                if (typeSelector < this.evoPressure)
                 {
-                    child = new Individual(1, 3, expAge, this.log);
+                    child = new Individual(1, 3, this.childExpAge, this.log);
                 }
                 else
                 {
-                    child = new Individual(1, 2, expAge, this.log);
+                    child = new Individual(1, 2, this.childExpAge, this.log);
                 }
             }
         }

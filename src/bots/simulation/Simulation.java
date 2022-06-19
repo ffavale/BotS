@@ -188,36 +188,50 @@ public class Simulation extends Thread
             }
             // get back a bunch of couples and make them reproduce (async?)
             ArrayList<Couple> loopCouples = loopEvent.createCouples();
+            int doneCouples = 0;
             for (Couple coup : loopCouples)
             {
-                // Individual tempIndividual = coup.procreation(this.avgAge, this.simulationCosts);
-                for (Individual tempIndividual : coup.getChildren(this.avgAge, 0.95f, this.simulationCosts))
+                coup.setParams(this.avgAge, 0.90f, this.simulationCosts);
+                coup.start();
+            }
+            ArrayList<Couple> checkedCouples = new ArrayList<Couple>();
+            while (doneCouples<loopCouples.size())
+            {
+                for (Couple coup : loopCouples)
                 {
-                    switch (tempIndividual.type)
+                    if (!coup.isAlive() && !checkedCouples.contains(coup))
                     {
-                        case FAITHFUL:
+                        for (Individual tempIndividual : coup.getChildren())
+                        {
+                            switch (tempIndividual.type)
                             {
-                                countF++;
-                                break;
-                            }
-                        case PHILANDERER:
-                            {
-                                countP++;
-                                break;
-                            }
-                        case COY:
-                            {
-                                countC++;
-                                break;
-                            }
-                        case FAST:
-                            {
-                                countS++;
-                                break;
-                            }
+                                case FAITHFUL:
+                                    {
+                                        countF++;
+                                        break;
+                                    }
+                                case PHILANDERER:
+                                    {
+                                        countP++;
+                                        break;
+                                    }
+                                case COY:
+                                    {
+                                        countC++;
+                                        break;
+                                    }
+                                case FAST:
+                                    {
+                                        countS++;
+                                        break;
+                                    }
 
+                            }
+                            populationArray.add(tempIndividual);
+                            doneCouples++;
+                        }
+                        checkedCouples.add(coup);
                     }
-                    populationArray.add(tempIndividual);
                 }
             }
 
