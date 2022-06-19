@@ -45,7 +45,7 @@ public class Logg{
         String messageBundle = "";
         for (int i = 0; i < this.bufferPtr; i++)
         {
-            messageBundle = messageBundle + writeBuffer[i] + "\n"; 
+            messageBundle = messageBundle + writeBuffer[i] + "\n";
         }
         // detatch thread to write message into file
         AsyncWriter writer = new AsyncWriter(messageBundle, this.targetLogFileName);
@@ -82,7 +82,7 @@ public class Logg{
         this.callerId = tempCallerId;
     }
 
-    public void logMessage(String i_message)
+    public synchronized void logMessage(String i_message)
     {
         // get LocalDateTime
         LocalDateTime dateTime = LocalDateTime.now();
@@ -98,7 +98,7 @@ public class Logg{
         this.flushIfFull();
     }
 
-    public void logQuietMessage(String i_message)
+    public synchronized void logQuietMessage(String i_message)
     {
         // get LocalDateTime
         LocalDateTime dateTime = LocalDateTime.now();
