@@ -41,7 +41,7 @@ public class Couple {
     {
         // int k = (int) Math.round(((this.father.expAge+this.mother.expAge)/4.0)/20.0);
         // this.log.logMessage(String.valueOf(k));
-        int k = (int) Math.round(((this.father.getExpAge()+this.mother.getExpAge()) * 0.5) * 0.05);
+        int k = (int) Math.round(((this.father.getExpAge()+this.mother.getExpAge()) * 0.5) * 0.15);
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
             // A - (B/2) - C --> -((A - (B/2) - C) - A) --> -(-(B/2) - C ) --> (B/2) + C
