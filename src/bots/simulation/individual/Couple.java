@@ -25,8 +25,8 @@ public class Couple extends Thread {
 
         this.father.isAvailable = false;
         this.mother.isAvailable = false;
-        this.log.logQuietMessage("Individual-" + this.father.getId() + " and " +
-                "Individual-" + this.mother.getId() + " are a couple", "Couple-" + String.valueOf(this.id));
+        // this.log.logQuietMessage("Individual-" + this.father.getId() + " and " +
+        //         "Individual-" + this.mother.getId() + " are a couple", "Couple-" + String.valueOf(this.id));
         // this.log.logQuietMessage("Father/Mother: " + this.father.type + "/" + this.mother.type);
     }
 
@@ -162,7 +162,7 @@ public class Couple extends Thread {
             }
         }
 
-        this.log.logQuietMessage("A child has been born", "Couple-" + String.valueOf(this.id));
+        // this.log.logQuietMessage("A child has been born", "Couple-" + String.valueOf(this.id));
         return child;
     }
 }

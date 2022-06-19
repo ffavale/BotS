@@ -106,7 +106,7 @@ public class Event
         for (int i = 0; i < i_candidates.size(); i++)
         {
             this.participants[i] = i_candidates.get(i);
-            this.log.logQuietMessage("Individual-" + String.valueOf(participants[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
+            // this.log.logQuietMessage("Individual-" + String.valueOf(participants[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
         }
 
         splitPartByGender();
@@ -245,7 +245,7 @@ public class Event
 
             attendeeArray[i] = i_candidates.get(consideredIdx);
             i_candidates.remove(attendeeArray[i]);
-            this.log.logQuietMessage("Individual-" + String.valueOf(attendeeArray[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
+            // this.log.logQuietMessage("Individual-" + String.valueOf(attendeeArray[i].getId()) + " is participating in Event-" + String.valueOf(this.eventId), "Event-" + String.valueOf(this.eventId));
         }
 
         return attendeeArray;
