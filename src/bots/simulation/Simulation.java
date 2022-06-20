@@ -109,16 +109,50 @@ public class Simulation extends Thread
         return res;
     }
 
-    private static final double satFilter = 0.8;
+    private static final double satFilter = 0.9;
     private static final double sdFilter= 1.01;
 
     private boolean popIsStable(ArrayList<Snapshot> snapSample)
     {
-        return true;
+        if (this.populationArray.size() == 0)
+        {
+            return false;
+        }
+
+        int satCountGrowth = 0;
+        int satCountStab = 0;
+        for (int i = 0; i < snapSample.size(); i++)
+        {
+            if (snapSample.get(i).populationCount <= Math.pow(2.0, snapSample.get(i).steps)/i)
+            {
+                satCountGrowth++;
+            }
+        }
+
+        if (satCountGrowth >= satFilter * snapSample.size() && true) {return true;}
+
+        return false;
     }
 
     private boolean xIsStable(double[] temporalData)
     {
+        double mean = Bmath.meanOfDoubleArray(temporalData);
+        double sd = Bmath.standardDeviation(temporalData);
+
+        int satCount = 0;
+        for (int i = 0; i < temporalData.length; i++)
+        {
+            if (Math.abs(mean - temporalData[i]) <= sdFilter * sd)
+            {
+                satCount++;
+            }
+        }
+
+        if (satCount >= satFilter * temporalData.length)
+        {
+            return true;
+        }
+
         return false;
     }
 
