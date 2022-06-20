@@ -110,134 +110,46 @@ public class Simulation extends Thread
     }
 
     private static final double satFilter = 0.8;
-    private static final double sdFilter= 0.01;
+    private static final double sdFilter= 1.01;
 
     private boolean popIsStable(ArrayList<Snapshot> snapSample)
     {
-        if (this.populationArray.size() == 0)
-        {
-            this.log.logQuietMessage("Population is not stable: Gone to 0");
-            return false;
-        }
-
-        int satisfactoryCount = 0;
-        for (int i = 1; i < snapSample.size(); i++)
-        {
-            if (snapSample.get(i).populationCount / snapSample.get(i-1).populationCount < Math.pow(2.0, i-2))
-            {
-                satisfactoryCount++;
-            }
-        }
-        if (satisfactoryCount < satFilter * snapSample.size())
-        {
-            this.log.logQuietMessage("Population is not stable: Exponential growth");
-            return false;
-        }
-
-        this.log.logQuietMessage("Population is stable; continuing...");
         return true;
     }
 
-    private boolean fIsNotStable(ArrayList<Snapshot> snapSample)
+    private boolean xIsStable(double[] temporalData)
     {
-        double[] valueArray = new double[snapSample.size()];
-        for (int i = 0; i < snapSample.size(); i++)
-        {
-            valueArray[i] = snapSample.get(i).ratio_F;
-        }
-        double mean = Bmath.meanOfDoubleArray(valueArray);
-        double sd = Bmath.standardDeviation(valueArray);
-
-        int satisfactoryCount = 0;
-        for (int i = 0; i < valueArray.length; i++)
-        {
-            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
-            {
-                satisfactoryCount++;
-            }
-        }
-
-        return !(satisfactoryCount >= satFilter * valueArray.length);
+        return false;
     }
 
-    private boolean pIsNotStable(ArrayList<Snapshot> snapSample)
-    {
-        double[] valueArray = new double[snapSample.size()];
-        for (int i = 0; i < snapSample.size(); i++)
-        {
-            valueArray[i] = snapSample.get(i).ratio_P;
-        }
-        double mean = Bmath.meanOfDoubleArray(valueArray);
-        double sd = Bmath.standardDeviation(valueArray);
-
-        int satisfactoryCount = 0;
-        for (int i = 0; i < valueArray.length; i++)
-        {
-            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
-            {
-                satisfactoryCount++;
-            }
-        }
-
-        return !(satisfactoryCount >= satFilter * valueArray.length);
-    }
-
-    private boolean cIsNotStable(ArrayList<Snapshot> snapSample)
-    {
-        double[] valueArray = new double[snapSample.size()];
-        for (int i = 0; i < snapSample.size(); i++)
-        {
-            valueArray[i] = snapSample.get(i).ratio_C;
-        }
-        double mean = Bmath.meanOfDoubleArray(valueArray);
-        double sd = Bmath.standardDeviation(valueArray);
-
-        int satisfactoryCount = 0;
-        for (int i = 0; i < valueArray.length; i++)
-        {
-            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
-            {
-                satisfactoryCount++;
-            }
-        }
-
-        return !(satisfactoryCount >= satFilter * valueArray.length);
-    }
-
-    private boolean sIsNotStable(ArrayList<Snapshot> snapSample)
-    {
-        double[] valueArray = new double[snapSample.size()];
-        for (int i = 0; i < snapSample.size(); i++)
-        {
-            valueArray[i] = snapSample.get(i).ratio_S;
-        }
-        double mean = Bmath.meanOfDoubleArray(valueArray);
-        double sd = Bmath.standardDeviation(valueArray);
-
-        int satisfactoryCount = 0;
-        for (int i = 0; i < valueArray.length; i++)
-        {
-            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
-            {
-                satisfactoryCount++;
-            }
-        }
-
-        return !(satisfactoryCount >= satFilter * valueArray.length);
-    }
-
-    private boolean IsNotStable()
+    private boolean IsStable()
     {
         // TODO - Finish implementing stability
         ArrayList<Snapshot> snapSample = Bmath.sampleGenerator(this.snapshotArray);
+        double[] fTemporalData = new double[snapSample.size()];
+        double[] pTemporalData = new double[snapSample.size()];
+        double[] cTemporalData = new double[snapSample.size()];
+        double[] sTemporalData = new double[snapSample.size()];
 
-        if (this.simulationSteps < this.minLoopCount ||
-                (this.simulationSteps < this.maxLoopCount) &&
-                this.popIsStable(snapSample) ||
-                this.fIsNotStable(snapSample) ||
-                this.pIsNotStable(snapSample) ||
-                this.cIsNotStable(snapSample) ||
-                this.sIsNotStable(snapSample))
+        for (int i = 0; i < snapSample.size(); i++)
+        {
+            fTemporalData[i] = snapSample.get(i).ratio_F;
+            pTemporalData[i] = snapSample.get(i).ratio_P;
+            cTemporalData[i] = snapSample.get(i).ratio_C;
+            sTemporalData[i] = snapSample.get(i).ratio_S;
+        }
+
+        if (this.simulationSteps < this.minLoopCount)
+        {return true;}
+        if (this.simulationSteps > this.maxLoopCount)
+        {return false;}
+        if (
+                this.popIsStable(snapSample) &&
+                !this.xIsStable(fTemporalData) &&
+                !this.xIsStable(pTemporalData) &&
+                !this.xIsStable(cTemporalData) &&
+                !this.xIsStable(sTemporalData)
+            )
         {
             return true;
         }
@@ -250,7 +162,7 @@ public class Simulation extends Thread
         this.log.logMessage("Simulation has started");
         this.info(); this.oneLineInfo();
         /* simulation loop goes here to be in a seperate thread */
-        while (this.IsNotStable())
+        while (this.IsStable())
         {
             // create this loop's event
             Event loopEvent;

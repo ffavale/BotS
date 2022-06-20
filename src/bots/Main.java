@@ -36,7 +36,13 @@ public class Main
         try
         {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(args[0]);
+            Document document;
+            if (args.length > 0)
+            {
+                document = builder.parse(args[0]);
+            } else {
+                document = builder.parse("setting.xml");
+            }
             document.getDocumentElement().normalize();
 
             NodeList simNodeList = document.getElementsByTagName("simulation");
