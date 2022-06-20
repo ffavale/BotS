@@ -268,7 +268,6 @@ public class Simulation extends Thread
             // print info
             this.simulationSteps++;
             this.oneLineInfo();
-            if (this.simulationSteps % 10 == 0) {this.info();}
             // check who is dead
             ArrayList<Individual> toRemove = new ArrayList<Individual>();
             for (Individual ind : this.populationArray)
@@ -307,6 +306,7 @@ public class Simulation extends Thread
                 this.populationArray.remove(ind);
             }
         }
+        this.info();
         this.log.forceFlush();
     }
 

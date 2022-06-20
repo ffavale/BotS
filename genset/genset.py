@@ -1,86 +1,86 @@
 def main():
-    simMinLoops = 1000
-    simMaxLoops = 100000
+    simMinLoops = 1200
+    simMaxLoops = 75000
     isUniversal = 0
 
-    popIncrements = 5
-    startingPopsMinVal = 5000
-    startingPopsMaxVal = 10000
+    popIncrements = 2
+    startingPopsMinVal = 2
+    startingPopsMaxVal = 100000
     startingPopsStep = (startingPopsMaxVal - startingPopsMinVal) / popIncrements
-    startingPopsRange = [ int((i * startingPopsStep) + startingPopsMinVal) for i in range(popIncrements)]
+    startingPopsRange = [ int((i * startingPopsStep) + startingPopsMinVal) for i in range(1 + popIncrements)]
 
-    avgAgeIncrements = 10
-    avgAgeMinVal = 400
-    avgAgeMaxVal = 1000
+    avgAgeIncrements = 5
+    avgAgeMinVal = 100
+    avgAgeMaxVal = 2000
     avgAgeStep = (avgAgeMaxVal- avgAgeMinVal) / avgAgeIncrements
-    avgAgeRange = [ int((i * avgAgeStep) + avgAgeMinVal) for i in range(avgAgeIncrements)]
+    avgAgeRange = [ int((i * avgAgeStep) + avgAgeMinVal) for i in range(1 + avgAgeIncrements)]
 
     MFRIncrements = 1
-    startingMFRatioMinVal = 0.5
-    startingMFRatioMaxVal = 0.5
+    startingMFRatioMinVal = 0.2
+    startingMFRatioMaxVal = 0.8
     startingMFRatioStep = (startingMFRatioMaxVal - startingMFRatioMinVal) / MFRIncrements
-    startingMFRatioRange = [ round((i * startingMFRatioStep) + startingMFRatioMinVal, 3) for i in range(MFRIncrements)]
+    startingMFRatioRange = [ round((i * startingMFRatioStep) + startingMFRatioMinVal, 3) for i in range(1 + MFRIncrements)]
 
     FPRIncrements = 2
     startingFPRatioMinVal = 0.1
     startingFPRatioMaxVal = 0.9
     startingFPRatioStep = (startingFPRatioMaxVal - startingFPRatioMinVal) / FPRIncrements
-    startingFPRatioRange = [ round((i * startingFPRatioStep) + startingFPRatioMinVal, 3) for i in range(FPRIncrements)]
+    startingFPRatioRange = [ round((i * startingFPRatioStep) + startingFPRatioMinVal, 3) for i in range(1 + FPRIncrements)]
 
     CSRIncrements = 2
     startingCSRatioMinVal = 0.1
     startingCSRatioMaxVal = 0.9
     startingCSRatioStep = (startingCSRatioMaxVal - startingCSRatioMinVal) / CSRIncrements
-    startingCSRatioRange = [ round((i * startingCSRatioStep) + startingCSRatioMinVal, 3) for i in range(CSRIncrements)]
+    startingCSRatioRange = [ round((i * startingCSRatioStep) + startingCSRatioMinVal, 3) for i in range(1 + CSRIncrements)]
 
-    aCostIncrements = 2
+    aCostIncrements = 0
     startingACostMinVal = 0
     startingACostMaxVal = 100
-    startingACostStep = (startingACostMaxVal - startingACostMinVal) / aCostIncrements
-    startingACostRange = [ int((i * startingACostStep) + startingACostMinVal) for i in range(aCostIncrements) ]
+    #  startingACostStep = (startingACostMaxVal - startingACostMinVal) / aCostIncrements
+    startingACostRange = [ int((i * 0) + startingACostMinVal) for i in range(1 + aCostIncrements) ]
 
-
-    bBenefitIncrements = 2
+    bBenefitIncrements = 5
     startingBBEnefitMinVal = 0
     startingBBEnefitMaxVal = 100
     startingBBenefitStep = (startingBBEnefitMaxVal - startingBBEnefitMinVal) / bBenefitIncrements
-    startingBBenefitRange = [ int((i * startingBBenefitStep) + startingBBEnefitMinVal) for i in range(bBenefitIncrements) ]
+    startingBBenefitRange = [ int((i * startingBBenefitStep) + startingBBEnefitMinVal) for i in range(1 + bBenefitIncrements) ]
 
-    cCostIncrements = 2
+    cCostIncrements = 5
     startingCCostMinVal = 0
     startingCCostMaxVal = 100
     startingCCostStep = (startingCCostMaxVal - startingCCostMinVal) / cCostIncrements
-    startingCCostRange = [ int((i * startingCCostStep) + startingCCostMinVal) for i in range(cCostIncrements) ]
+    startingCCostRange = [ int((i * startingCCostStep) + startingCCostMinVal) for i in range(1 + cCostIncrements) ]
 
     simCount = 0
 
     with open("settings.xml", "w") as cfgfile:
         cfgfile.write("<settings>\n")
 
-        for i in range(popIncrements):
-            for p in range(avgAgeIncrements):
-                for j in range(MFRIncrements):
-                    for k in range(FPRIncrements):
-                        for l in range(CSRIncrements):
-                            for m in range(aCostIncrements):
-                                for n in range(bBenefitIncrements):
-                                    for o in range(cCostIncrements):
-                                        cfgfile.write("\t<simulation>\n")
-                                        cfgfile.write(f"\t\t<minSimLoops>{simMinLoops}</minSimLoops>\n")
-                                        cfgfile.write(f"\t\t<maxSimLoops>{simMaxLoops}</maxSimLoops>\n")
-                                        cfgfile.write(f"\t\t<averageAge>{avgAgeRange[p]}</averageAge>\n")
-                                        cfgfile.write(f"\t\t<population>{startingPopsRange[i]}</population>\n")
-                                        cfgfile.write(f"\t\t<mfRatio>{startingMFRatioRange[j]}</mfRatio>\n")
-                                        cfgfile.write(f"\t\t<fpRatio>{startingFPRatioRange[k]}</fpRatio>\n")
-                                        cfgfile.write(f"\t\t<csRatio>{startingCSRatioRange[l]}</csRatio>\n")
-                                        cfgfile.write(f"\t\t<a>{startingACostRange[m]}</a>\n")
-                                        cfgfile.write(f"\t\t<b>{startingBBenefitRange[n]}</b>\n")
-                                        cfgfile.write(f"\t\t<c>{startingCCostRange[o]}</c>\n")
-                                        cfgfile.write(f"\t\t<isUniversal>{isUniversal}</isUniversal>\n")
-                                        cfgfile.write("\t</simulation>\n")
+        for i in range(1 + popIncrements):
+            for p in range(1 + avgAgeIncrements):
+                for j in range(1 + MFRIncrements):
+                    for k in range(1 + FPRIncrements):
+                        for l in range(1 + CSRIncrements):
+                            for m in range(1 + aCostIncrements):
+                                for n in range(1 + bBenefitIncrements):
+                                    for o in range(1 + cCostIncrements):
+                                        cfgfile.write("<simulation>")
+                                        cfgfile.write(f"<minSimLoops>{simMinLoops}</minSimLoops>")
+                                        cfgfile.write(f"<maxSimLoops>{simMaxLoops}</maxSimLoops>")
+                                        cfgfile.write(f"<averageAge>{avgAgeRange[p]}</averageAge>")
+                                        cfgfile.write(f"<population>{startingPopsRange[i]}</population>")
+                                        cfgfile.write(f"<mfRatio>{startingMFRatioRange[j]}</mfRatio>")
+                                        cfgfile.write(f"<fpRatio>{startingFPRatioRange[k]}</fpRatio>")
+                                        cfgfile.write(f"<csRatio>{startingCSRatioRange[l]}</csRatio>")
+                                        cfgfile.write(f"<a>{startingACostRange[m]}</a>")
+                                        cfgfile.write(f"<b>{startingBBenefitRange[n]}</b>")
+                                        cfgfile.write(f"<c>{startingCCostRange[o]}</c>")
+                                        cfgfile.write(f"<isUniversal>{isUniversal}</isUniversal>")
+                                        cfgfile.write("</simulation>\n")
                                         simCount += 1
 
         cfgfile.write("</settings>\n")
+        cfgfile.write(f"<!-- TOTAL SIMS: {simCount} -->")
 
     print("TOTAL SIMULATIONS:", simCount)
 
