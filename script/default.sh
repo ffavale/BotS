@@ -60,7 +60,7 @@ cd build/$BPROF
 mkdir -p run && cd run
 cp ../../../genset/settings.xml .
 
-java -jar ../$PROJECT_NAME.jar
+java -jar ../$PROJECT_NAME.jar "settings.xml"
 cd ../..
 
 echo "==================================================="

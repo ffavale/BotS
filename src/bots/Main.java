@@ -36,7 +36,7 @@ public class Main
         try
         {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse("settings.xml");
+            Document document = builder.parse(args[0]);
             document.getDocumentElement().normalize();
 
             NodeList simNodeList = document.getElementsByTagName("simulation");
