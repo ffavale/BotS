@@ -176,5 +176,36 @@ public class Main
         } catch (SAXException e) {e.printStackTrace();
         } catch (IOException e) {e.printStackTrace();}
         log.finalize();
+
+        int simsRan = 0;
+        Simulation[] runSlots = new Simulation[permitConcSims];
+
+        while (simsRan <= simArrayList.size())
+        {
+            for (int i = 0; i < runSlots.length; i++)
+            {
+                if (runSlots[i] == null)
+                {
+                    if (simsRan < simArrayList.size())
+                    {
+                        runSlots[i] = simArrayList.get(simsRan);
+                        simsRan++; runSlots[i].start();
+                    }
+                }
+                if (!runSlots[i].isAlive())
+                {
+                    if (simsRan < simArrayList.size())
+                    {
+                        runSlots[i] = simArrayList.get(simsRan);
+                        simsRan++; runSlots[i].start();
+                    }
+                }
+            }
+
+            try
+            {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {e.printStackTrace();}
+        }
     }
 }
