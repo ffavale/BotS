@@ -61,6 +61,11 @@ public class Couple extends Thread {
         }
     }
 
+    public String getSimIdString()
+    {
+        return "Simulation-" + String.valueOf(this.id);
+    }
+
     private int childExpAge;
     private float evoPressure;
     private int[] simCosts;

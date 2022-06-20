@@ -5,14 +5,21 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 import java.io.*;
+import java.util.*;
+import java.lang.Runtime;
 import logg.*;
 
 public class Main
 {
     enum u {YES, NO, BOTH};
+    private static final int CPUCOUNT = Runtime.getRuntime().availableProcessors();
+    private static final int permitConcSims = (int) CPUCOUNT/2;
+
+    private static ArrayList<Simulation> simArrayList = new ArrayList<Simulation>();
+
     public static void splashScreen(Logg i_log)
     {
-        i_log.logMessage("\n#####################################################################################\n/ // // // // // // // // // // // // // // // // // // // // // // // // // // // //\n#####################################################################################\n\n          ________            ____        __  __  __              ____  \n         /_  __/ /_  ___     / __ )____ _/ /_/ /_/ /__     ____  / __/ \n          / / / __ \\/ _ \\   / __  / __ `/ __/ __/ / _ \\   / __ \\/ /_\n         / / / / / /  __/  / /_/ / /_/ / /_/ /_/ /  __/  / /_/ / __/\n        /_/ /_/ /_/\\___/  /_____/\\__,_/\\__/\\__/_/\\___/   \\____/_/\n                __  __            _____\n               / /_/ /_  ___     / ___/___  _  _____  _____\n              / __/ __ \\/ _ \\    \\__ \\/ _ \\| |/_/ _ \\/ ___/\n             / /_/ / / /  __/   ___/ /  __/>  </  __(__  )\n             \\__/_/ /_/\\___/   /____/\\___/_/|_|\\___/____/\n\n\n#####################################################################################\n// // // // // // // // // // // // // // // // // // // // // // // // // // // // /\n#####################################################################################\n");
+        i_log.logMessage("\n#####################################################################################\n/ // // // // // // // // // // // // // // // // // // // // // // // // // // // //\n#####################################################################################\n\n          ________            ____        __  __  __              ____  \n         /_  __/ /_  ___     / __ )____ _/ /_/ /_/ /__     ____  / __/ \n          / / / __ \\/ _ \\   / __  / __ `/ __/ __/ / _ \\   / __ \\/ /_\n         / / / / / /  __/  / /_/ / /_/ / /_/ /_/ /  __/  / /_/ / __/\n        /_/ /_/ /_/\\___/  /_____/\\__,_/\\__/\\__/_/\\___/   \\____/_/\n                __  __            _____\n               / /_/ /_  ___     / ___/___  _  _____  _____\n              / __/ __ \\/ _ \\    \\__ \\/ _ \\| |/_/ _ \\/ ___/\n             / /_/ / / /  __/   ___/ /  __/>  </  __(__  )\n             \\__/_/ /_/\\___/   /____/\\___/_/|_|\\___/____/\n\n\n#####################################################################################\n// // // // // // // // // // // // // // // // // // // // // // // // // // // // /\n#####################################################################################\nCPUs: " + String.valueOf(CPUCOUNT)+ "\nConcurrent sims: " + String.valueOf(permitConcSims));
     }
 
     /* Program starts here */
@@ -144,22 +151,22 @@ public class Main
                         case YES:
                             {
                                 Simulation sim = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, true);
-                                sim.start();
+                                Main.simArrayList.add(sim);
                                 break;
                             }
                         case NO:
                             {
                                 Simulation sim = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, false);
-                                sim.start();
+                                simArrayList.add(sim);
                                 break;
                             }
                         case BOTH:
                             {
                                 Simulation sima = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, true);
                                 Simulation simb = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, false);
-                                sima.start();
-                                simb.start();
-                               break;
+                                simArrayList.add(sima);
+                                simArrayList.add(simb);
+                                break;
                             }
                     }
                 }
@@ -168,5 +175,6 @@ public class Main
         } catch (ParserConfigurationException e){e.printStackTrace();
         } catch (SAXException e) {e.printStackTrace();
         } catch (IOException e) {e.printStackTrace();}
+        log.finalize();
     }
 }
