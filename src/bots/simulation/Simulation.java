@@ -109,8 +109,8 @@ public class Simulation extends Thread
         return res;
     }
 
-    private static final double satFilter = 0.9;
-    private static final double sdFilter= 1.01;
+    private static final double satFilter = 0.95;
+    private static final double sdFilter= 0.8;
 
     private boolean popIsStable(ArrayList<Snapshot> snapSample)
     {
@@ -120,16 +120,17 @@ public class Simulation extends Thread
         }
 
         int satCountGrowth = 0;
-        int satCountStab = 0;
+        double[] popTemporalData = new double[snapSample.size()];
         for (int i = 0; i < snapSample.size(); i++)
         {
+            popTemporalData[i] = snapSample.get(i).populationCount;
             if (snapSample.get(i).populationCount <= Math.pow(2.0, snapSample.get(i).steps)/i)
             {
                 satCountGrowth++;
             }
         }
 
-        if (satCountGrowth >= satFilter * snapSample.size() && true) {return true;}
+        if (satCountGrowth >= satFilter * snapSample.size() && !xIsStable(popTemporalData)) {return true;}
 
         return false;
     }
@@ -306,6 +307,7 @@ public class Simulation extends Thread
                 this.populationArray.remove(ind);
             }
         }
+        this.log.forceFlush();
     }
 
     public class Snapshot

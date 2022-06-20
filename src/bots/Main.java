@@ -13,7 +13,7 @@ public class Main
 {
     enum u {YES, NO, BOTH};
     private static final int CPUCOUNT = Runtime.getRuntime().availableProcessors();
-    private static final int permitConcSims = (int) CPUCOUNT/2;
+    private static final int permitConcSims = (int) CPUCOUNT*3/4;
 
     private static ArrayList<Simulation> simArrayList = new ArrayList<Simulation>();
 

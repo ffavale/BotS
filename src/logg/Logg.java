@@ -27,7 +27,7 @@ public class Logg{
         this.forceFlush();
     }
 
-    private void forceFlush()
+    public void forceFlush()
     {
         String[] smallBuffer = new String[bufferPtr];
         for (int i = 0; i < bufferPtr; i++)
