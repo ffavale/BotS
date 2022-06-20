@@ -127,7 +127,23 @@ public class Simulation extends Thread
 
     private boolean popIsStable(ArrayList<Snapshot> snapSample)
     {
-        // if (ret) {this.log.logQuietMessage("Simulation population is stable");}
+        if (this.populationArray.size() == 0)
+        {
+            this.log.logQuietMessage("Population is not stable: " + "Gone to 0");
+            return false;
+        }
+
+        int satisfactoryCount = 0;
+        for (int i = 1; i < snapSample.size(); i++)
+        {
+            if (snapSample.get(i).populationCount / snapSample.get(i-1).populationCount < Math.pow(2.0, i))
+            {
+                satisfactoryCount++;
+            }
+        }
+        if (satisfactoryCount < 0.8 * snapSample.size())
+        {return false;}
+
         return true;
     }
 
@@ -284,7 +300,6 @@ public class Simulation extends Thread
 
                 this.populationArray.remove(ind);
             }
-
         }
     }
 

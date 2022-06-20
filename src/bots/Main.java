@@ -147,7 +147,6 @@ public class Main
                         "Costs: " + String.valueOf(simCostPassthrough[0]) + ", " + String.valueOf(simCostPassthrough[1]) + ", " + String.valueOf(simCostPassthrough[2]));
                     switch (universality)
                     {
-                        // TODO - Have a fixed number of simulatons running concurrently
                         case YES:
                             {
                                 Simulation sim = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, true);
