@@ -109,21 +109,8 @@ public class Simulation extends Thread
         return res;
     }
 
-    // double satisfactoryCount = 0;
-    //
-    // for (int i = 1; i < snapSample.size(); i++)
-    // {
-    //     double ratio = (double) snapSample.get(i).populationCount/snapSample.get(i-1).populationCount;
-    //     double diff = 0.2;
-    //     if (snapSample.get(i-1).populationCount * (1-diff) <= ratio && ratio <= snapSample.get(i-1).populationCount * (1+diff))
-    //     {
-    //         satisfactoryCount++;
-    //     }
-    // }
-    //
-    // boolean ret = (satisfactoryCount/snapSample.size()> 0.8);
-    // if (ret) {this.log.logQuietMessage("Simulation population is stable");}
-    // return ret;
+    private static final double satFilter = 0.8;
+    private static final double sdFilter= 0.01;
 
     private boolean popIsStable(ArrayList<Snapshot> snapSample)
     {
@@ -136,18 +123,18 @@ public class Simulation extends Thread
         int satisfactoryCount = 0;
         for (int i = 1; i < snapSample.size(); i++)
         {
-            if (snapSample.get(i).populationCount / snapSample.get(i-1).populationCount < Math.pow(2.0, i))
+            if (snapSample.get(i).populationCount / snapSample.get(i-1).populationCount < Math.pow(2.0, i-2))
             {
                 satisfactoryCount++;
             }
         }
-        if (satisfactoryCount < 0.8 * snapSample.size())
+        if (satisfactoryCount < satFilter * snapSample.size())
         {
             this.log.logQuietMessage("Population is not stable: Exponential growth");
             return false;
         }
 
-        this.log.logQuietMessage("Population is stable; continuing");
+        this.log.logQuietMessage("Population is stable; continuing...");
         return true;
     }
 
@@ -164,13 +151,13 @@ public class Simulation extends Thread
         int satisfactoryCount = 0;
         for (int i = 0; i < valueArray.length; i++)
         {
-            if (Math.abs(mean - valueArray[i]) <= sd)
+            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
             {
                 satisfactoryCount++;
             }
         }
 
-        return !(satisfactoryCount == 0.8 * valueArray.length);
+        return !(satisfactoryCount >= satFilter * valueArray.length);
     }
 
     private boolean pIsNotStable(ArrayList<Snapshot> snapSample)
@@ -186,13 +173,13 @@ public class Simulation extends Thread
         int satisfactoryCount = 0;
         for (int i = 0; i < valueArray.length; i++)
         {
-            if (Math.abs(mean - valueArray[i]) <= sd)
+            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
             {
                 satisfactoryCount++;
             }
         }
 
-        return !(satisfactoryCount == 0.8 * valueArray.length);
+        return !(satisfactoryCount >= satFilter * valueArray.length);
     }
 
     private boolean cIsNotStable(ArrayList<Snapshot> snapSample)
@@ -208,13 +195,13 @@ public class Simulation extends Thread
         int satisfactoryCount = 0;
         for (int i = 0; i < valueArray.length; i++)
         {
-            if (Math.abs(mean - valueArray[i]) <= sd)
+            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
             {
                 satisfactoryCount++;
             }
         }
 
-        return !(satisfactoryCount == 0.8 * valueArray.length);
+        return !(satisfactoryCount >= satFilter * valueArray.length);
     }
 
     private boolean sIsNotStable(ArrayList<Snapshot> snapSample)
@@ -230,13 +217,13 @@ public class Simulation extends Thread
         int satisfactoryCount = 0;
         for (int i = 0; i < valueArray.length; i++)
         {
-            if (Math.abs(mean - valueArray[i]) <= sd)
+            if (Math.abs(mean - valueArray[i]) <= sdFilter * sd)
             {
                 satisfactoryCount++;
             }
         }
 
-        return !(satisfactoryCount == 0.8 * valueArray.length);
+        return !(satisfactoryCount >= satFilter * valueArray.length);
     }
 
     private boolean IsNotStable()
@@ -246,10 +233,10 @@ public class Simulation extends Thread
 
         if (this.simulationSteps < this.minLoopCount ||
                 (this.simulationSteps < this.maxLoopCount) &&
-                this.popIsStable(snapSample) &&
-                this.fIsNotStable(snapSample) &&
-                this.pIsNotStable(snapSample) &&
-                this.cIsNotStable(snapSample) &&
+                this.popIsStable(snapSample) ||
+                this.fIsNotStable(snapSample) ||
+                this.pIsNotStable(snapSample) ||
+                this.cIsNotStable(snapSample) ||
                 this.sIsNotStable(snapSample))
         {
             return true;
