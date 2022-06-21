@@ -43,7 +43,7 @@ public class Couple extends Thread {
     {
         // int k = (int) Math.round(((this.father.expAge+this.mother.expAge)/4.0)/20.0);
         // this.log.logMessage(String.valueOf(k));
-        int k = (int) Math.round(((this.father.getExpAge()+this.mother.getExpAge()) * 0.5) * 0.04);
+        int k = (int) Math.round(this.father.getExpAge() * 0.04);
         if (this.father.type == Individual.Alignment.FAITHFUL && this.mother.type == Individual.Alignment.COY)
         {
             // A - (B/2) - C --> -((A - (B/2) - C) - A) --> -(-(B/2) - C ) --> (B/2) + C
@@ -59,11 +59,6 @@ public class Couple extends Thread {
         {
             this.mother.lock(k * this.simCosts[1]);
         }
-    }
-
-    public String getSimIdString()
-    {
-        return "Simulation-" + String.valueOf(this.id);
     }
 
     private int childExpAge;

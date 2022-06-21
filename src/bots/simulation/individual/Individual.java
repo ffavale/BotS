@@ -1,7 +1,6 @@
 package bots.simulation.individual;
 
 import logg.*;
-import java.util.*;
 import java.util.Random;
 
 import static java.lang.Math.*;
@@ -20,7 +19,6 @@ public class Individual {
     private Logg log;
     private static final Random rng = new Random();
     private int lockedFor = 0;
-    private int benefitPoints = 0;
 
     public Individual(int sex, int type, int expAge, Logg i_log)
     /*

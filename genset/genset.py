@@ -5,7 +5,7 @@ def main():
 
     popIncrements = 3
     startingPopsMinVal = 2000
-    startingPopsMaxVal = 100000
+    startingPopsMaxVal = 50000
     startingPopsStep = (startingPopsMaxVal - startingPopsMinVal) / popIncrements
     startingPopsRange = [ int((i * startingPopsStep) + startingPopsMinVal) for i in range(1 + popIncrements)]
 
