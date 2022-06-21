@@ -112,7 +112,7 @@ public class Simulation extends Thread
     }
 
     private static final double satFilter = 0.95;
-    private static final double sdFilter= 0.8;
+    private static final double sdFilter= 0.6;
 
     private boolean popIsStable(ArrayList<Snapshot> snapSample)
     {
