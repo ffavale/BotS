@@ -161,7 +161,6 @@ public class Simulation extends Thread
 
     private boolean IsStable()
     {
-        // TODO - Finish implementing stability
         ArrayList<Snapshot> snapSample = Bmath.sampleGenerator(this.snapshotArray);
         double[] fTemporalData = new double[snapSample.size()];
         double[] pTemporalData = new double[snapSample.size()];

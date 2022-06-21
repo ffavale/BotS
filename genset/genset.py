@@ -1,5 +1,5 @@
 def main():
-    simMinLoops = 1200
+    simMinLoops = 4000
     simMaxLoops = 75000
     isUniversal = 0
 
@@ -39,13 +39,13 @@ def main():
     #  startingACostStep = (startingACostMaxVal - startingACostMinVal) / aCostIncrements
     startingACostRange = [ int((i * 0) + startingACostMinVal) for i in range(1 + aCostIncrements) ]
 
-    bBenefitIncrements = 5
+    bBenefitIncrements = 4
     startingBBEnefitMinVal = 0
     startingBBEnefitMaxVal = 100
     startingBBenefitStep = (startingBBEnefitMaxVal - startingBBEnefitMinVal) / bBenefitIncrements
     startingBBenefitRange = [ int((i * startingBBenefitStep) + startingBBEnefitMinVal) for i in range(1 + bBenefitIncrements) ]
 
-    cCostIncrements = 5
+    cCostIncrements = 4
     startingCCostMinVal = 0
     startingCCostMaxVal = 100
     startingCCostStep = (startingCCostMaxVal - startingCCostMinVal) / cCostIncrements
