@@ -15,7 +15,7 @@ public class Main
     private static final int CPUCOUNT = Runtime.getRuntime().availableProcessors();
     private static final int permitConcSims = (int) CPUCOUNT*4/5;
 
-    private static ArrayList<Simulation> simArrayList = new ArrayList<Simulation>();
+    private static ArrayList<Blueprint> simBlueprintArrayList = new ArrayList<Blueprint>();
 
     public static void splashScreen(Logg i_log)
     {
@@ -37,12 +37,20 @@ public class Main
         {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document;
-            if (args.length > 0)
+
+            try {
+                if (args.length > 0)
+                {
+                    document = builder.parse(args[0]);
+                } else {
+                    document = builder.parse("setting.xml");
+                }
+            } catch (FileNotFoundException e)
             {
-                document = builder.parse(args[0]);
-            } else {
-                document = builder.parse("setting.xml");
+                System.out.println("Settings file not found; Exiting...");
+                return;
             }
+
             document.getDocumentElement().normalize();
 
             NodeList simNodeList = document.getElementsByTagName("simulation");
@@ -63,6 +71,7 @@ public class Main
                     double[] simFPCSPassthrough = new double[3];
                     int[] simCostPassthrough = new int[3];
                     u universality = u.YES;
+                    boolean mutAllowed = true;
 
                     for (int j = 0; j < simDetailsNodeList.getLength(); j++)
                     {
@@ -144,10 +153,15 @@ public class Main
                                                 }
                                         }
                                     }
+                                case "mutAllowed":
+                                    {
+                                        mutAllowed = Boolean.valueOf(simDetailElement.getTextContent());
+                                        break;
+                                    }
                             }
                         }
                     }
-                    log.logMessage("Starting simulation with -> " +
+                    log.logMessage("Starting simulation " + String.valueOf(i)+ " with -> " +
                         "population: " + String.valueOf(simPopPassthrough) + " | " +
                         "FPCS: " + String.valueOf(simFPCSPassthrough[0]) + ", " + String.valueOf(simFPCSPassthrough[1]) + ", " + String.valueOf(simFPCSPassthrough[2]) + " | " +
                         "Costs: " + String.valueOf(simCostPassthrough[0]) + ", " + String.valueOf(simCostPassthrough[1]) + ", " + String.valueOf(simCostPassthrough[2]));
@@ -155,28 +169,27 @@ public class Main
                     {
                         case YES:
                             {
-                                Simulation sim = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, true);
-                                Main.simArrayList.add(sim);
+                                Blueprint sim = new Blueprint(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, true, mutAllowed);
+                                Main.simBlueprintArrayList.add(sim);
                                 break;
                             }
                         case NO:
                             {
-                                Simulation sim = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, false);
-                                simArrayList.add(sim);
+                                Blueprint sim = new Blueprint(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, false, mutAllowed);
+                                simBlueprintArrayList.add(sim);
                                 break;
                             }
                         case BOTH:
                             {
-                                Simulation sima = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, true);
-                                Simulation simb = new Simulation(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, false);
-                                simArrayList.add(sima);
-                                simArrayList.add(simb);
+                                Blueprint sima = new Blueprint(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, true, mutAllowed);
+                                Blueprint simb = new Blueprint(simPopPassthrough, minSimLoops, maxSimLoops, avgAge, simFPCSPassthrough, simCostPassthrough, false, mutAllowed);
+                                simBlueprintArrayList.add(sima);
+                                simBlueprintArrayList.add(simb);
                                 break;
                             }
                     }
                 }
             }
-
         } catch (ParserConfigurationException e){e.printStackTrace();
         } catch (SAXException e) {e.printStackTrace();
         } catch (IOException e) {e.printStackTrace();}
@@ -185,23 +198,25 @@ public class Main
         int simsRan = 0;
         Simulation[] runSlots = new Simulation[permitConcSims];
 
-        while (simsRan <= simArrayList.size())
+        while (simsRan <= simBlueprintArrayList.size())
         {
             for (int i = 0; i < runSlots.length; i++)
             {
                 if (runSlots[i] == null)
                 {
-                    if (simsRan < simArrayList.size())
+                    if (simsRan < simBlueprintArrayList.size())
                     {
-                        runSlots[i] = simArrayList.get(simsRan);
+                        Blueprint bpt = simBlueprintArrayList.get(simsRan);
+                        runSlots[i] = new Simulation(bpt.simPopPassthrough, bpt.minSimLoops, bpt.maxSimLoops, bpt.avgAge, bpt.simFPCSPassthrough, bpt.simCostPassthrough, bpt.universality, bpt.mutAllowed);
                         simsRan++; runSlots[i].start();
                     }
                 }
                 if (!runSlots[i].isAlive())
                 {
-                    if (simsRan < simArrayList.size())
+                    if (simsRan < simBlueprintArrayList.size())
                     {
-                        runSlots[i] = simArrayList.get(simsRan);
+                        Blueprint bpt = simBlueprintArrayList.get(simsRan);
+                        runSlots[i] = new Simulation(bpt.simPopPassthrough, bpt.minSimLoops, bpt.maxSimLoops, bpt.avgAge, bpt.simFPCSPassthrough, bpt.simCostPassthrough, bpt.universality, bpt.mutAllowed);
                         simsRan++; runSlots[i].start();
                     }
                 }
@@ -212,5 +227,28 @@ public class Main
                 Thread.sleep(3000);
             } catch (InterruptedException e) {e.printStackTrace();}
         }
+    }
+
+}
+
+class Blueprint {
+    public final int simPopPassthrough;
+    public final int minSimLoops;
+    public final int maxSimLoops;
+    public final int avgAge;
+    public final double[] simFPCSPassthrough;
+    public final int[] simCostPassthrough;
+    public final boolean universality;
+    public final boolean mutAllowed;
+    public Blueprint(int i_simPopPassthrough, int i_minSimLoops, int i_maxSimLoops, int i_avgAge, double[] i_FPCSPassthrough, int[] i_CostPassthrough, boolean i_universality, boolean i_mutAllowed)
+    {
+        this.simPopPassthrough = i_simPopPassthrough;
+        this.minSimLoops = i_minSimLoops;
+        this.maxSimLoops = i_maxSimLoops;
+        this.avgAge = i_avgAge;
+        this.simFPCSPassthrough = i_FPCSPassthrough;
+        this.simCostPassthrough = i_CostPassthrough;
+        this.universality = i_universality;
+        this.mutAllowed = i_mutAllowed;
     }
 }

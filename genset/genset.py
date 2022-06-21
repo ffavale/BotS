@@ -3,8 +3,8 @@ def main():
     simMaxLoops = 75000
     isUniversal = 0
 
-    popIncrements = 2
-    startingPopsMinVal = 2
+    popIncrements = 3
+    startingPopsMinVal = 2000
     startingPopsMaxVal = 100000
     startingPopsStep = (startingPopsMaxVal - startingPopsMinVal) / popIncrements
     startingPopsRange = [ int((i * startingPopsStep) + startingPopsMinVal) for i in range(1 + popIncrements)]
@@ -65,6 +65,7 @@ def main():
                                 for n in range(1 + bBenefitIncrements):
                                     for o in range(1 + cCostIncrements):
                                         cfgfile.write("<simulation>")
+                                        cfgfile.write(f"<mutAllowed>true</mutAllowed>") # Allow genetic mutation
                                         cfgfile.write(f"<minSimLoops>{simMinLoops}</minSimLoops>")
                                         cfgfile.write(f"<maxSimLoops>{simMaxLoops}</maxSimLoops>")
                                         cfgfile.write(f"<averageAge>{avgAgeRange[p]}</averageAge>")

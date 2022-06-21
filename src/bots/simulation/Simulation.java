@@ -14,6 +14,7 @@ public class Simulation extends Thread
 
     private int simID;
     private boolean isUniversal;
+    private boolean mutationAllowed;
     private Logg log;
     private ArrayList<Individual> populationArray;
 
@@ -31,12 +32,13 @@ public class Simulation extends Thread
 
     private ArrayList<Snapshot> snapshotArray = new ArrayList<Snapshot>();
 
-    public Simulation(int popNum, int minSimLoops, int maxSimLoops, int avgAge, double[] fpcsRatios, int[] costs, boolean i_isUniversal)
+    public Simulation(int popNum, int minSimLoops, int maxSimLoops, int avgAge, double[] fpcsRatios, int[] costs, boolean i_isUniversal, boolean i_mutationAllowed)
     {
         // give simulation its Id
         this.simID = Simulation.simCounter;
         Simulation.simCounter++;
         this.isUniversal = i_isUniversal;
+        this.mutationAllowed = i_mutationAllowed;
         this.minLoopCount = minSimLoops;
         this.maxLoopCount = maxSimLoops;
         // assign population values
@@ -213,7 +215,12 @@ public class Simulation extends Thread
             int doneCouples = 0;
             for (Couple coup : loopCouples)
             {
-                coup.setParams(this.avgAge, 0.90f, this.simulationCosts);
+                if (this.mutationAllowed)
+                {
+                    coup.setParams(this.avgAge, 0.90f, this.simulationCosts);
+                } else {
+                    coup.setParams(this.avgAge, 1.0f, this.simulationCosts);
+                }
                 coup.start();
             }
             ArrayList<Couple> checkedCouples = new ArrayList<Couple>();
