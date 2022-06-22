@@ -7,7 +7,7 @@ public class TestSimulation {
     public static void populationInfoTest(){
         double[] ratio = {0.23, 0.09, 0.30, 0.38};
         int[] costs = {10, 15, 3};
-        Simulation a = new Simulation(100, 10, 100, 15, ratio, costs, false);
+        Simulation a = new Simulation(100, 10, 100, 15, ratio, costs, false, true);
         a.info();
         a.oneLineInfo();
     }
@@ -15,7 +15,7 @@ public class TestSimulation {
     public static void universalityTest() {
         double[] ratio = {0.5, 0.5, 0.5};
         int[] costs = {15, 20, 3};
-        Simulation nu = new Simulation(5000, 500, 30000, 400, ratio, costs, false);
+        Simulation nu = new Simulation(5000, 1200, 30000, 400, ratio, costs, false, true);
         // Simulation nu2 = new Simulation(5000, 100, 20000, 400, ratio, costs, false);
         // nu2.start();
         nu.start();
