@@ -1,21 +1,21 @@
 def main():
-    simMinLoops = 4000
+    simMinLoops = 1400
     simMaxLoops = 75000
     isUniversal = 0
 
     popIncrements = 3
     startingPopsMinVal = 2000
-    startingPopsMaxVal = 100000
+    startingPopsMaxVal = 50000
     startingPopsStep = (startingPopsMaxVal - startingPopsMinVal) / popIncrements
     startingPopsRange = [ int((i * startingPopsStep) + startingPopsMinVal) for i in range(1 + popIncrements)]
 
-    avgAgeIncrements = 5
+    avgAgeIncrements = 3
     avgAgeMinVal = 100
     avgAgeMaxVal = 2000
     avgAgeStep = (avgAgeMaxVal- avgAgeMinVal) / avgAgeIncrements
     avgAgeRange = [ int((i * avgAgeStep) + avgAgeMinVal) for i in range(1 + avgAgeIncrements)]
 
-    MFRIncrements = 1
+    MFRIncrements = 2
     startingMFRatioMinVal = 0.2
     startingMFRatioMaxVal = 0.8
     startingMFRatioStep = (startingMFRatioMaxVal - startingMFRatioMinVal) / MFRIncrements
@@ -40,13 +40,13 @@ def main():
     startingACostRange = [ int((i * 0) + startingACostMinVal) for i in range(1 + aCostIncrements) ]
 
     bBenefitIncrements = 4
-    startingBBEnefitMinVal = 0
+    startingBBEnefitMinVal = 5
     startingBBEnefitMaxVal = 100
     startingBBenefitStep = (startingBBEnefitMaxVal - startingBBEnefitMinVal) / bBenefitIncrements
     startingBBenefitRange = [ int((i * startingBBenefitStep) + startingBBEnefitMinVal) for i in range(1 + bBenefitIncrements) ]
 
     cCostIncrements = 4
-    startingCCostMinVal = 0
+    startingCCostMinVal = 5
     startingCCostMaxVal = 100
     startingCCostStep = (startingCCostMaxVal - startingCCostMinVal) / cCostIncrements
     startingCCostRange = [ int((i * startingCCostStep) + startingCCostMinVal) for i in range(1 + cCostIncrements) ]
