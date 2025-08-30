@@ -11,7 +11,7 @@ git switch devel
 git pull
 ```
 
-3. Checkout a new branch. It should be named something relevent, like the issue number (`issue-x`)
+3. Checkout a new branch. It should be named something relevant, like the issue number (`issue-x`)
 ```
 git checkout -b issue-x
 ```
